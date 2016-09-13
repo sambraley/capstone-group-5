@@ -1,0 +1,190 @@
+﻿using System;
+using UnityEngine;
+
+namespace UnityStandardAssets._2D
+{
+    public class Player2D : MonoBehaviour
+    {
+        [SerializeField] private float m_MaxSpeed = 12f;                    // The fastest the player can travel in the x axis.
+        [SerializeField] private float m_JumpForce = 300;                  // Amount of force added when the player jumps.
+        [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
+        [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
+        [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+
+        private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
+        const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+        private bool m_Grounded;            // Whether or not the player is grounded.
+        private Transform m_CeilingCheck;   // A position marking where to check for ceilings
+        const float k_CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
+        //private Animator m_Anim;            // Reference to the player's animator component.
+        private Rigidbody2D m_Rigidbody2D;
+        private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+        private bool is_crouching = false;
+        private BoxCollider2D crouchCollider = null;
+        private BoxCollider2D standingCollider;
+
+        private int MAX_NUM_DASH = 2;
+        private float MAX_COOLDOWN_DASH = 5f;
+        private float MAX_TIME_TILL_NEXT_DASH = 1f;
+        private float MAX_TIME_LEFT_IN_DASH = .2f;
+        private int numDash = 2;
+        private float coolDownDash = 0f;
+        private float tillNextDash = 0f;
+        private float timeLeftInDash = 0f;
+        private float lockedDashDirection = 0;
+
+        private void Awake()
+        {
+            // Setting up references.
+            m_GroundCheck = transform.Find("GroundCheck");
+            //m_CeilingCheck = transform.Find("CeilingCheck");
+            standingCollider = GetComponent<BoxCollider2D>();
+            //m_Anim = GetComponent<Animator>();
+            m_Rigidbody2D = GetComponent<Rigidbody2D>();
+            foreach (Transform child in transform)
+            {
+                if (child.tag == "CrouchCollider")
+                {
+                    crouchCollider = child.GetComponent<BoxCollider2D>();
+                }
+            }
+        }
+
+        private float timeDown(float time, float delta)
+        {
+            if (time > 0f)
+            {
+                time -= delta;
+            }
+            if (time < 0f)
+                time = 0f;
+            return time;
+        }
+
+        private void FixedUpdate()
+        {
+            m_Grounded = false;
+            // start timeTillNextDash once finish dash
+            timeLeftInDash = timeDown(timeLeftInDash, Time.fixedDeltaTime);
+            if (timeLeftInDash == 0f)
+            {
+                tillNextDash = timeDown(tillNextDash, Time.fixedDeltaTime);
+            }
+            coolDownDash = timeDown(coolDownDash, Time.fixedDeltaTime);
+            if (coolDownDash == 0f && numDash < MAX_NUM_DASH)
+            {
+                Debug.Log("NEW DASH AVAILABLE");
+                numDash++;
+            }
+            if(numDash < MAX_NUM_DASH && coolDownDash == 0f)
+            {
+                coolDownDash = MAX_COOLDOWN_DASH;
+            }
+
+            // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
+            // This can be done using layers instead but Sample Assets will not overwrite your project settings.
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                if (colliders[i].gameObject != gameObject && colliders[i].gameObject != crouchCollider.gameObject)
+                    m_Grounded = true;
+            }
+            //m_Anim.SetBool("Ground", m_Grounded);
+
+            // Set the vertical animation
+            //m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
+        }
+
+
+        public void Move(float move, bool crouch, bool jump, bool dash)
+        {
+            if (dash && move != 0)
+            {
+                //check if really can dash
+                if (numDash > 0 && tillNextDash == 0f && timeLeftInDash == 0f)
+                {
+                    //if at max dashes start cooldown refresh timer
+                    if(numDash == MAX_NUM_DASH)
+                    {
+                        coolDownDash = MAX_COOLDOWN_DASH;
+                    }
+                    numDash--;
+                    timeLeftInDash = MAX_TIME_LEFT_IN_DASH;
+                    tillNextDash = MAX_TIME_TILL_NEXT_DASH;
+                    lockedDashDirection = move;
+                }
+            }
+
+            // If crouching, check to see if the character can stand up
+            if (!crouch && is_crouching)
+            {
+                // If the character has a ceiling preventing them from standing up, keep them crouching
+                //.....
+            }
+
+            // Set whether or not the character is crouching in the animator
+            //m_Anim.SetBool("Crouch", crouch);
+            if(crouch)
+            {
+                standingCollider.enabled = false;
+                crouchCollider.enabled = true;
+            }
+            else
+            {
+                standingCollider.enabled = true;
+                crouchCollider.enabled = false;
+            }
+
+            //only control the player if grounded or airControl is turned on
+            if (m_Grounded || m_AirControl)
+            {
+                //dash speed up if in dash
+                move = (timeLeftInDash > 0f ? lockedDashDirection * 3 : move);
+
+                // Reduce the speed if crouching by the crouchSpeed multiplier
+                move = (crouch ? move * m_CrouchSpeed : move);
+
+                // The Speed animator parameter is set to the absolute value of the horizontal input.
+                //m_Anim.SetFloat("Speed", Mathf.Abs(move));
+
+                // Move the character
+                m_Rigidbody2D.velocity = new Vector2(move * m_MaxSpeed, m_Rigidbody2D.velocity.y);
+
+                // If the input is moving the player right and the player is facing left...
+                if (move > 0 && !m_FacingRight)
+                {
+                    // ... flip the player.
+                    Flip();
+                }
+                // Otherwise if the input is moving the player left and the player is facing right...
+                else if (move < 0 && m_FacingRight)
+                {
+                    // ... flip the player.
+                    Flip();
+                }
+            }
+            // If the player should jump...
+            if (m_Grounded && jump /*&& m_Anim.GetBool("Ground")*/)
+            {
+                // Add a vertical force to the player.
+                m_Grounded = false;
+                //m_Anim.SetBool("Ground", false);
+                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            }
+
+            is_crouching = crouch;
+        }
+
+
+        private void Flip()
+        {
+            // Switch the way the player is labelled as facing.
+            m_FacingRight = !m_FacingRight;
+
+            // Multiply the player's x local scale by -1.
+            Vector3 theScale = transform.localScale;
+            theScale.x *= -1;
+            transform.localScale = theScale;
+        }
+    }
+}
