@@ -14,6 +14,7 @@ namespace UnityStandardAssets._2D
         float playerWidth;
         const float fireCooldown = 1.0f;
         float currentFireCooldown = 0.0f;
+        private bool onLadder = false;
 
         private void Awake()
         {
@@ -47,6 +48,11 @@ namespace UnityStandardAssets._2D
             bool fire = Input.GetKey(KeyCode.E);
             bool melee = Input.GetKey(KeyCode.F);
 
+            if(Input.GetKey(KeyCode.W) && onLadder)
+            {
+                m_Anim.SetBool("isClimbing", true);
+            }
+
             if (dir != 0)
             {
                 lastDir = dir;
@@ -61,16 +67,19 @@ namespace UnityStandardAssets._2D
         {
             if (other.gameObject.tag == "ladder")
             {
-                Debug.Log("Colliding with ladder");
-                m_Anim.SetBool("isClimbing", true);
+                onLadder = true;
+                //Debug.Log("Colliding with ladder");
+                //m_Anim.SetBool("isClimbing", true);
             }
         }
         void OnTriggerExit2D(Collider2D other)
         {
             if (other.gameObject.tag == "ladder")
             {
-                Debug.Log("Not colliding with ladder");
+                //Debug.Log("Not colliding with ladder");
+                onLadder = false;
                 m_Anim.SetBool("isClimbing", false);
+                //m_Anim.SetBool("isRunning", true);
             }
         }
 
