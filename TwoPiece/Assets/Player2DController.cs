@@ -5,13 +5,16 @@ using UnityEngine;
 namespace UnityStandardAssets._2D
 {
     [RequireComponent(typeof(Player2D))]
+
     public class Player2DController : MonoBehaviour
     {
+        private Animator m_Anim;            // Reference to the player's animator component.
         private Player2D m_Character;
 
         private void Awake()
         {
             m_Character = GetComponent<Player2D>();
+            m_Anim = GetComponent<Animator>();
         }
 
 
@@ -35,6 +38,23 @@ namespace UnityStandardAssets._2D
 
             // Pass all parameters to the character control script.
             m_Character.Move(dir, crouch, jump, dash);
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.tag == "ladder")
+            {
+                Debug.Log("Colliding with ladder");
+                m_Anim.SetBool("isClimbing", true);
+            }
+        }
+        void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.tag == "ladder")
+            {
+                Debug.Log("Not colliding with ladder");
+                m_Anim.SetBool("isClimbing", false);
+            }
         }
     }
 }
