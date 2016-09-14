@@ -16,7 +16,7 @@ namespace UnityStandardAssets._2D
         private bool m_Grounded;            // Whether or not the player is grounded.
         private Transform m_CeilingCheck;   // A position marking where to check for ceilings
         const float k_CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
-        //private Animator m_Anim;            // Reference to the player's animator component.
+        private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
         private bool is_crouching = false;
@@ -39,7 +39,7 @@ namespace UnityStandardAssets._2D
             m_GroundCheck = transform.Find("GroundCheck");
             //m_CeilingCheck = transform.Find("CeilingCheck");
             standingCollider = GetComponent<BoxCollider2D>();
-            //m_Anim = GetComponent<Animator>();
+            m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
             foreach (Transform child in transform)
             {
@@ -98,6 +98,12 @@ namespace UnityStandardAssets._2D
 
         public void Move(float move, bool crouch, bool jump, bool dash)
         {
+            if(move == 0)
+                m_Anim.SetBool("isRunning", false);
+            else
+                m_Anim.SetBool("isRunning", true);
+
+
             if (dash && move != 0)
             {
                 //check if really can dash
@@ -145,7 +151,7 @@ namespace UnityStandardAssets._2D
                 move = (crouch ? move * m_CrouchSpeed : move);
 
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
-                //m_Anim.SetFloat("Speed", Mathf.Abs(move));
+                //m_Anim.SetBool("isRunning", true);
 
                 // Move the character
                 m_Rigidbody2D.velocity = new Vector2(move * m_MaxSpeed, m_Rigidbody2D.velocity.y);
