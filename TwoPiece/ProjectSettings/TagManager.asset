@@ -14,6 +14,7 @@ TagManager:
   - ExplosionFX
   - HealthBar
   - CrouchCollider
+  - ladder
   layers:
   - Default
   - TransparentFX
