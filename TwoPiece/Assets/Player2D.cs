@@ -10,6 +10,9 @@ namespace UnityStandardAssets._2D
         [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+        [SerializeField] private Vector2 crouchingVector;
+        [SerializeField]
+        private Vector2 standingVector;
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -20,8 +23,7 @@ namespace UnityStandardAssets._2D
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
         private bool is_crouching = false;
-        private BoxCollider2D crouchCollider = null;
-        private BoxCollider2D standingCollider;
+        private BoxCollider2D characterCollider;
 
         private int MAX_NUM_DASH = 2;
         private float MAX_COOLDOWN_DASH = 5f;
@@ -38,16 +40,9 @@ namespace UnityStandardAssets._2D
             // Setting up references.
             m_GroundCheck = transform.Find("GroundCheck");
             //m_CeilingCheck = transform.Find("CeilingCheck");
-            standingCollider = GetComponent<BoxCollider2D>();
+            characterCollider = GetComponent<BoxCollider2D>();
             //m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
-            foreach (Transform child in transform)
-            {
-                if (child.tag == "CrouchCollider")
-                {
-                    crouchCollider = child.GetComponent<BoxCollider2D>();
-                }
-            }
         }
 
         private float timeDown(float time, float delta)
@@ -86,7 +81,7 @@ namespace UnityStandardAssets._2D
             Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (colliders[i].gameObject != gameObject && colliders[i].gameObject != crouchCollider.gameObject)
+                if (colliders[i].gameObject != gameObject)
                     m_Grounded = true;
             }
             //m_Anim.SetBool("Ground", m_Grounded);
@@ -126,13 +121,11 @@ namespace UnityStandardAssets._2D
             //m_Anim.SetBool("Crouch", crouch);
             if(crouch)
             {
-                standingCollider.enabled = false;
-                crouchCollider.enabled = true;
+                characterCollider.size = crouchingVector;
             }
             else
             {
-                standingCollider.enabled = true;
-                crouchCollider.enabled = false;
+                characterCollider.size = standingVector;
             }
 
             //only control the player if grounded or airControl is turned on
