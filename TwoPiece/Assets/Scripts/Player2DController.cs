@@ -79,7 +79,7 @@ namespace UnityStandardAssets._2D
                 //Debug.Log("Not colliding with ladder");
                 onLadder = false;
                 m_Anim.SetBool("isClimbing", false);
-                //m_Anim.SetBool("isRunning", true);
+                m_Anim.SetBool("isRunning", true);
             }
         }
 
