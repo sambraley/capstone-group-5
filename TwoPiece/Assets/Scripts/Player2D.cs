@@ -22,6 +22,13 @@ namespace UnityStandardAssets._2D
         private bool is_crouching = false;
         private BoxCollider2D crouchCollider = null;
         private BoxCollider2D standingCollider;
+        public bool onLadder = false;
+        public bool onDialogue = false;
+        private Collider2D dialogueCollider;
+        public int lastDir;
+        float playerWidth;
+        const float fireCooldown = 1.0f;
+        public float currentFireCooldown = 0.0f;
 
         private int MAX_NUM_DASH = 2;
         private float MAX_COOLDOWN_DASH = 5f;
@@ -48,6 +55,9 @@ namespace UnityStandardAssets._2D
                     crouchCollider = child.GetComponent<BoxCollider2D>();
                 }
             }
+            BoxCollider2D hitbox = GetComponent<BoxCollider2D>();
+            playerWidth = transform.localScale.x * (hitbox.size.x / 2);
+            lastDir = 0;
         }
 
         private float timeDown(float time, float delta)
@@ -195,6 +205,97 @@ namespace UnityStandardAssets._2D
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.tag == "ladder")
+            {
+                onLadder = true;
+                Rigidbody2D rigid = GetComponent<Rigidbody2D>();
+                rigid.gravityScale = 0;
+                m_Anim.SetBool("isClimbing", true);
+            }
+            else if (other.gameObject.tag == "dialogue")
+            {
+                onDialogue = true;
+                dialogueCollider = other;
+            }
+        }
+        void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.tag == "ladder")
+            {
+                //Debug.Log("Not colliding with ladder");
+                onLadder = false;
+                m_Anim.SetBool("isClimbing", false);
+                Rigidbody2D rigid = GetComponent<Rigidbody2D>();
+                rigid.gravityScale = 1;
+            }
+            else if (other.gameObject.tag == "dialogue")
+            {
+                //Debug.Log("exiting dialogue range");
+                onDialogue = false;
+                dialogueCollider.SendMessageUpwards("CloseDialogue");
+                dialogueCollider = null;
+            }
+        }
+
+        public void Fire(bool fire)
+        {
+            if (fire && currentFireCooldown <= 0.0f)
+            {
+                currentFireCooldown = fireCooldown;
+                RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + (playerWidth * lastDir), transform.position.y), new Vector2(lastDir, 0));
+                //Vector3[] array = { new Vector3(transform.position.x + (playerWidth * lastDir), transform.position.y,0),new Vector3(transform.position.x + (playerWidth * lastDir) + 20, transform.position.y, 0) };
+                //gameObject.GetComponent<LineRenderer>().SetPositions(array);
+                if (hit.collider == null)
+                {
+                    Debug.Log("Do nothing");
+                    //do nothing
+                }
+                else if (hit.collider.gameObject.tag == "Enemy")
+                {
+                    hit.collider.SendMessageUpwards("OnDamage", -1);
+                }
+                else if (hit.collider != null)
+                {
+                    Debug.Log(hit.collider.gameObject.tag);
+                }
+            }
+        }
+
+        public void Talk(bool talk)
+        {
+            if (talk && currentFireCooldown <= 0.0f)
+            {
+                currentFireCooldown = fireCooldown;
+                dialogueCollider.SendMessageUpwards("NextDialogue");
+            }
+        }
+
+        public void Melee(bool melee)
+        {
+            if (melee && currentFireCooldown <= 0.0f)
+            {
+                currentFireCooldown = fireCooldown;
+                RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + (playerWidth * lastDir), transform.position.y), new Vector2(lastDir, 0), playerWidth * 2);
+                //Vector3[] array = { new Vector3(transform.position.x + (playerWidth * lastDir), transform.position.y,0),new Vector3(transform.position.x + (playerWidth * lastDir) + 20, transform.position.y, 0) };
+                //gameObject.GetComponent<LineRenderer>().SetPositions(array);
+                if (hit.collider == null)
+                {
+                    Debug.Log("Do nothing");
+                    //do nothing
+                }
+                else if (hit.collider.gameObject.tag == "Enemy")
+                {
+                    hit.collider.SendMessageUpwards("OnDamage", -1);
+                }
+                else if (hit.collider != null)
+                {
+                    Debug.Log(hit.collider.gameObject.tag);
+                }
+            }
         }
     }
 }
