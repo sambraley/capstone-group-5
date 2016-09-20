@@ -15,6 +15,8 @@ namespace UnityStandardAssets._2D
         const float fireCooldown = 1.0f;
         float currentFireCooldown = 0.0f;
         private bool onLadder = false;
+        private bool onDialogue = false;
+        private Collider2D dialogueCollider;
 
         private void Awake()
         {
@@ -59,7 +61,14 @@ namespace UnityStandardAssets._2D
             }
             // Pass all parameters to the character control script.
             m_Character.Move(dir, crouch, jump, dash);
-            Fire(fire);
+            if (!onDialogue)
+            {
+                Fire(fire);
+            }
+            else
+            {
+                Talk(fire);
+            }
             Melee(melee);
         }
 
@@ -71,6 +80,11 @@ namespace UnityStandardAssets._2D
                 //Debug.Log("Colliding with ladder");
                 //m_Anim.SetBool("isClimbing", true);
             }
+            else if (other.gameObject.tag == "dialogue")
+            {
+                onDialogue = true;
+                dialogueCollider = other;
+            }
         }
         void OnTriggerExit2D(Collider2D other)
         {
@@ -80,6 +94,13 @@ namespace UnityStandardAssets._2D
                 onLadder = false;
                 m_Anim.SetBool("isClimbing", false);
                 m_Anim.SetBool("isRunning", true);
+            }
+            else if (other.gameObject.tag == "dialogue")
+            {
+                Debug.Log("exiting dialogue range");
+                onDialogue = false;
+                dialogueCollider.SendMessageUpwards("CloseDialogue");
+                dialogueCollider = null;
             }
         }
 
@@ -104,6 +125,15 @@ namespace UnityStandardAssets._2D
                 {
                     Debug.Log(hit.collider.gameObject.tag);
                 }
+            }
+        }
+
+        void Talk(bool talk)
+        {
+            if (talk && currentFireCooldown <= 0.0f)
+            {
+                currentFireCooldown = fireCooldown;
+                dialogueCollider.SendMessageUpwards("NextDialogue");
             }
         }
 

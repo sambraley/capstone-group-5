@@ -15,6 +15,7 @@ TagManager:
   - HealthBar
   - CrouchCollider
   - ladder
+  - dialogue
   layers:
   - Default
   - TransparentFX
