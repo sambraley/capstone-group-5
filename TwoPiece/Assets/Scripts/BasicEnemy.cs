@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class BasicEnemy : MonoBehaviour {
-    int health;
+    public int health = 3;
 
 	// Use this for initialization
 	void Start () {
@@ -11,7 +11,7 @@ public class BasicEnemy : MonoBehaviour {
 
     void Awake()
     {
-        health = 3;
+
     }
 	
 	// Update is called once per frame

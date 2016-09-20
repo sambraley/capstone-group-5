@@ -28,13 +28,6 @@ namespace UnityStandardAssets._2D
             playerWidth = transform.localScale.x*(hitbox.size.x / 2);
         }
 
-
-        private void Update()
-        {
-
-        }
-
-
         private void FixedUpdate()
         {
             currentFireCooldown -= Time.fixedDeltaTime;
@@ -50,16 +43,26 @@ namespace UnityStandardAssets._2D
             bool fire = Input.GetKey(KeyCode.E);
             bool melee = Input.GetKey(KeyCode.F);
 
-            if(Input.GetKey(KeyCode.W) && onLadder)
+            if(Input.GetKey(KeyCode.W)  && onLadder)
             {
-                m_Anim.SetBool("isClimbing", true);
+                //m_Anim.SetBool("isClimbing", true);
+                m_Character.Climb(1);
+            }
+            else if(Input.GetKey(KeyCode.S) && onLadder)
+            {
+                //m_Anim.SetBool("isClimbing", true);
+                m_Character.Climb(-1);
+            }
+            else if(onLadder)
+            {
+                m_Character.Climb(0);
             }
 
             if (dir != 0)
             {
                 lastDir = dir;
             }
-            // Pass all parameters to the character control script.
+            // Pass all parameters to the character script.
             m_Character.Move(dir, crouch, jump, dash);
             if (!onDialogue)
             {
@@ -77,8 +80,9 @@ namespace UnityStandardAssets._2D
             if (other.gameObject.tag == "ladder")
             {
                 onLadder = true;
-                //Debug.Log("Colliding with ladder");
-                //m_Anim.SetBool("isClimbing", true);
+                Rigidbody2D rigid = m_Character.GetComponent<Rigidbody2D>();
+                rigid.gravityScale = 0;
+                m_Anim.SetBool("isClimbing", true);
             }
             else if (other.gameObject.tag == "dialogue")
             {
@@ -93,7 +97,8 @@ namespace UnityStandardAssets._2D
                 //Debug.Log("Not colliding with ladder");
                 onLadder = false;
                 m_Anim.SetBool("isClimbing", false);
-                m_Anim.SetBool("isRunning", true);
+                Rigidbody2D rigid = m_Character.GetComponent<Rigidbody2D>();
+                rigid.gravityScale = 1;
             }
             else if (other.gameObject.tag == "dialogue")
             {

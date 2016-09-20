@@ -95,6 +95,10 @@ namespace UnityStandardAssets._2D
             //m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
         }
 
+        public void Climb(float move)
+        {
+            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 6.0f * move);
+        }
 
         public void Move(float move, bool crouch, bool jump, bool dash)
         {
