@@ -19,17 +19,28 @@ public class BasicEnemy : MonoBehaviour {
 	
 	}
 
-    void OnDamage(int damage)
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "PlayerBullet")
+        {
+            OnDamage(3);
+            Destroy(other.gameObject);
+
+        }
+    }
+
+    void OnDamage(int damage) //, lethal
     {
         Debug.Log("Yarrr I've been hit.");
-        --health;
-        if (health == 0)
+        health -= damage;
+        if (health <= 0)
         {
             Destroy(gameObject);//die
+            //set to dead sprite
         }
         else
         {
-            //do death animation
+            //do damage animation
         }
     }
 }

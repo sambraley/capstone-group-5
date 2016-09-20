@@ -10,6 +10,8 @@ namespace UnityStandardAssets._2D
         [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+        [SerializeField] private GameObject m_bullet;                  // A mask determining what is ground to the character
+        [SerializeField] private bool reloaded = true;                  // A mask determining what is ground to the character
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -243,9 +245,9 @@ namespace UnityStandardAssets._2D
 
         public void Fire(bool fire)
         {
-            if (fire && currentFireCooldown <= 0.0f)
+            if (fire && currentFireCooldown <= 0.0f && reloaded)
             {
-                currentFireCooldown = fireCooldown;
+                /*currentFireCooldown = fireCooldown;
                 RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + (playerWidth * lastDir), transform.position.y), new Vector2(lastDir, 0));
                 //Vector3[] array = { new Vector3(transform.position.x + (playerWidth * lastDir), transform.position.y,0),new Vector3(transform.position.x + (playerWidth * lastDir) + 20, transform.position.y, 0) };
                 //gameObject.GetComponent<LineRenderer>().SetPositions(array);
@@ -261,7 +263,22 @@ namespace UnityStandardAssets._2D
                 else if (hit.collider != null)
                 {
                     Debug.Log(hit.collider.gameObject.tag);
-                }
+                }*/
+
+                //The Bullet instantiation happens here.
+                GameObject Temporary_Bullet_Handler;
+                Temporary_Bullet_Handler = Instantiate(m_bullet, transform.position, new Quaternion()) as GameObject;
+
+                //Retrieve the Rigidbody component from the instantiated Bullet and control it.
+                Rigidbody2D Temporary_RigidBody;
+                Temporary_RigidBody = Temporary_Bullet_Handler.GetComponent<Rigidbody2D>();
+
+                //Tell the bullet to be "pushed" forward by an amount set by Bullet_Forward_Force.
+                Temporary_RigidBody.velocity = new Vector2((m_MaxSpeed + 3f) * lastDir, 0f);
+
+                //Basic Clean Up, set the Bullets to self destruct after 10 Seconds, I am being VERY generous here, normally 3 seconds is plenty.
+                Destroy(Temporary_Bullet_Handler, 3.0f);
+                reloaded = false;
             }
         }
 
@@ -295,6 +312,14 @@ namespace UnityStandardAssets._2D
                 {
                     Debug.Log(hit.collider.gameObject.tag);
                 }
+            }
+        }
+
+        public void Reload(bool reload)
+        {
+            if(reload)
+            {
+                reloaded = true;
             }
         }
     }

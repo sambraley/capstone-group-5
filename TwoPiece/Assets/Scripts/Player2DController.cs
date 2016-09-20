@@ -31,8 +31,9 @@ namespace UnityStandardAssets._2D
             bool dash = Input.GetKey(KeyCode.LeftShift);
             bool fire = Input.GetKey(KeyCode.E);
             bool melee = Input.GetKey(KeyCode.F);
+            bool reload = Input.GetKey(KeyCode.R);
 
-            if(Input.GetKey(KeyCode.W)  && m_Character.onLadder)
+            if (Input.GetKey(KeyCode.W)  && m_Character.onLadder)
             {
                 //m_Anim.SetBool("isClimbing", true);
                 m_Character.Climb(1);
@@ -53,7 +54,7 @@ namespace UnityStandardAssets._2D
             }
             // Pass all parameters to the character script.
             m_Character.Move(dir, crouch, jump, dash);
-            if (!m_Character.onDialogue)
+            if (!m_Character.onDialogue )
             {
                 m_Character.Fire(fire);
             }
@@ -62,6 +63,7 @@ namespace UnityStandardAssets._2D
                 m_Character.Talk(fire);
             }
             m_Character.Melee(melee);
+            m_Character.Reload(reload);
         }
 
         
