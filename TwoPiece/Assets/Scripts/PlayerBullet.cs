@@ -18,9 +18,10 @@ public class PlayerBullet : MonoBehaviour {
         //Debug.Log("Bullet trigger");
         if (other.gameObject.tag != "Player" && other.gameObject.tag != "CrouchCollider" && other.gameObject.tag != "PlayerBullet" && other.gameObject.tag != "ladder" && other.gameObject.tag != "AggroZone")
         {
-            Debug.Log("Bullet trigger" + other.tag);
+            Debug.Log("Bullet trigger " + other.tag);
+            Debug.Log("Bullet collison info " + other.ToString());
             Destroy(gameObject);
-            other.SendMessageUpwards("OnDamage", 1);
+            //other.SendMessageUpwards("OnDamage", 1);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace UnityStandardAssets._2D
         public bool onLadder = false;
         public bool onDialogue = false;
         private Collider2D dialogueCollider;
-        public int lastDir;
+        public int lastDir = 1;
         float playerWidth;
         const float fireCooldown = 1.0f;
         public float currentFireCooldown = 0.0f;
@@ -274,6 +274,7 @@ namespace UnityStandardAssets._2D
                 Temporary_RigidBody = Temporary_Bullet_Handler.GetComponent<Rigidbody2D>();
 
                 //Tell the bullet to be "pushed" forward by an amount set by Bullet_Forward_Force.
+                lastDir = lastDir == 0 ? 1 : lastDir;
                 Temporary_RigidBody.velocity = new Vector2((m_MaxSpeed + 3f) * lastDir, 0f);
 
                 //Basic Clean Up, set the Bullets to self destruct after 10 Seconds, I am being VERY generous here, normally 3 seconds is plenty.

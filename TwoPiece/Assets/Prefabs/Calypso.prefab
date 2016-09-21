@@ -344,7 +344,7 @@ MonoBehaviour:
   reloaded: 1
   onLadder: 0
   onDialogue: 0
-  lastDir: 0
+  lastDir: 1
   currentFireCooldown: 0
 --- !u!114 &114000013996152874
 MonoBehaviour:
