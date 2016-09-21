@@ -16,6 +16,8 @@ TagManager:
   - CrouchCollider
   - ladder
   - dialogue
+  - Bullet
+  - AggroZone
   layers:
   - Default
   - TransparentFX

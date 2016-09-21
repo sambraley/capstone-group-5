@@ -340,6 +340,12 @@ MonoBehaviour:
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 4294967295
+  m_bullet: {fileID: 1000010134366424, guid: 1fbe7484810e0a148b0cbc5154a057e7, type: 2}
+  reloaded: 1
+  onLadder: 0
+  onDialogue: 0
+  lastDir: 0
+  currentFireCooldown: 0
 --- !u!114 &114000013996152874
 MonoBehaviour:
   m_ObjectHideFlags: 1

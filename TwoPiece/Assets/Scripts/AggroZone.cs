@@ -16,6 +16,17 @@ public class AggroZone : MonoBehaviour {
 	
 	}
 
+    void OnTriggerEnter2D(Collider2D c)
+    {
+        if(c.tag == "Player")
+        {
+            foreach(BasicEnemy b in list)
+            {
+                b.OnPlayerEnterAggroZone();
+            }
+        }
+    }
+
     void OnTriggerExit2D(Collider2D c)
     {
         if(c.tag == "Enemy")

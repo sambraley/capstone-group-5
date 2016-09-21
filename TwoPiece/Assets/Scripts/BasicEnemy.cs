@@ -3,12 +3,17 @@ using System.Collections;
 
 public class BasicEnemy : MonoBehaviour {
     public int health = 3;
-    float walkSpeed = 10.0f;
-    int dir = 1;
+    public float walkSpeed = 5.0f;
+    public float chargeSpeed = 10.0f;
+    public const float CHARGE_COOLDOWN = 5.0f;
+    public float chargeCurrentCooldown = 0.0f;
+    private bool isAggressive = false;
+    private GameObject playerGameObject = null;
 
 	// Use this for initialization
 	void Start () {
-	   
+        if (playerGameObject == null)
+            playerGameObject = GameObject.FindGameObjectsWithTag("Player")[0];
 	}
 
     void Awake()
@@ -18,30 +23,56 @@ public class BasicEnemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-      transform.Translate(new Vector3(walkSpeed * dir, 0, 0) * Time.deltaTime);
+        if (isAggressive)
+        {
+            FaceTowardsPlayer();
+        }
+        // Transform regardless to move torwards the player
+        transform.Translate(new Vector3(walkSpeed, 0, 0) * Time.deltaTime);
     }
 
-    void OnAggroZoneExit()
+    void FaceTowardsPlayer()
     {
-        // Flipping scale flips which way the enemy is moving along with their sprite
+
+        bool isFacingLeft = (transform.localScale.x < 0);
+        float differenceInPosition = transform.position.x - playerGameObject.transform.position.x;
+        if (differenceInPosition > 0 && !isFacingLeft)
+            Flip();
+        else if (differenceInPosition < 0 && isFacingLeft)
+            Flip();
+    }
+
+    void Flip()
+    {
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
     }
 
+    void OnAggroZoneExit()
+    {
+        // Flipping scale flips which way the enemy is moving along with their sprite
+        Flip();
+    }
+
     public void OnPlayerLeftAggroZone()
     {
+        isAggressive = false;
+    }
 
+    public void OnPlayerEnterAggroZone()
+    {
+        isAggressive = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "PlayerBullet")
+        if(other.tag == "Player" && isAggressive && chargeCurrentCooldown <= 0.0f)
         {
-            OnDamage(3);
-            Destroy(other.gameObject);
-
+            walkSpeed = chargeSpeed;
+            chargeCurrentCooldown = CHARGE_COOLDOWN;
         }
+        Debug.Log(other.gameObject.tag);
     }
 
     void OnDamage(int damage) //, lethal

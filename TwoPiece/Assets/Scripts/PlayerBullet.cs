@@ -16,11 +16,11 @@ public class PlayerBullet : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("Bullet trigger");
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "CrouchCollider" && other.gameObject.tag != "PlayerBullet" && other.gameObject.tag != "ladder")
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "CrouchCollider" && other.gameObject.tag != "PlayerBullet" && other.gameObject.tag != "ladder" && other.gameObject.tag != "AggroZone")
         {
             Debug.Log("Bullet trigger" + other.tag);
             Destroy(gameObject);
-
+            other.SendMessageUpwards("OnDamage", 1);
         }
     }
 }
