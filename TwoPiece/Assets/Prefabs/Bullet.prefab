@@ -26,7 +26,7 @@ GameObject:
   - 114: {fileID: 114000012290682742}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Bullet
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010134366424}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.203533, y: -5.24, z: 0}
+  m_LocalPosition: {x: -9.993765, y: -0.59246826, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
