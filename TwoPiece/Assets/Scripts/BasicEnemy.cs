@@ -69,10 +69,11 @@ public class BasicEnemy : MonoBehaviour {
     {
         if(other.tag == "Player" && isAggressive && chargeCurrentCooldown <= 0.0f)
         {
+            Debug.Log("Greetixngs");
             walkSpeed = chargeSpeed;
             chargeCurrentCooldown = CHARGE_COOLDOWN;
         }
-        Debug.Log(other.gameObject.tag);
+        //Debug.Log(other.gameObject.tag);
     }
 
     void OnDamage(int damage) //, lethal

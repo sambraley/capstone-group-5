@@ -99,7 +99,10 @@ namespace UnityStandardAssets._2D
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject && colliders[i].gameObject != crouchCollider.gameObject && !colliders[i].isTrigger)
+                {
                     m_Grounded = true;
+                    m_Anim.SetBool("isJumping", false);
+                }
             }
             //m_Anim.SetBool("Ground", m_Grounded);
 
@@ -192,6 +195,7 @@ namespace UnityStandardAssets._2D
                 m_Grounded = false;
                 //m_Anim.SetBool("Ground", false);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+                m_Anim.SetBool("isJumping", true);
             }
 
             is_crouching = crouch;
@@ -222,6 +226,10 @@ namespace UnityStandardAssets._2D
             {
                 onDialogue = true;
                 dialogueCollider = other;
+            }
+            else if(other.gameObject.tag == "MeleeCone")
+            {
+                Debug.Log("Yarr you've been damaged");
             }
         }
         void OnTriggerExit2D(Collider2D other)
