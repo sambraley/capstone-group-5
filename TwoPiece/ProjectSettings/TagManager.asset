@@ -9,12 +9,15 @@ TagManager:
   - Enemy
   - Wall
   - Obstacle
-  - Bullet
+  - PlayerBullet
   - BombPickup
   - ExplosionFX
   - HealthBar
   - CrouchCollider
   - ladder
+  - dialogue
+  - Bullet
+  - AggroZone
   layers:
   - Default
   - TransparentFX

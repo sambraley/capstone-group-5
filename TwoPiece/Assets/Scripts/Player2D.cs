@@ -10,6 +10,8 @@ namespace UnityStandardAssets._2D
         [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+        [SerializeField] private GameObject m_bullet;                  // A mask determining what is ground to the character
+        [SerializeField] private bool reloaded = true;                  // A mask determining what is ground to the character
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -22,6 +24,13 @@ namespace UnityStandardAssets._2D
         private bool is_crouching = false;
         private BoxCollider2D crouchCollider = null;
         private BoxCollider2D standingCollider;
+        public bool onLadder = false;
+        public bool onDialogue = false;
+        private Collider2D dialogueCollider;
+        public int lastDir = 1;
+        float playerWidth;
+        const float fireCooldown = 1.0f;
+        public float currentFireCooldown = 0.0f;
 
         private int MAX_NUM_DASH = 2;
         private float MAX_COOLDOWN_DASH = 5f;
@@ -48,6 +57,9 @@ namespace UnityStandardAssets._2D
                     crouchCollider = child.GetComponent<BoxCollider2D>();
                 }
             }
+            BoxCollider2D hitbox = GetComponent<BoxCollider2D>();
+            playerWidth = transform.localScale.x * (hitbox.size.x / 2);
+            lastDir = 0;
         }
 
         private float timeDown(float time, float delta)
@@ -86,8 +98,11 @@ namespace UnityStandardAssets._2D
             Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (colliders[i].gameObject != gameObject && colliders[i].gameObject != crouchCollider.gameObject)
+                if (colliders[i].gameObject != gameObject && colliders[i].gameObject != crouchCollider.gameObject && !colliders[i].isTrigger)
+                {
                     m_Grounded = true;
+                    //m_Anim.SetBool("isJumping", false);
+                }
             }
             //m_Anim.SetBool("Ground", m_Grounded);
 
@@ -95,6 +110,10 @@ namespace UnityStandardAssets._2D
             //m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
         }
 
+        public void Climb(float move)
+        {
+            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 6.0f * move);
+        }
 
         public void Move(float move, bool crouch, bool jump, bool dash)
         {
@@ -176,6 +195,7 @@ namespace UnityStandardAssets._2D
                 m_Grounded = false;
                 //m_Anim.SetBool("Ground", false);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+                //m_Anim.SetBool("isJumping", true);
             }
 
             is_crouching = crouch;
@@ -191,6 +211,125 @@ namespace UnityStandardAssets._2D
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.tag == "ladder")
+            {
+                onLadder = true;
+                Rigidbody2D rigid = GetComponent<Rigidbody2D>();
+                rigid.gravityScale = 0;
+                m_Anim.SetBool("isClimbing", true);
+            }
+            else if (other.gameObject.tag == "dialogue")
+            {
+                onDialogue = true;
+                dialogueCollider = other;
+            }
+            else if(other.gameObject.tag == "MeleeCone")
+            {
+                Debug.Log("Yarr you've been damaged");
+            }
+        }
+        void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.tag == "ladder")
+            {
+                //Debug.Log("Not colliding with ladder");
+                onLadder = false;
+                m_Anim.SetBool("isClimbing", false);
+                Rigidbody2D rigid = GetComponent<Rigidbody2D>();
+                rigid.gravityScale = 1;
+            }
+            else if (other.gameObject.tag == "dialogue")
+            {
+                //Debug.Log("exiting dialogue range");
+                onDialogue = false;
+                dialogueCollider.SendMessageUpwards("CloseDialogue");
+                dialogueCollider = null;
+            }
+        }
+
+        public void Fire(bool fire)
+        {
+            if (fire && currentFireCooldown <= 0.0f && reloaded)
+            {
+                /*currentFireCooldown = fireCooldown;
+                RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + (playerWidth * lastDir), transform.position.y), new Vector2(lastDir, 0));
+                //Vector3[] array = { new Vector3(transform.position.x + (playerWidth * lastDir), transform.position.y,0),new Vector3(transform.position.x + (playerWidth * lastDir) + 20, transform.position.y, 0) };
+                //gameObject.GetComponent<LineRenderer>().SetPositions(array);
+                if (hit.collider == null)
+                {
+                    Debug.Log("Do nothing");
+                    //do nothing
+                }
+                else if (hit.collider.gameObject.tag == "Enemy")
+                {
+                    hit.collider.SendMessageUpwards("OnDamage", -1);
+                }
+                else if (hit.collider != null)
+                {
+                    Debug.Log(hit.collider.gameObject.tag);
+                }*/
+
+                //The Bullet instantiation happens here.
+                GameObject Temporary_Bullet_Handler;
+                Temporary_Bullet_Handler = Instantiate(m_bullet, transform.position, new Quaternion()) as GameObject;
+
+                //Retrieve the Rigidbody component from the instantiated Bullet and control it.
+                Rigidbody2D Temporary_RigidBody;
+                Temporary_RigidBody = Temporary_Bullet_Handler.GetComponent<Rigidbody2D>();
+
+                //Tell the bullet to be "pushed" forward by an amount set by Bullet_Forward_Force.
+                lastDir = lastDir == 0 ? 1 : lastDir;
+                Temporary_RigidBody.velocity = new Vector2((m_MaxSpeed + 3f) * lastDir, 0f);
+
+                //Basic Clean Up, set the Bullets to self destruct after 10 Seconds, I am being VERY generous here, normally 3 seconds is plenty.
+                Destroy(Temporary_Bullet_Handler, 3.0f);
+                reloaded = false;
+            }
+        }
+
+        public void Talk(bool talk)
+        {
+            if (talk && currentFireCooldown <= 0.0f)
+            {
+                currentFireCooldown = fireCooldown;
+                dialogueCollider.SendMessageUpwards("NextDialogue");
+            }
+        }
+
+        public void Melee(bool melee)
+        {
+            if (melee && currentFireCooldown <= 0.0f)
+            {
+                currentFireCooldown = fireCooldown;
+                RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + (playerWidth * lastDir), transform.position.y), new Vector2(lastDir, 0), playerWidth * 2);
+                //Vector3[] array = { new Vector3(transform.position.x + (playerWidth * lastDir), transform.position.y,0),new Vector3(transform.position.x + (playerWidth * lastDir) + 20, transform.position.y, 0) };
+                //gameObject.GetComponent<LineRenderer>().SetPositions(array);
+                if (hit.collider == null)
+                {
+                    Debug.Log("Do nothing");
+                    //do nothing
+                }
+                else if (hit.collider.gameObject.tag == "Enemy")
+                {
+                    hit.collider.SendMessageUpwards("OnDamage", -1);
+                }
+                else if (hit.collider != null)
+                {
+                    Debug.Log(hit.collider.gameObject.tag);
+                }
+            }
+        }
+
+        public void Reload(bool reload)
+        {
+            if(reload)
+            {
+                reloaded = true;
+            }
         }
     }
 }

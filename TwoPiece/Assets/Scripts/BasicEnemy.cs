@@ -2,34 +2,99 @@
 using System.Collections;
 
 public class BasicEnemy : MonoBehaviour {
-    int health;
+    public int health = 3;
+    public float walkSpeed = 11f;
+    public float chargeSpeed = 10.0f;
+    public const float CHARGE_COOLDOWN = 5.0f;
+    public float chargeCurrentCooldown = 0.0f;
+    private bool isAggressive = false;
+    private GameObject playerGameObject = null;
 
 	// Use this for initialization
 	void Start () {
-	   
+        if (playerGameObject == null)
+            playerGameObject = GameObject.FindGameObjectsWithTag("Player")[0];
 	}
 
     void Awake()
     {
-        health = 3;
+
     }
 	
 	// Update is called once per frame
-	void Update () {
-	
-	}
+	void FixedUpdate () {
+        if (isAggressive)
+        {
+            FaceTowardsPlayer();
+        }
+        // Transform regardless to move torwards the player
+        //transform.Translate(new Vector2(walkSpeed, 0) * Time.deltaTime);
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = new Vector2(walkSpeed * transform.localScale.x, rb.velocity.y);
+    }
 
-    void OnDamage(int damage)
+    void FaceTowardsPlayer()
+    {
+
+        bool isFacingLeft = (transform.localScale.x < 0);
+        float differenceInPosition = transform.position.x - playerGameObject.transform.position.x;
+        if (differenceInPosition > 0 && !isFacingLeft)
+            Flip();
+        else if (differenceInPosition < 0 && isFacingLeft)
+            Flip();
+    }
+
+    void Flip()
+    {
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
+
+    void OnAggroZoneExit()
+    {
+        // Flipping scale flips which way the enemy is moving along with their sprite
+        Flip();
+    }
+
+    public void OnPlayerLeftAggroZone()
+    {
+        isAggressive = false;
+    }
+
+    public void OnPlayerEnterAggroZone()
+    {
+        isAggressive = true;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Player" && isAggressive && chargeCurrentCooldown <= 0.0f)
+        {
+            Debug.Log("Greetixngs");
+            walkSpeed = chargeSpeed;
+            chargeCurrentCooldown = CHARGE_COOLDOWN;
+        }
+
+        if (other.tag == "PlayerBullet")
+        {
+            OnDamage(1);
+        }
+        //Debug.Log(other.gameObject.tag);
+    }
+
+    void OnDamage(int damage) //, lethal
     {
         Debug.Log("Yarrr I've been hit.");
-        --health;
-        if (health == 0)
+        health -= damage;
+        if (health <= 0)
         {
             Destroy(gameObject);//die
+            //set to dead sprite
         }
         else
         {
-            //do death animation
+            //do damage animation
         }
     }
 }
