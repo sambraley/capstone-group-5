@@ -98,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012352638542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50.10035, y: -8.7, z: 0}
+  m_LocalPosition: {x: 37.599953, y: -8.469988, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -145,11 +145,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &60000010590365800
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -193,7 +193,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1000012352638542}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 1debb068374764196a01e1c69c1f413f, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: -4.153099, y: 0.62070847}
@@ -210,8 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf60b810da5f459458f68cbd1e489121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
-  walkSpeed: 10
+  health: 33
+  walkSpeed: 45
   chargeSpeed: 10
   chargeCurrentCooldown: 5
 --- !u!212 &212000012733735342

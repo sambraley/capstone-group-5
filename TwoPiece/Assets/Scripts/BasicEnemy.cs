@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BasicEnemy : MonoBehaviour {
     public int health = 3;
-    public float walkSpeed = 5.0f;
+    public float walkSpeed = 11f;
     public float chargeSpeed = 10.0f;
     public const float CHARGE_COOLDOWN = 5.0f;
     public float chargeCurrentCooldown = 0.0f;
@@ -22,13 +22,15 @@ public class BasicEnemy : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         if (isAggressive)
         {
             FaceTowardsPlayer();
         }
         // Transform regardless to move torwards the player
-        transform.Translate(new Vector3(walkSpeed, 0, 0) * Time.deltaTime);
+        //transform.Translate(new Vector2(walkSpeed, 0) * Time.deltaTime);
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = new Vector2(walkSpeed * transform.localScale.x, rb.velocity.y);
     }
 
     void FaceTowardsPlayer()
@@ -72,6 +74,11 @@ public class BasicEnemy : MonoBehaviour {
             Debug.Log("Greetixngs");
             walkSpeed = chargeSpeed;
             chargeCurrentCooldown = CHARGE_COOLDOWN;
+        }
+
+        if (other.tag == "PlayerBullet")
+        {
+            OnDamage(1);
         }
         //Debug.Log(other.gameObject.tag);
     }
