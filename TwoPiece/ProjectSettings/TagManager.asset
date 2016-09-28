@@ -20,6 +20,7 @@ TagManager:
   - AggroZone
   - Club
   - Sword
+  - coin
   layers:
   - Default
   - TransparentFX
