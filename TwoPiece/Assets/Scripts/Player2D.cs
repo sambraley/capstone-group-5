@@ -32,7 +32,7 @@ namespace UnityStandardAssets._2D
         public float currentFireCooldown = 0.0f;
         private float meleeCooldown = 0.0f;
         private float swapWeaponsCooldown = 0.0f;
-        private bool hasSword = false;
+        private bool hasSword = true;
 
         private int MAX_NUM_DASH = 2;
         private float MAX_COOLDOWN_DASH = 5f;
