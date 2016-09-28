@@ -142,13 +142,15 @@ namespace UnityStandardAssets._2D
                 // Move the character
                 m_Rigidbody2D.velocity = new Vector2(move * m_MaxSpeed, m_Rigidbody2D.velocity.y);
 
+                // Use translate if grounded and add force if midair to avoid bug where the player gets stuck upon landing
+                // Not sure why this works (bug is in Unity physics) , but using SetVelocity will cause the bug to reappear
                 if( m_Grounded )
                 {
                     m_Rigidbody2D.transform.Translate( new Vector2(move * lastDir * m_MaxSpeed * Time.fixedDeltaTime, 0) );
                 }
                 else
                 {
-                    m_Rigidbody2D.AddForce(new Vector2(m_MaxSpeed * move, 0) );
+                    m_Rigidbody2D.AddForce( new Vector2(m_MaxSpeed * move, 0) );
                 }
 
                 // If the input is moving the player right and the player is facing left...

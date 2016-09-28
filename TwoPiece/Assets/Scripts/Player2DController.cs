@@ -22,14 +22,14 @@ namespace UnityStandardAssets._2D
             m_Character.currentFireCooldown -= Time.fixedDeltaTime;
             // Read the inputs.
             int dir = 0;
-            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            if ( Input.GetKey(KeyCode.RightArrow) )
                 dir = 1;
-            else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            else if ( Input.GetKey(KeyCode.LeftArrow) )
                 dir = -1;
             bool jump = Input.GetKey(KeyCode.Space);
-            bool dash = Input.GetKey(KeyCode.LeftShift);
-            bool fire = Input.GetKey(KeyCode.E);
-            bool melee = Input.GetKey(KeyCode.F);
+            bool dash = Input.GetKey(KeyCode.A);
+            bool melee = Input.GetKey(KeyCode.S);
+            bool fire = Input.GetKey(KeyCode.D);
             bool reload = Input.GetKey(KeyCode.R);
 
             if (Input.GetKey(KeyCode.W)  && m_Character.onLadder)
