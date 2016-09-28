@@ -211,6 +211,12 @@ namespace UnityStandardAssets._2D
             {
                 Debug.Log("Yarr you've been damaged");
             }
+            else if(other.gameObject.tag == "coin")
+            {
+                Destroy(other.gameObject);
+                ++coins;
+                gameObject.SendMessage("SetCoin",coins);
+            }
         }
         void OnTriggerExit2D(Collider2D other)
         {
