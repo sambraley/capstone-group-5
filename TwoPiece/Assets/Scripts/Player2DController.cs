@@ -32,12 +32,12 @@ namespace UnityStandardAssets._2D
             bool fire = Input.GetKey(KeyCode.D);
             bool reload = Input.GetKey(KeyCode.R);
 
-            if (Input.GetKey(KeyCode.W)  && m_Character.onLadder)
+            if (Input.GetKey(KeyCode.UpArrow)  && m_Character.onLadder)
             {
                 //m_Anim.SetBool("isClimbing", true);
                 m_Character.Climb(1);
             }
-            else if(Input.GetKey(KeyCode.S) && m_Character.onLadder)
+            else if(Input.GetKey(KeyCode.DownArrow) && m_Character.onLadder)
             {
                 //m_Anim.SetBool("isClimbing", true);
                 m_Character.Climb(-1);
