@@ -96,5 +96,11 @@ namespace UnityStandardAssets._2D
                 nonLethal.enabled = true;
             }
         }
+
+        void ToggleLethal()
+        {
+            lethal.enabled = !lethal.enabled;
+            nonLethal.enabled = !nonLethal.enabled;
+        }
     }
 }

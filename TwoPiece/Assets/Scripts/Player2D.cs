@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets._2D
 {
@@ -161,7 +162,7 @@ namespace UnityStandardAssets._2D
                 else
                 {
                     m_Rigidbody2D.AddForce( new Vector2(m_MaxSpeed * move, 0) );
-                }
+                }   
 
                 // If the input is moving the player right and the player is facing left...
                 if (move > 0 && !m_FacingRight)
@@ -343,6 +344,7 @@ namespace UnityStandardAssets._2D
                 String previousTag = meleeCollider.tag;
                 meleeCollider.tag = ( (previousTag == "Club") ? "Sword" : "Club" );
                 swapWeaponsCooldown = SWAP_WEAPONS_COODLDOWN;
+                gameObject.SendMessage("ToggleLethal");
             }
         }
     }
