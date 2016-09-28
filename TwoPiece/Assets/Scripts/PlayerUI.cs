@@ -61,7 +61,7 @@ namespace UnityStandardAssets._2D
             }
         }
 
-        void Removebandana()
+        void RemoveBandana()
         {
             if (bandanaCount >= 0 && bandanaCount < bandanas.Length)
             {
@@ -70,7 +70,7 @@ namespace UnityStandardAssets._2D
             }
         }
 
-        void Addbandana()
+        void AddBandana()
         {
             if (bandanaCount >= 0 && bandanaCount < (bandanas.Length - 1)) //can't go above max
             {

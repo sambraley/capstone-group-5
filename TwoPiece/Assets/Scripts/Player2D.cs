@@ -42,6 +42,7 @@ namespace UnityStandardAssets._2D
         private float tillNextDash = 0f;
         private float timeLeftInDash = 0f;
         private float lockedDashDirection = 0;
+        private float damageTakenCooldown = 0f;
 
         [SerializeField] private int health;
         public int coins = 0;
@@ -105,6 +106,7 @@ namespace UnityStandardAssets._2D
 
             meleeCooldown -= Time.fixedDeltaTime;
             swapWeaponsCooldown -= Time.fixedDeltaTime;
+            damageTakenCooldown -= Time.fixedDeltaTime;
             //m_Anim.SetBool("Ground", m_Grounded);
 
             // Set the vertical animation
@@ -215,15 +217,21 @@ namespace UnityStandardAssets._2D
                 onDialogue = true;
                 dialogueCollider = other;
             }
-            else if(other.gameObject.tag == "MeleeCone")
+            else if (other.gameObject.tag == "MeleeCone")
             {
                 Debug.Log("Yarr you've been damaged");
             }
-            else if(other.gameObject.tag == "coin")
+            else if (other.gameObject.tag == "coin")
             {
                 Destroy(other.gameObject);
                 ++coins;
-                gameObject.SendMessage("SetCoin",coins);
+                gameObject.SendMessage("SetCoin", coins);
+            }
+            else if (other.gameObject.tag == "EnemyWeapon" && damageTakenCooldown <= 0.0f)
+            {
+                health--;
+                SendMessage("RemoveBandana");
+                damageTakenCooldown = 0.5f;
             }
         }
         void OnTriggerExit2D(Collider2D other)
