@@ -531,7 +531,7 @@ Prefab:
     - target: {fileID: 114000013174213324, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: m_JumpForce
-      value: 800
+      value: 410
       objectReference: {fileID: 0}
     - target: {fileID: 4000011203450772, guid: b93349e27dd223648a379138c53173cc, type: 2}
       propertyPath: m_LocalScale.x
@@ -14084,7 +14084,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010404563352, guid: 46a93281a55f5ef4b82584194727e25d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.838745
+      value: 4.45
       objectReference: {fileID: 0}
     - target: {fileID: 4000010404563352, guid: 46a93281a55f5ef4b82584194727e25d, type: 2}
       propertyPath: m_LocalPosition.y
