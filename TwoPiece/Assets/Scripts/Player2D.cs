@@ -47,7 +47,7 @@ namespace UnityStandardAssets._2D
 
         [SerializeField] private int health;
         public int coins = 0;
-
+        public int keys = 0;
         private void Awake()
         {
             // Setting up references.
@@ -227,6 +227,19 @@ namespace UnityStandardAssets._2D
                 Destroy(other.gameObject);
                 ++coins;
                 gameObject.SendMessage("SetCoin", coins);
+            }
+            else if(other.gameObject.tag == "key")
+            {
+                Destroy(other.gameObject);
+                ++keys;
+            }
+            else if(other.gameObject.tag == "door")
+            {
+                if(keys > 0)
+                {
+                    --keys;
+                    other.gameObject.SendMessage("OpenDoor");
+                }
             }
             else if (other.gameObject.tag == "EnemyWeapon" && damageTakenCooldown <= 0.0f)
             {

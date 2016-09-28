@@ -21,6 +21,10 @@ TagManager:
   - Club
   - Sword
   - coin
+  - MeleeCone
+  - VisionCone
+  - key
+  - door
   layers:
   - Default
   - TransparentFX
