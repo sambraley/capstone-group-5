@@ -70,12 +70,12 @@ public class BasicEnemy : MonoBehaviour {
 
     public void OnPlayerLeftAggroZone()
     {
-        isAggressive = false;
+        //isAggressive = false;
     }
 
     public void OnPlayerEnterAggroZone()
     {
-        isAggressive = true;
+        //isAggressive = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)
