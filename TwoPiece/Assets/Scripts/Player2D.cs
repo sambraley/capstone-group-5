@@ -5,7 +5,7 @@ namespace UnityStandardAssets._2D
 {
     public class Player2D : MonoBehaviour
     {
-        [SerializeField] private float m_MaxSpeed = 12f;                    // The fastest the player can travel in the x axis.
+        [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
         [SerializeField] private float m_JumpForce = 300;                  // Amount of force added when the player jumps.
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
@@ -142,6 +142,15 @@ namespace UnityStandardAssets._2D
                 // Move the character
                 m_Rigidbody2D.velocity = new Vector2(move * m_MaxSpeed, m_Rigidbody2D.velocity.y);
 
+                if( m_Grounded )
+                {
+                    m_Rigidbody2D.transform.Translate( new Vector2(move * lastDir * m_MaxSpeed * Time.fixedDeltaTime, 0) );
+                }
+                else
+                {
+                    m_Rigidbody2D.AddForce(new Vector2(m_MaxSpeed * move, 0) );
+                }
+
                 // If the input is moving the player right and the player is facing left...
                 if (move > 0 && !m_FacingRight)
                 {
@@ -247,8 +256,7 @@ namespace UnityStandardAssets._2D
                 Rigidbody2D Temporary_RigidBody;
                 Temporary_RigidBody = Temporary_Bullet_Handler.GetComponent<Rigidbody2D>();
 
-                //Tell the bullet to be "pushed" forward by an amount set by Bullet_Forward_Force.
-                lastDir = lastDir == 0 ? 1 : lastDir;
+                //Tell the bullet to be "pushed" forward by an amount set by Bullet_Forward_Force.R
                 Temporary_RigidBody.velocity = new Vector2((m_MaxSpeed + 3f) * lastDir, 0f);
 
                 //Basic Clean Up, set the Bullets to self destruct after 10 Seconds, I am being VERY generous here, normally 3 seconds is plenty.
