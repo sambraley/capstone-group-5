@@ -25,6 +25,7 @@ TagManager:
   - VisionCone
   - key
   - door
+  - EnemyWeapon
   layers:
   - Default
   - TransparentFX

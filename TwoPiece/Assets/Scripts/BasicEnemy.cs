@@ -30,9 +30,9 @@ public class BasicEnemy : MonoBehaviour {
             FaceTowardsPlayer();
         }
         // Transform regardless to move torwards the player
-        //transform.Translate(new Vector2(walkSpeed, 0) * Time.deltaTime);
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(walkSpeed * transform.localScale.x, rb.velocity.y);
+        transform.Translate(new Vector2(walkSpeed, 0) * Time.deltaTime);
+        //Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        //rb.velocity = new Vector2(walkSpeed * transform.localScale.x, rb.velocity.y);
         if(swordHealth <= 0)
         {
             Destroy(gameObject);
