@@ -32,6 +32,7 @@ namespace UnityStandardAssets._2D
         public float currentFireCooldown = 0.0f;
         private float meleeCooldown = 0.0f;
         private float swapWeaponsCooldown = 0.0f;
+        private bool hasSword = false;
 
         private int MAX_NUM_DASH = 2;
         private float MAX_COOLDOWN_DASH = 5f;
@@ -347,7 +348,7 @@ namespace UnityStandardAssets._2D
         public void SwapWeapons(bool swapWeapons)
         {
             const float SWAP_WEAPONS_COODLDOWN = 0.5f;
-            if (swapWeapons && swapWeaponsCooldown <= 0.0f && meleeCooldown <= 0.0f)
+            if (swapWeapons && hasSword && swapWeaponsCooldown <= 0.0f && meleeCooldown <= 0.0f)
             {
                 String previousTag = meleeCollider.tag;
                 meleeCollider.tag = ( (previousTag == "Club") ? "Sword" : "Club" );
