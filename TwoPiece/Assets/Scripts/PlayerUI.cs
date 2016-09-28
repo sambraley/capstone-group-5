@@ -22,6 +22,8 @@ namespace UnityStandardAssets._2D
         [SerializeField]
         private Text coinCount;
         private Player2D m_Character;
+        [SerializeField]
+        private Text enemiesKilled;
         void Awake()
         {
             m_Character = GetComponent<Player2D>();
@@ -57,7 +59,8 @@ namespace UnityStandardAssets._2D
             {
                 skulls[skullCount].enabled = false;
                 ++skullCount;
-                skulls[skullCount].enabled = true;      
+                skulls[skullCount].enabled = true;
+                enemiesKilled.text = "You wretch! You have the blood of your enemies on your hands.";   
             }
         }
 
