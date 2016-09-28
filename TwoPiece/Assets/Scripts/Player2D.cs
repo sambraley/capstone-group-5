@@ -24,10 +24,13 @@ namespace UnityStandardAssets._2D
         public bool onLadder = false;
         public bool onDialogue = false;
         private Collider2D dialogueCollider;
+        private BoxCollider2D meleeCollider;
         public int lastDir = 1;
         float playerWidth;
         const float fireCooldown = 1.0f;
         public float currentFireCooldown = 0.0f;
+        private float meleeCooldown = 0.0f;
+        private float swapWeaponsCooldown = 0.0f;
 
         private int MAX_NUM_DASH = 2;
         private float MAX_COOLDOWN_DASH = 5f;
@@ -51,6 +54,7 @@ namespace UnityStandardAssets._2D
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
             BoxCollider2D hitbox = GetComponent<BoxCollider2D>();
+            meleeCollider = transform.Find("MeleeCollider").gameObject.GetComponentInChildren<BoxCollider2D>();
             playerWidth = transform.localScale.x * (hitbox.size.x / 2);
             lastDir = 0;
         }
@@ -97,6 +101,9 @@ namespace UnityStandardAssets._2D
                     //m_Anim.SetBool("isJumping", false);
                 }
             }
+
+            meleeCooldown -= Time.fixedDeltaTime;
+            swapWeaponsCooldown -= Time.fixedDeltaTime;
             //m_Anim.SetBool("Ground", m_Grounded);
 
             // Set the vertical animation
@@ -287,7 +294,18 @@ namespace UnityStandardAssets._2D
 
         public void Melee(bool melee)
         {
-            if (melee && currentFireCooldown <= 0.0f)
+            const float ANIMATION_TIME = 0.5f;
+            if(melee && meleeCooldown <= 0.0f)
+            {
+                meleeCollider.enabled = true;
+                meleeCooldown = ANIMATION_TIME;
+            }
+            if(meleeCooldown < ANIMATION_TIME)
+            {
+                meleeCollider.enabled = false;
+            }
+
+            /*if (melee && currentFireCooldown <= 0.0f)
             {
                 currentFireCooldown = fireCooldown;
                 RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + (playerWidth * lastDir), transform.position.y), new Vector2(lastDir, 0), playerWidth * 2);
@@ -306,7 +324,7 @@ namespace UnityStandardAssets._2D
                 {
                     Debug.Log(hit.collider.gameObject.tag);
                 }
-            }
+            }*/
         }
 
         public void Reload(bool reload)
@@ -314,6 +332,17 @@ namespace UnityStandardAssets._2D
             if(reload)
             {
                 reloaded = true;
+            }
+        }
+
+        public void SwapWeapons(bool swapWeapons)
+        {
+            const float SWAP_WEAPONS_COODLDOWN = 0.5f;
+            if (swapWeapons && swapWeaponsCooldown <= 0.0f && meleeCooldown <= 0.0f)
+            {
+                String previousTag = meleeCollider.tag;
+                meleeCollider.tag = ( (previousTag == "Club") ? "Sword" : "Club" );
+                swapWeaponsCooldown = SWAP_WEAPONS_COODLDOWN;
             }
         }
     }

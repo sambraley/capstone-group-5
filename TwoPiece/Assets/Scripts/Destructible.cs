@@ -18,7 +18,7 @@ public class Destructible : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if(c.tag == "PlayerBullet")
+        if (c.tag == "PlayerBullet" || c.tag == "Sword" || c.tag == "Club" )
             health--;
     }
 

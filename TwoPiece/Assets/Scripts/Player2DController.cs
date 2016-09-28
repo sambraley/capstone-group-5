@@ -29,6 +29,7 @@ namespace UnityStandardAssets._2D
             bool jump = Input.GetKey(KeyCode.Space);
             bool dash = Input.GetKey(KeyCode.A);
             bool melee = Input.GetKey(KeyCode.S);
+            bool swapWeapons = Input.GetKey(KeyCode.F);
             bool fire = Input.GetKey(KeyCode.D);
             bool reload = Input.GetKey(KeyCode.R);
 
@@ -55,14 +56,15 @@ namespace UnityStandardAssets._2D
             m_Character.Move(dir, jump, dash);
             if (!m_Character.onDialogue )
             {
-                m_Character.Fire(fire);
+                //m_Character.Fire(fire);
             }
             else
             {
                 m_Character.Talk(fire);
             }
+            m_Character.SwapWeapons(swapWeapons);
             m_Character.Melee(melee);
-            m_Character.Reload(reload);
+            //m_Character.Reload(reload);
         }
 
         

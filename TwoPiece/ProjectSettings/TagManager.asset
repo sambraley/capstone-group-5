@@ -18,6 +18,8 @@ TagManager:
   - dialogue
   - Bullet
   - AggroZone
+  - Club
+  - Sword
   layers:
   - Default
   - TransparentFX
