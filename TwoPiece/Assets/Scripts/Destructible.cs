@@ -16,8 +16,10 @@ public class Destructible : MonoBehaviour {
             Destroy(this.gameObject);
 	}
 
-    void OnDamage(int damage)
+    void OnTriggerEnter2D(Collider2D c)
     {
-        health--;
+        if(c.tag == "PlayerBullet")
+            health--;
     }
+
 }
