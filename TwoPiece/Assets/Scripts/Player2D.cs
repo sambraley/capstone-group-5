@@ -39,6 +39,9 @@ namespace UnityStandardAssets._2D
         private float timeLeftInDash = 0f;
         private float lockedDashDirection = 0;
 
+        [SerializeField] private int health;
+        public int coins = 0;
+
         private void Awake()
         {
             // Setting up references.
