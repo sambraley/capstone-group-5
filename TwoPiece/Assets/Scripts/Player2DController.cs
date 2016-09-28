@@ -27,7 +27,6 @@ namespace UnityStandardAssets._2D
             else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
                 dir = -1;
             bool jump = Input.GetKey(KeyCode.Space);
-            bool crouch = Input.GetKey(KeyCode.LeftControl);
             bool dash = Input.GetKey(KeyCode.LeftShift);
             bool fire = Input.GetKey(KeyCode.E);
             bool melee = Input.GetKey(KeyCode.F);
@@ -53,7 +52,7 @@ namespace UnityStandardAssets._2D
                 m_Character.lastDir = dir;
             }
             // Pass all parameters to the character script.
-            m_Character.Move(dir, crouch, jump, dash);
+            m_Character.Move(dir, jump, dash);
             if (!m_Character.onDialogue )
             {
                 m_Character.Fire(fire);

@@ -7,7 +7,6 @@ namespace UnityStandardAssets._2D
     {
         [SerializeField] private float m_MaxSpeed = 12f;                    // The fastest the player can travel in the x axis.
         [SerializeField] private float m_JumpForce = 300;                  // Amount of force added when the player jumps.
-        [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
         [SerializeField] private GameObject m_bullet;                  // A mask determining what is ground to the character
@@ -21,8 +20,6 @@ namespace UnityStandardAssets._2D
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
-        private bool is_crouching = false;
-        private BoxCollider2D crouchCollider = null;
         private BoxCollider2D standingCollider;
         public bool onLadder = false;
         public bool onDialogue = false;
@@ -50,13 +47,6 @@ namespace UnityStandardAssets._2D
             standingCollider = GetComponent<BoxCollider2D>();
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
-            foreach (Transform child in transform)
-            {
-                if (child.tag == "CrouchCollider")
-                {
-                    crouchCollider = child.GetComponent<BoxCollider2D>();
-                }
-            }
             BoxCollider2D hitbox = GetComponent<BoxCollider2D>();
             playerWidth = transform.localScale.x * (hitbox.size.x / 2);
             lastDir = 0;
@@ -98,7 +88,7 @@ namespace UnityStandardAssets._2D
             Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (colliders[i].gameObject != gameObject && colliders[i].gameObject != crouchCollider.gameObject && !colliders[i].isTrigger)
+                if (colliders[i].gameObject != gameObject && !colliders[i].isTrigger)
                 {
                     m_Grounded = true;
                     //m_Anim.SetBool("isJumping", false);
@@ -115,7 +105,7 @@ namespace UnityStandardAssets._2D
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 6.0f * move);
         }
 
-        public void Move(float move, bool crouch, bool jump, bool dash)
+        public void Move(float move, bool jump, bool dash)
         {
             if(move == 0)
                 m_Anim.SetBool("isRunning", false);
@@ -140,34 +130,11 @@ namespace UnityStandardAssets._2D
                 }
             }
 
-            // If crouching, check to see if the character can stand up
-            if (!crouch && is_crouching)
-            {
-                // If the character has a ceiling preventing them from standing up, keep them crouching
-                //.....
-            }
-
-            // Set whether or not the character is crouching in the animator
-            //m_Anim.SetBool("Crouch", crouch);
-            if(crouch)
-            {
-                standingCollider.enabled = false;
-                crouchCollider.enabled = true;
-            }
-            else
-            {
-                standingCollider.enabled = true;
-                crouchCollider.enabled = false;
-            }
-
             //only control the player if grounded or airControl is turned on
             if (m_Grounded || m_AirControl)
             {
                 //dash speed up if in dash
                 move = (timeLeftInDash > 0f ? lockedDashDirection * 3 : move);
-
-                // Reduce the speed if crouching by the crouchSpeed multiplier
-                move = (crouch ? move * m_CrouchSpeed : move);
 
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
                 //m_Anim.SetBool("isRunning", true);
@@ -198,7 +165,6 @@ namespace UnityStandardAssets._2D
                 //m_Anim.SetBool("isJumping", true);
             }
 
-            is_crouching = crouch;
         }
 
 
