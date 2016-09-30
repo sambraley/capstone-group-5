@@ -32,7 +32,8 @@ namespace UnityStandardAssets._2D
         public float currentFireCooldown = 0.0f;
         private float meleeCooldown = 0.0f;
         private float swapWeaponsCooldown = 0.0f;
-        private bool hasSword = true;
+        [SerializeField]
+        private bool hasSword;
 
         private int MAX_NUM_DASH = 2;
         private float MAX_COOLDOWN_DASH = 5f;
@@ -259,6 +260,11 @@ namespace UnityStandardAssets._2D
                 health--;
                 SendMessage("RemoveBandana");
                 damageTakenCooldown = 0.5f;
+            }
+            else if(other.gameObject.tag == "Sword")
+            {
+                hasSword = true;
+                Destroy(other.gameObject);
             }
         }
         void OnTriggerExit2D(Collider2D other)
