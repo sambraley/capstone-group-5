@@ -25,7 +25,7 @@ GameObject:
   - 61: {fileID: 61000011874017846}
   m_Layer: 0
   m_Name: Key
-  m_TagString: key
+  m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

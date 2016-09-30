@@ -27,6 +27,7 @@ TagManager:
   - Door
   - EnemyWeapon
   - Bandana
+  - Sword
   layers:
   - Default
   - TransparentFX
