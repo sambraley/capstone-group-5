@@ -45,6 +45,7 @@ namespace UnityStandardAssets._2D
         private float lockedDashDirection = 0;
         private float damageTakenCooldown = 0f;
 
+        [SerializeField] private int maxHealth;
         [SerializeField] private int health;
         public int coins = 0;
         public int keys = 0;
@@ -206,14 +207,14 @@ namespace UnityStandardAssets._2D
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.tag == "ladder")
+            if (other.gameObject.tag == "Ladder")
             {
                 onLadder = true;
                 Rigidbody2D rigid = GetComponent<Rigidbody2D>();
                 rigid.gravityScale = 0;
                 m_Anim.SetBool("isClimbing", true);
             }
-            else if (other.gameObject.tag == "dialogue")
+            else if (other.gameObject.tag == "Dialogue")
             {
                 onDialogue = true;
                 dialogueCollider = other;
@@ -222,23 +223,35 @@ namespace UnityStandardAssets._2D
             {
                 Debug.Log("Yarr you've been damaged");
             }
-            else if (other.gameObject.tag == "coin")
+            else if (other.gameObject.tag == "Coin")
             {
                 Destroy(other.gameObject);
                 ++coins;
                 gameObject.SendMessage("SetCoin", coins);
             }
-            else if(other.gameObject.tag == "key")
+            else if (other.gameObject.tag == "Bandana")
+            {
+                Destroy(other.gameObject);
+                if (health < maxHealth) {
+                    ++health;
+                    gameObject.SendMessage("AddBandana");
+                }
+            }
+            else if(other.gameObject.tag == "Key")
             {
                 Destroy(other.gameObject);
                 ++keys;
+                if (keys == 1)
+                    gameObject.SendMessage("ToggleKey");
             }
-            else if(other.gameObject.tag == "door")
+            else if(other.gameObject.tag == "Door")
             {
                 if(keys > 0)
                 {
                     --keys;
                     other.gameObject.SendMessage("OpenDoor");
+                    if (keys == 0)
+                        gameObject.SendMessage("ToggleKey");
                 }
             }
             else if (other.gameObject.tag == "EnemyWeapon" && damageTakenCooldown <= 0.0f)

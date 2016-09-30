@@ -14,18 +14,19 @@ TagManager:
   - ExplosionFX
   - HealthBar
   - CrouchCollider
-  - ladder
-  - dialogue
+  - Ladder
+  - Dialogue
   - Bullet
   - AggroZone
   - Club
   - Sword
-  - coin
+  - Coin
   - MeleeCone
   - VisionCone
-  - key
-  - door
+  - Key
+  - Door
   - EnemyWeapon
+  - Bandana
   layers:
   - Default
   - TransparentFX

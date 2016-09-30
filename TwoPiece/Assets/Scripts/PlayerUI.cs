@@ -11,8 +11,8 @@ namespace UnityStandardAssets._2D
         private Image[] bandanas;
         private int bandanaCount = 0;
         [SerializeField]
-        private Image[] skulls; //0 is no skull, 1 is half skull, 2 is full skull
-        private int skullCount = 0;
+        private Image[] skulls; //0 is empty skull, 1 is half skull, 2 is full skull
+        private int skullCount = -1; //-1 is no skull
         [SerializeField]
         private Image nonLethal;
         [SerializeField]
@@ -24,6 +24,8 @@ namespace UnityStandardAssets._2D
         private Player2D m_Character;
         [SerializeField]
         private Text enemiesKilled;
+        [SerializeField]
+        private Image key;
         void Awake()
         {
             m_Character = GetComponent<Player2D>();
@@ -32,13 +34,14 @@ namespace UnityStandardAssets._2D
                 bandana.enabled = true;
             }
             bandanaCount = bandanas.Length - 1; //index of the current bandana value
-            skulls[0].enabled = true;
+            skulls[0].enabled = false;
             skulls[1].enabled = false;
             skulls[2].enabled = false;
             nonLethal.enabled = true; //always start in non-lethal mode
             lethal.enabled = false;
             coin.enabled = true;
             coinCount.text = m_Character.coins.ToString();
+            key.enabled = false;
         }
 
         // Use this for initialization
@@ -55,9 +58,10 @@ namespace UnityStandardAssets._2D
 
         void AddKill()
         {
-            if (skullCount < 2 && skullCount >= 0)
+            if (skullCount < 2 && skullCount >= -1)
             {
-                skulls[skullCount].enabled = false;
+                if(skullCount >= 0)
+                    skulls[skullCount].enabled = false;
                 ++skullCount;
                 skulls[skullCount].enabled = true;
                 enemiesKilled.text = "You wretch! You have the blood of your enemies on your hands.";   
@@ -104,6 +108,11 @@ namespace UnityStandardAssets._2D
         {
             lethal.enabled = !lethal.enabled;
             nonLethal.enabled = !nonLethal.enabled;
+        }
+
+        void ToggleKey()
+        {
+            key.enabled = !key.enabled;
         }
     }
 }
