@@ -6,12 +6,20 @@ namespace UnityStandardAssets._2D
 {
     public class Player2D : MonoBehaviour
     {
-        [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
-        [SerializeField] private float m_JumpForce = 300;                  // Amount of force added when the player jumps.
-        [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
-        [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
-        [SerializeField] private GameObject m_bullet;                  // A mask determining what is ground to the character
-        [SerializeField] private bool reloaded = true;                  // A mask determining what is ground to the character
+        [SerializeField]
+        private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
+        [SerializeField]
+        private float m_JumpForce = 300;                  // Amount of force added when the player jumps.
+        [SerializeField]
+        private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
+        [SerializeField]
+        private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+        [SerializeField]
+        private GameObject m_bullet;                  // A mask determining what is ground to the character
+        [SerializeField]
+        private bool reloaded = true;                  // A mask determining what is ground to the character
+        [SerializeField]
+        private Text dPrompt;
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -62,6 +70,7 @@ namespace UnityStandardAssets._2D
             meleeCollider = transform.Find("MeleeCollider").gameObject.GetComponentInChildren<BoxCollider2D>();
             playerWidth = transform.localScale.x * (hitbox.size.x / 2);
             lastDir = 0;
+            dPrompt.enabled = false;
         }
 
         private float timeDown(float time, float delta)
@@ -208,6 +217,7 @@ namespace UnityStandardAssets._2D
 
         void OnTriggerEnter2D(Collider2D other)
         {
+            Debug.Log(other.tag);
             if (other.gameObject.tag == "Ladder")
             {
                 onLadder = true;
@@ -219,6 +229,8 @@ namespace UnityStandardAssets._2D
             {
                 onDialogue = true;
                 dialogueCollider = other;
+                dPrompt.enabled = true;
+                gameObject.SendMessage("PromptSwitch");
             }
             else if (other.gameObject.tag == "MeleeCone")
             {
@@ -269,7 +281,7 @@ namespace UnityStandardAssets._2D
         }
         void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject.tag == "ladder")
+            if (other.gameObject.tag == "Ladder")
             {
                 //Debug.Log("Not colliding with ladder");
                 onLadder = false;
@@ -277,12 +289,14 @@ namespace UnityStandardAssets._2D
                 Rigidbody2D rigid = GetComponent<Rigidbody2D>();
                 rigid.gravityScale = 1;
             }
-            else if (other.gameObject.tag == "dialogue")
+            else if (other.gameObject.tag == "Dialogue")
             {
                 //Debug.Log("exiting dialogue range");
                 onDialogue = false;
+                dPrompt.enabled = false;
                 dialogueCollider.SendMessageUpwards("CloseDialogue");
                 dialogueCollider = null;
+                gameObject.SendMessage("PromptSwitch");
             }
         }
 
