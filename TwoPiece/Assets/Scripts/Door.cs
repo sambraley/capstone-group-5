@@ -16,6 +16,7 @@ public class Door : MonoBehaviour {
     void OpenDoor()
     {
         GetComponent<BoxCollider2D>().enabled = false; //remove collider
-        GetComponent<SpriteRenderer>().sprite = open; //switch sprtie
+        GetComponent<SpriteRenderer>().sprite = open; //switch sprite
+        GetComponent<AudioSource>().Play();
     }
 }

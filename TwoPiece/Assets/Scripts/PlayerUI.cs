@@ -59,9 +59,9 @@ namespace UnityStandardAssets._2D
 
         }
         
-        void PromptSwitch()
+        void PromptSet(bool set)
         {
-            promptBackground.enabled = !promptBackground.enabled;
+            promptBackground.enabled = set;
         }
 
         void AddKill()

@@ -20,7 +20,15 @@ namespace UnityStandardAssets._2D
         private bool reloaded = true;                  // A mask determining what is ground to the character
         [SerializeField]
         private Text dPrompt;
+        [SerializeField]
+        private AudioClip swing;
+        [SerializeField]
+        private AudioClip switchToClub;
+        [SerializeField]
+        private AudioClip switchToSword;
 
+
+        private AudioSource m_AudioSource;
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
         private bool m_Grounded;            // Whether or not the player is grounded.
@@ -71,6 +79,7 @@ namespace UnityStandardAssets._2D
             playerWidth = transform.localScale.x * (hitbox.size.x / 2);
             lastDir = 0;
             dPrompt.enabled = false;
+            m_AudioSource = GetComponent<AudioSource>();
         }
 
         private float timeDown(float time, float delta)
@@ -231,7 +240,7 @@ namespace UnityStandardAssets._2D
                 onDialogue = true;
                 dialogueCollider = other;
                 dPrompt.enabled = true;
-                gameObject.SendMessage("PromptSwitch");
+                gameObject.SendMessage("PromptSet", true);
             }
             else if (other.gameObject.tag == "MeleeCone")
             {
@@ -297,7 +306,7 @@ namespace UnityStandardAssets._2D
                 dPrompt.enabled = false;
                 dialogueCollider.SendMessageUpwards("CloseDialogue");
                 dialogueCollider = null;
-                gameObject.SendMessage("PromptSwitch");
+                gameObject.SendMessage("PromptSet", false);
             }
         }
 
@@ -354,6 +363,7 @@ namespace UnityStandardAssets._2D
             const float ANIMATION_TIME = 0.5f;
             if(melee && meleeCooldown <= 0.0f)
             {
+                PlaySwing();
                 meleeCollider.enabled = true;
                 meleeCooldown = ANIMATION_TIME;
             }
@@ -401,7 +411,28 @@ namespace UnityStandardAssets._2D
                 meleeCollider.tag = ( (previousTag == "Club") ? "Sword" : "Club" );
                 swapWeaponsCooldown = SWAP_WEAPONS_COODLDOWN;
                 gameObject.SendMessage("ToggleLethal");
+                if (meleeCollider.tag == "Club")
+                    PlaySwitchToClub();
+                else
+                    PlaySwitchToSword();
             }
+        }
+        private void PlaySwing()
+        {
+            m_AudioSource.clip = swing;
+            m_AudioSource.Play();
+        }
+
+        private void PlaySwitchToClub()
+        {
+            m_AudioSource.clip = switchToClub;
+            m_AudioSource.Play();
+        }
+
+        private void PlaySwitchToSword()
+        {
+            m_AudioSource.clip = switchToSword;
+            m_AudioSource.Play();
         }
     }
 }
