@@ -196,10 +196,10 @@ public class Player : MonoBehaviour
         {
             //Debug.Log("exiting dialogue range");
             onDialogue = false;
-            dPrompt.enabled = false;
+            //dPrompt.enabled = false;
             dialogueCollider.SendMessageUpwards("CloseDialogue");
             dialogueCollider = null;
-            gameObject.SendMessage("PromptSet", false);
+            //gameObject.SendMessage("PromptSet", false);
         }
     }
 }
