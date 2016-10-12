@@ -130,8 +130,9 @@ public class Player : MonoBehaviour
         {
             onDialogue = true;
             dialogueCollider = other;
-            dPrompt.enabled = true;
-            gameObject.SendMessage("PromptSet", true);
+            Talk();
+            //dPrompt.enabled = true;
+            //gameObject.SendMessage("PromptSet", true);
         }
         else if (other.gameObject.tag == "MeleeCone")
         {
