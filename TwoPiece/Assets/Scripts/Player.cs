@@ -2,6 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Controller2D))]
+[RequireComponent(typeof(PlayerSounds))]
 public class Player : MonoBehaviour
 {
 
@@ -17,7 +18,7 @@ public class Player : MonoBehaviour
     float velocityXSmoothing;
 
     Controller2D controller;
-
+    PlayerSounds sounds;
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -47,4 +48,5 @@ public class Player : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
 }

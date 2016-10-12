@@ -417,6 +417,7 @@ namespace UnityStandardAssets._2D
                     PlaySwitchToSword();
             }
         }
+        //-----------------------------------
         private void PlaySwing()
         {
             m_AudioSource.clip = swing;

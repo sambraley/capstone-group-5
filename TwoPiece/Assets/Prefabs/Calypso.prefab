@@ -42,6 +42,7 @@ GameObject:
   - 50: {fileID: 50000010449077746}
   - 114: {fileID: 114000013193522082}
   - 114: {fileID: 114000010484263830}
+  - 114: {fileID: 114000013282369854}
   m_Layer: 0
   m_Name: Calypso
   m_TagString: Player
@@ -352,6 +353,20 @@ MonoBehaviour:
     m_Bits: 256
   horizontalRayCount: 4
   verticalRayCount: 4
+--- !u!114 &114000013282369854
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010551102320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c70e734f2b588f44a821d8872ce438e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swing: {fileID: 8300000, guid: efd950668bc924410b169f8ff33d0c1e, type: 3}
+  switchToClub: {fileID: 8300000, guid: 63c883961c46d4985bc03c984bc64c2e, type: 3}
+  switchToSword: {fileID: 8300000, guid: 0c778d41b85394198b44c6af2030a631, type: 3}
 --- !u!124 &124000012165841346
 Behaviour:
   m_ObjectHideFlags: 1
