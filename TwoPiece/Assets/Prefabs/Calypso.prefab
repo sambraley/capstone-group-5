@@ -38,11 +38,10 @@ GameObject:
   - 95: {fileID: 95000011489115366}
   - 212: {fileID: 212000012587037214}
   - 82: {fileID: 82000012578264580}
-  - 114: {fileID: 114000013174213324}
-  - 114: {fileID: 114000012267128954}
   - 61: {fileID: 61000013338652982}
   - 50: {fileID: 50000010449077746}
-  - 114: {fileID: 114000011455301934}
+  - 114: {fileID: 114000013193522082}
+  - 114: {fileID: 114000010484263830}
   m_Layer: 0
   m_Name: Calypso
   m_TagString: Player
@@ -91,8 +90,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010551102320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.7, y: 4, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalPosition: {x: 3.9, y: 1.48, z: 0}
+  m_LocalScale: {x: 0.65, y: 0.65, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012633402380}
@@ -108,7 +107,7 @@ Transform:
   m_GameObject: {fileID: 1000012487965108}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011203450772}
@@ -159,7 +158,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -185,7 +184,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -201,9 +200,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 15, y: 5}
+  m_Offset: {x: 1, y: 0.5}
   serializedVersion: 2
-  m_Size: {x: 15, y: 25}
+  m_Size: {x: 1.5, y: 3}
 --- !u!61 &61000013338652982
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -215,9 +214,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 1.5}
+  m_Offset: {x: 0, y: 0.1}
   serializedVersion: 2
-  m_Size: {x: 14, y: 34}
+  m_Size: {x: 1.5, y: 3.2}
 --- !u!81 &81000010167943304
 AudioListener:
   m_ObjectHideFlags: 1
@@ -323,7 +322,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000011455301934
+--- !u!114 &114000010484263830
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -331,22 +330,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010551102320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 018c0dc9f24eb134e9ee543a41974c8f, type: 3}
+  m_Script: {fileID: 11500000, guid: 75388c7c15884394da60529b35ca69a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bandanas:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  skulls:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  nonLethal: {fileID: 0}
-  lethal: {fileID: 0}
-  coin: {fileID: 0}
-  coinCount: {fileID: 0}
---- !u!114 &114000012267128954
+  jumpHeight: 2.5
+  timeToJumpApex: 0.4
+  moveSpeed: 7
+--- !u!114 &114000013193522082
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -354,34 +344,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010551102320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0c7e72e770de84428eb0cc2b3944653, type: 3}
+  m_Script: {fileID: 11500000, guid: 9822fae146de6594aa10c15937da169a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000013174213324
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010551102320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19852136bd69a0649bdaef6c9e66d37e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MaxSpeed: 10
-  m_JumpForce: 410
-  m_AirControl: 1
-  m_WhatIsGround:
+  collisionMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_bullet: {fileID: 1000010134366424, guid: 1fbe7484810e0a148b0cbc5154a057e7, type: 2}
-  reloaded: 1
-  onLadder: 0
-  onDialogue: 0
-  lastDir: 1
-  currentFireCooldown: 0
-  health: 0
-  coins: 0
+    m_Bits: 256
+  horizontalRayCount: 4
+  verticalRayCount: 4
 --- !u!124 &124000012165841346
 Behaviour:
   m_ObjectHideFlags: 1
