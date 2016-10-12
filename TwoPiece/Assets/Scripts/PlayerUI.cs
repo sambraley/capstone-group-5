@@ -21,7 +21,7 @@ namespace UnityStandardAssets._2D
         private Image coin;
         [SerializeField]
         private Text coinCount;
-        private Player2D m_Character;
+        private Player m_Character;
         [SerializeField]
         private Text enemiesKilled;
         [SerializeField]
@@ -30,7 +30,7 @@ namespace UnityStandardAssets._2D
 //        private Image promptBackground;
         void Awake()
         {
-            m_Character = GetComponent<Player2D>();
+            m_Character = GetComponent<Player>();
             foreach (Image bandana in bandanas)
             {
                 bandana.enabled = true;

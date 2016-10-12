@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class tileBackground : MonoBehaviour {
 
     [SerializeField] private GameObject tile;
+    [SerializeField] private int xStart = 5;
+    [SerializeField] private int yStart = 5;
     [SerializeField] private int xOffset = 5;
     [SerializeField] private int yOffset = 2;
     [SerializeField] private int xLength = 15;
@@ -16,7 +18,7 @@ public class tileBackground : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //The Bullet instantiation happens here.
-        if (transform.position.x == 0 && transform.position.y == 0)
+        if (transform.position.x == xStart && transform.position.y == yStart)
         {
             GameObject tileCreated = null;
             for (int x = 0; x < xLength; x++)
@@ -31,7 +33,7 @@ public class tileBackground : MonoBehaviour {
                     }
                     else
                     {
-                        tileCreated = Instantiate(tile, new Vector3(transform.position.x + 2*x, transform.position.y + 2*y, 1), new Quaternion()) as GameObject;
+                        tileCreated = Instantiate(tile, new Vector3(transform.position.x + x, transform.position.y + y, 1), new Quaternion()) as GameObject;
                     }
                     listTiles.Add(tileCreated);
                 }

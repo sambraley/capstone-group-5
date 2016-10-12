@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public bool hasSword = false;
     Collider2D dialogueCollider;
     Text dPrompt;
-    int coins = 0;
+    public int coins = 0;
     public int health = 3;
     public int maxHealth = 3;
     public int keys = 0;
