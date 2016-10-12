@@ -9,6 +9,8 @@ public class PlayerSounds : MonoBehaviour
     private AudioClip switchToClub;
     [SerializeField]
     private AudioClip switchToSword;
+    [SerializeField]
+    private AudioClip coin;
 
     private AudioSource m_AudioSource;
 
@@ -32,6 +34,12 @@ public class PlayerSounds : MonoBehaviour
     public void PlaySwitchToSword()
     {
         m_AudioSource.clip = switchToSword;
+        m_AudioSource.Play();
+    }
+
+    public void PlayCoinPickup()
+    {
+        m_AudioSource.clip = coin;
         m_AudioSource.Play();
     }
 }

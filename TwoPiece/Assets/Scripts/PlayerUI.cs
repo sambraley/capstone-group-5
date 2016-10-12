@@ -26,8 +26,8 @@ namespace UnityStandardAssets._2D
         private Text enemiesKilled;
         [SerializeField]
         private Image key;
-        [SerializeField]
-        private Image promptBackground;
+//        [SerializeField]
+//        private Image promptBackground;
         void Awake()
         {
             m_Character = GetComponent<Player2D>();
@@ -44,7 +44,7 @@ namespace UnityStandardAssets._2D
             coin.enabled = true;
             coinCount.text = m_Character.coins.ToString();
             key.enabled = false;
-            promptBackground.enabled = false;
+            //promptBackground.enabled = false;
         }
 
         // Use this for initialization
@@ -61,7 +61,7 @@ namespace UnityStandardAssets._2D
         
         void PromptSet(bool set)
         {
-            promptBackground.enabled = set;
+            //promptBackground.enabled = set;
         }
 
         void AddKill()

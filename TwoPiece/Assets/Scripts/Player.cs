@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     {
         controller = GetComponent<Controller2D>();
         playerSprite = GetComponent<SpriteRenderer>();
+        sounds = GetComponent<PlayerSounds>();
 
         gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
@@ -150,6 +151,7 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
             ++coins;
             gameObject.SendMessage("SetCoin", coins);
+            sounds.PlayCoinPickup();
         }
         else if (other.gameObject.tag == "Bandana")
         {
