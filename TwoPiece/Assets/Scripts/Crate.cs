@@ -3,7 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Controller2D))]
 public class Crate : MonoBehaviour {
-    public float gravity = -20;
+    public float gravity = -10;
     Vector3 velocity;
 
     Controller2D controller;

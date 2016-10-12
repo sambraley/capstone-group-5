@@ -22,7 +22,8 @@ GameObject:
   - 212: {fileID: 212000012609286756}
   - 61: {fileID: 61000012200181336}
   - 61: {fileID: 61000012950780450}
-  - 50: {fileID: 50000013551290426}
+  - 114: {fileID: 114000013905868622}
+  - 114: {fileID: 114000013409532158}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Sword
@@ -37,29 +38,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013352607068}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.205362, y: 1.2455826, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalPosition: {x: 10.31, y: 5.06, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &50000013551290426
-Rigidbody2D:
-  serializedVersion: 2
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013352607068}
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &61000012200181336
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -71,9 +55,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -1.2335396, y: 0.52117825}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 12.174001, y: 19.437647}
+  m_Size: {x: 1, y: 1}
 --- !u!61 &61000012950780450
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -85,9 +69,38 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -1.0773087, y: -6.093111}
+  m_Offset: {x: 0, y: -0.25}
   serializedVersion: 2
-  m_Size: {x: 3.961246, y: 5.3743553}
+  m_Size: {x: 0.5, y: 0.5}
+--- !u!114 &114000013409532158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013352607068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf7f25cd01f7aa41986c402d7038c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: -10
+--- !u!114 &114000013905868622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013352607068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9822fae146de6594aa10c15937da169a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  skinWidth: 0.015
+  horizontalRayCount: 4
+  verticalRayCount: 4
 --- !u!212 &212000012609286756
 SpriteRenderer:
   m_ObjectHideFlags: 1
