@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
 
         float targetVelocityX = input.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-        bool shouldDash = ( Input.GetKeyDown(KeyCode.X) && Input.GetKeyDown(KeyCode.Period) && dashCooldown <= 0.0f );
+        bool shouldDash = ( (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Period)) && dashCooldown <= 0.0f );
         // if true, velocity.x will be replaced 
         if (shouldDash)
             Dash(ref velocity.x);
