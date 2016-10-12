@@ -3,6 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Controller2D))]
 [RequireComponent(typeof(PlayerSounds))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour
 {
 
@@ -13,7 +14,7 @@ public class Player : MonoBehaviour
     public float moveSpeed = 6;
     public float dashSpeed = 28;
     private float dashCooldown = 0.0f;
-    public float DASH_COOLDOWN_TIME = 2.0f;
+    public float DASH_COOLDOWN_TIME = 1.0f;
     float lastDirection = 1.0f;
 
     float gravity;
@@ -23,9 +24,12 @@ public class Player : MonoBehaviour
 
     Controller2D controller;
     PlayerSounds sounds;
+    SpriteRenderer playerSprite;
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
+        playerSprite = GetComponent<SpriteRenderer>();
 
         gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
@@ -43,8 +47,11 @@ public class Player : MonoBehaviour
 
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        if (input.x != 0)
+        if (input.x != 0 && input.x != lastDirection)
+        {
             lastDirection = input.x;
+            FlipSprite();
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
         {
@@ -61,6 +68,11 @@ public class Player : MonoBehaviour
             Dash(ref velocity.x);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    void FlipSprite()
+    {
+        playerSprite.flipX = !playerSprite.flipX;
     }
 
     // Overrides the current X velocity with our dash velocity in the last moved in direction
