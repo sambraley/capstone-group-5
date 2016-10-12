@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     float accelerationTimeGrounded = .1f;
     public float moveSpeed = 6;
     public float dashSpeed = 28;
+    public float ladderSpeed = 6;
     private float dashCooldown = 0.0f;
     public float DASH_COOLDOWN_TIME = 1.0f;
     float lastDirection = 1.0f;
@@ -84,7 +85,10 @@ public class Player : MonoBehaviour
         // if true, velocity.x will be replaced 
         if (shouldDash)
             Dash(ref velocity.x);
-        velocity.y += gravity * Time.deltaTime;
+        if (onLadder)
+            velocity.y = input.y * ladderSpeed;
+        else
+            velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 
