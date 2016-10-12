@@ -14,10 +14,21 @@ TagManager:
   - ExplosionFX
   - HealthBar
   - CrouchCollider
-  - ladder
-  - dialogue
+  - Ladder
+  - Dialogue
   - Bullet
   - AggroZone
+  - Club
+  - Sword
+  - Coin
+  - MeleeCone
+  - VisionCone
+  - Key
+  - Door
+  - EnemyWeapon
+  - Bandana
+  - Sword
+  - ladder
   layers:
   - Default
   - TransparentFX
@@ -27,11 +38,11 @@ TagManager:
   - UI
   - 
   - 
-  - Bombs
+  - Obstacle
   - Player
-  - Enemies
-  - Pickups
-  - Ground
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -55,14 +66,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Default
-    uniqueID: 3363470833
-    locked: 0
   - name: Background
     uniqueID: 1535931219
     locked: 0
-  - name: Character
-    uniqueID: 2511236001
+  - name: Objects
+    uniqueID: 1949200333
+    locked: 0
+  - name: Units
+    uniqueID: 3363470833
     locked: 0
   - name: Foreground
     uniqueID: 1024582385

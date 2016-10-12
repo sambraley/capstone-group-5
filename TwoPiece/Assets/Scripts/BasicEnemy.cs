@@ -3,12 +3,14 @@ using System.Collections;
 
 public class BasicEnemy : MonoBehaviour {
     public int health = 3;
+    public int clubHealth = 2;
+    public int swordHealth = 1;
     public float walkSpeed = 11f;
     public float chargeSpeed = 10.0f;
     public const float CHARGE_COOLDOWN = 5.0f;
     public float chargeCurrentCooldown = 0.0f;
     private bool isAggressive = false;
-    private GameObject playerGameObject = null;
+    private static GameObject playerGameObject = null;
 
 	// Use this for initialization
 	void Start () {
@@ -28,9 +30,18 @@ public class BasicEnemy : MonoBehaviour {
             FaceTowardsPlayer();
         }
         // Transform regardless to move torwards the player
-        //transform.Translate(new Vector2(walkSpeed, 0) * Time.deltaTime);
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(walkSpeed * transform.localScale.x, rb.velocity.y);
+        transform.Translate(new Vector2(walkSpeed, 0) * Time.deltaTime);
+        //Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        //rb.velocity = new Vector2(walkSpeed * transform.localScale.x, rb.velocity.y);
+        if(swordHealth <= 0)
+        {
+            Destroy(gameObject);
+            playerGameObject.SendMessage("AddKill");
+        }
+        if(clubHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void FaceTowardsPlayer()
@@ -59,12 +70,12 @@ public class BasicEnemy : MonoBehaviour {
 
     public void OnPlayerLeftAggroZone()
     {
-        isAggressive = false;
+        //isAggressive = false;
     }
 
     public void OnPlayerEnterAggroZone()
     {
-        isAggressive = true;
+        //isAggressive = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -80,7 +91,25 @@ public class BasicEnemy : MonoBehaviour {
         {
             OnDamage(1);
         }
+        if( other.tag == "Sword")
+        {
+            OnSwordDamage();
+        }
+        else if ( other.tag == "Club" )
+        {
+            OnClubDamage();
+        }
         //Debug.Log(other.gameObject.tag);
+    }
+
+    void OnSwordDamage()
+    {
+        swordHealth--;
+    }
+
+    void OnClubDamage()
+    {
+        clubHealth--;
     }
 
     void OnDamage(int damage) //, lethal

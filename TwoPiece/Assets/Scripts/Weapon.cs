@@ -1,0 +1,27 @@
+﻿using UnityEngine;
+using System.Collections;
+
+[RequireComponent(typeof(Controller2D))]
+public class Weapon : MonoBehaviour {
+
+    Controller2D controller;
+
+
+	// Use this for initialization
+	void Start () {
+        controller = GetComponent<Controller2D>();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            SwapWeapon();
+        }
+	}
+
+    void SwapWeapon()
+    {
+        gameObject.SendMessage("ToggleLethal");
+    }
+}
