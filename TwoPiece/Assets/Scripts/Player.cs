@@ -111,11 +111,11 @@ public class Player : MonoBehaviour
 
     public void Talk()
     {
-        if (currenttalkCooldown <= 0.0f)
-        {
-            currenttalkCooldown = talkCooldown;
+        //if (currenttalkCooldown <= 0.0f)
+        //{
+            //currenttalkCooldown = talkCooldown;
             dialogueCollider.SendMessageUpwards("NextDialogue");
-        }
+        //}
     }
 
     //--------------------------------------------------Trigger logic from here down----------------------------------------------------
@@ -132,9 +132,12 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.tag == "Dialogue")
         {
-            onDialogue = true;
-            dialogueCollider = other;
-            Talk();
+            if (!onDialogue)
+            {
+                onDialogue = true;
+                dialogueCollider = other;
+                Talk();
+            }
             //dPrompt.enabled = true;
             //gameObject.SendMessage("PromptSet", true);
         }
