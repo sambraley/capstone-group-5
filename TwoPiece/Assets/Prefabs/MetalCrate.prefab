@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000013702830944}
   - 212: {fileID: 212000010657579918}
   - 61: {fileID: 61000011366998660}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MetalCrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010890526456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.4390807, y: 9.325577, z: 0}
+  m_LocalPosition: {x: 8, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
