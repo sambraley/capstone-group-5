@@ -29,11 +29,11 @@ public class tileBackground : MonoBehaviour {
                         continue;
                     if (x % xOffset == 0 && y % yOffset == 0)
                     {
-                        tileCreated = Instantiate(listSpecialTiles[((y*yOffset)%(2*yOffset))/yOffset], new Vector3(transform.position.x + 2 * x, transform.position.y + 2 * y, 1), new Quaternion()) as GameObject;
+                        tileCreated = Instantiate(listSpecialTiles[((y*yOffset)%(2*yOffset))/yOffset], new Vector3(transform.position.x + 2 * x, transform.position.y + 2 * y, 10), new Quaternion()) as GameObject;
                     }
                     else
                     {
-                        tileCreated = Instantiate(tile, new Vector3(transform.position.x + x, transform.position.y + y, 1), new Quaternion()) as GameObject;
+                        tileCreated = Instantiate(tile, new Vector3(transform.position.x + x, transform.position.y + y, 10), new Quaternion()) as GameObject;
                     }
                     listTiles.Add(tileCreated);
                 }

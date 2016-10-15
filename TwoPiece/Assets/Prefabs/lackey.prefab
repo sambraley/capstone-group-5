@@ -39,6 +39,7 @@ GameObject:
   - 61: {fileID: 61000013783687150}
   - 114: {fileID: 114000010758769390}
   - 50: {fileID: 50000011140255584}
+  - 114: {fileID: 114000014228362686}
   m_Layer: 0
   m_Name: lackey
   m_TagString: Enemy
@@ -82,8 +83,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012352638542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.570192, y: 48.83, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
+  m_LocalPosition: {x: 6.37, y: 33.52, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012116517516}
@@ -111,11 +112,11 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012352638542}
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -131,9 +132,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 4.39, y: 0}
+  m_Offset: {x: 4.54, y: 0}
   serializedVersion: 2
-  m_Size: {x: 3.2, y: 10.06}
+  m_Size: {x: 0.4, y: 2}
 --- !u!61 &61000013783687150
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -145,9 +146,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -1.24, y: -0.2}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 3.79, y: 10.1}
+  m_Size: {x: 0.7, y: 2}
 --- !u!114 &114000010758769390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,12 +160,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf60b810da5f459458f68cbd1e489121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 33
+  health: 3
   clubHealth: 2
   swordHealth: 1
-  walkSpeed: 45
+  walkSpeed: 5
   chargeSpeed: 10
   chargeCurrentCooldown: 5
+--- !u!114 &114000014228362686
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012352638542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994f927e75725ba4aaf8b244dd56a541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drops:
+  - {fileID: 1000010411217970, guid: 618b9a80919b72f41bd632300dc8260c, type: 2}
+  - {fileID: 1000010535018380, guid: fd717b451e8a96a48abf32aebe61c7ae, type: 2}
 --- !u!212 &212000012733735342
 SpriteRenderer:
   m_ObjectHideFlags: 1
