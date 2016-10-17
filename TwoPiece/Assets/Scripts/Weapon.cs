@@ -12,6 +12,13 @@ public class Weapon : MonoBehaviour {
     private bool isLethal = false;
 
 
+    private float weaponCooldown = 0.0f;
+    public float WEAPON_COOLDOWN = 0.5f;
+
+    private float swapWeaponsCooldown = 0.0f;
+    public float SWAP_WEAPON_COOLDOWN = 0.5f;
+
+
 	// Use this for initialization
 	void Start () {
         player = GetComponent<Player>();
@@ -22,13 +29,17 @@ public class Weapon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKeyDown(KeyCode.C))
+        weaponCooldown -= Time.deltaTime;
+        swapWeaponsCooldown -= Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.C) && swapWeaponsCooldown <= 0.0f)
         {
             SwapWeapon();
+            swapWeaponsCooldown = SWAP_WEAPON_COOLDOWN;
         }
-        if(Input.GetKeyDown(KeyCode.Z))
+        if(Input.GetKeyDown(KeyCode.Z) && weaponCooldown <= 0.0f)
         {
             SwingWeapon();
+            weaponCooldown = WEAPON_COOLDOWN;
         }
 	}
 
