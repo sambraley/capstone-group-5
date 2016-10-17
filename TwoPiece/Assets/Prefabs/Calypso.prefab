@@ -27,22 +27,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000010265630606
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000013759323718}
-  - 61: {fileID: 61000010662863772}
-  m_Layer: 0
-  m_Name: MeleeCollider
-  m_TagString: Club
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000010551102320
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,6 +44,7 @@ GameObject:
   - 114: {fileID: 114000010484263830}
   - 114: {fileID: 114000013282369854}
   - 114: {fileID: 114000010873356618}
+  - 114: {fileID: 114000012302921182}
   m_Layer: 0
   m_Name: Calypso
   m_TagString: Player
@@ -130,7 +115,6 @@ Transform:
   m_Children:
   - {fileID: 4000012633402380}
   - {fileID: 4000011891090886}
-  - {fileID: 4000013759323718}
   - {fileID: 4000014265677312}
   - {fileID: 4000013048837438}
   m_Father: {fileID: 0}
@@ -173,20 +157,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011203450772}
-  m_RootOrder: 4
---- !u!4 &4000013759323718
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010265630606}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 4000011203450772}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &4000014265677312
 Transform:
   m_ObjectHideFlags: 1
@@ -199,7 +170,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011203450772}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!20 &20000012493430908
 Camera:
   m_ObjectHideFlags: 1
@@ -251,20 +222,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &61000010662863772
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010265630606}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 1, y: 0.5}
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 3}
 --- !u!61 &61000013338652982
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -581,6 +538,21 @@ MonoBehaviour:
   coinCount: {fileID: 0}
   enemiesKilled: {fileID: 0}
   key: {fileID: 0}
+--- !u!114 &114000012302921182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010551102320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e667c926639c79c4086939fa10cbb307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSize: 0
+  enemyHitboxMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &114000013193522082
 MonoBehaviour:
   m_ObjectHideFlags: 1
