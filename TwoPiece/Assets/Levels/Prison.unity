@@ -720,134 +720,66 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: bandanas.Array.data[0]
       value: 
       objectReference: {fileID: 959693918}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: bandanas.Array.data[1]
       value: 
       objectReference: {fileID: 1917711047}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: bandanas.Array.data[2]
       value: 
       objectReference: {fileID: 1121358411}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: skulls.Array.data[0]
       value: 
       objectReference: {fileID: 382855201}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: skulls.Array.data[1]
       value: 
       objectReference: {fileID: 278623695}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: skulls.Array.data[2]
       value: 
       objectReference: {fileID: 259517335}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: nonLethal
       value: 
       objectReference: {fileID: 72373124}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: lethal
       value: 
       objectReference: {fileID: 617485225}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: coin
       value: 
       objectReference: {fileID: 378616924}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: coinCount
       value: 
       objectReference: {fileID: 161760967}
-    - target: {fileID: 114000013174213324, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: m_JumpForce
-      value: 820
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011203450772, guid: b93349e27dd223648a379138c53173cc, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011203450772, guid: b93349e27dd223648a379138c53173cc, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: enemiesKilled
       value: 
       objectReference: {fileID: 1365685109}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: key
       value: 
       objectReference: {fileID: 1499671521}
-    - target: {fileID: 114000013174213324, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: dPrompt
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011455301934, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: promptBackground
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 20000012493430908, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: m_BackGroundColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20000012493430908, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: m_BackGroundColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20000012493430908, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: m_BackGroundColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013174213324, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: swing
-      value: 
-      objectReference: {fileID: 8300000, guid: efd950668bc924410b169f8ff33d0c1e, type: 3}
-    - target: {fileID: 114000013174213324, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: switchToClub
-      value: 
-      objectReference: {fileID: 8300000, guid: 63c883961c46d4985bc03c984bc64c2e, type: 3}
-    - target: {fileID: 114000013174213324, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: switchToSword
-      value: 
-      objectReference: {fileID: 8300000, guid: 0c778d41b85394198b44c6af2030a631, type: 3}
-    - target: {fileID: 61000013338652982, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013282369854, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: coin
-      value: 
-      objectReference: {fileID: 8300000, guid: 00897b7a74af44daaa86f32f30f7ccfb, type: 3}
-    - target: {fileID: 114000010484263830, guid: b93349e27dd223648a379138c53173cc,
-        type: 2}
-      propertyPath: DASH_COOLDOWN_TIME
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b93349e27dd223648a379138c53173cc, type: 2}
   m_IsPrefabParent: 0
@@ -13697,11 +13629,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4000014188177736, guid: 2f32407b3deb743469ffa3d5a9b1ca8a,
     type: 2}
   m_PrefabInternal: {fileID: 285635325}
---- !u!4 &749050064 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000011203450772, guid: b93349e27dd223648a379138c53173cc,
-    type: 2}
-  m_PrefabInternal: {fileID: 43214317}
 --- !u!4 &749403934 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000014188177736, guid: 2f32407b3deb743469ffa3d5a9b1ca8a,
@@ -21874,139 +21801,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4000014188177736, guid: 2f32407b3deb743469ffa3d5a9b1ca8a,
     type: 2}
   m_PrefabInternal: {fileID: 1783446769}
---- !u!1 &1204004498
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1204004499}
-  - 82: {fileID: 1204004500}
-  m_Layer: 0
-  m_Name: Music
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1204004499
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1204004498}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 749050064}
-  m_RootOrder: 3
---- !u!82 &1204004500
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1204004498}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c0839c266d6064887b3eb7aab9c2be4c, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  Priority: 74
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
---- !u!1 &1206534527 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000010551102320, guid: b93349e27dd223648a379138c53173cc,
-    type: 2}
-  m_PrefabInternal: {fileID: 43214317}
---- !u!114 &1206534536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1206534527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 018c0dc9f24eb134e9ee543a41974c8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bandanas:
-  - {fileID: 959693918}
-  - {fileID: 1917711047}
-  - {fileID: 1121358411}
-  skulls:
-  - {fileID: 382855201}
-  - {fileID: 278623695}
-  - {fileID: 259517335}
-  nonLethal: {fileID: 72373124}
-  lethal: {fileID: 617485225}
-  coin: {fileID: 378616924}
-  coinCount: {fileID: 161760967}
-  enemiesKilled: {fileID: 1365685109}
-  key: {fileID: 1499671521}
 --- !u!1 &1206758196
 GameObject:
   m_ObjectHideFlags: 0
@@ -30782,6 +30576,24 @@ Prefab:
     - target: {fileID: 1000011573920236, guid: 46a93281a55f5ef4b82584194727e25d, type: 2}
       propertyPath: m_Name
       value: start sign
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010404563352, guid: 46a93281a55f5ef4b82584194727e25d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010404563352, guid: 46a93281a55f5ef4b82584194727e25d, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61000014101770788, guid: 46a93281a55f5ef4b82584194727e25d,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61000014101770788, guid: 46a93281a55f5ef4b82584194727e25d,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46a93281a55f5ef4b82584194727e25d, type: 2}

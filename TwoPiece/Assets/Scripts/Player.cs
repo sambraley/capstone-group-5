@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.tag);
+        //Debug.Log(other.tag);
         if (other.gameObject.tag == "Ladder")
         {
             onLadder = true;
