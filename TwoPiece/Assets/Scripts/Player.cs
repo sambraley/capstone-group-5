@@ -212,4 +212,10 @@ public class Player : MonoBehaviour
             //gameObject.SendMessage("PromptSet", false);
         }
     }
+
+    public float GetLastDirection()
+    {
+        return lastDirection;
+    }
+
 }
