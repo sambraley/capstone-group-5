@@ -29,6 +29,7 @@ TagManager:
   - Bandana
   - Sword
   - ladder
+  - OneWayDoor
   layers:
   - Default
   - TransparentFX

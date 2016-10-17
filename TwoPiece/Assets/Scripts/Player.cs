@@ -179,6 +179,10 @@ public class Player : MonoBehaviour
                     gameObject.SendMessage("ToggleKey");
             }
         }
+        else if (other.gameObject.tag == "OneWayDoor")
+        {
+            other.gameObject.SendMessageUpwards("Close");
+        }
         else if (other.gameObject.tag == "EnemyWeapon" && damageTakenCooldown <= 0.0f)
         {
             Debug.Log(health);
