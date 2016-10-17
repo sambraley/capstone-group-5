@@ -174,13 +174,14 @@ public class Player : MonoBehaviour
             if (keys > 0)
             {
                 --keys;
-                other.gameObject.SendMessage("OpenDoor");
+                other.gameObject.SendMessageUpwards("OpenDoor");
                 if (keys == 0)
                     gameObject.SendMessage("ToggleKey");
             }
         }
         else if (other.gameObject.tag == "EnemyWeapon" && damageTakenCooldown <= 0.0f)
         {
+            Debug.Log(health);
             health--;
             SendMessage("RemoveBandana");
             damageTakenCooldown = 0.5f;

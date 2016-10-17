@@ -22,6 +22,10 @@ public class Door : MonoBehaviour {
             box.enabled = false;
             Debug.Log(box.ToString());
         }
+        foreach (Transform child in transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
         GetComponent<SpriteRenderer>().sprite = open; //switch sprite
         GetComponent<AudioSource>().Play();
     }
