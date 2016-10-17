@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     public float currenttalkCooldown = 0.0f;
     bool onLadder = false;
     bool onDialogue = false;
-    public bool hasSword = false;
     Collider2D dialogueCollider;
     Text dPrompt;
     public int coins = 0;
@@ -192,7 +191,7 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.tag == "Sword")
         {
-            hasSword = true;
+            GetComponent<Weapon>().GiveSword();
             Destroy(other.gameObject);
         }
     }

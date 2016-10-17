@@ -18,6 +18,8 @@ public class Weapon : MonoBehaviour {
     private float swapWeaponsCooldown = 0.0f;
     public float SWAP_WEAPON_COOLDOWN = 0.5f;
 
+    private bool hasSword = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -31,11 +33,13 @@ public class Weapon : MonoBehaviour {
 	void Update () {
         weaponCooldown -= Time.deltaTime;
         swapWeaponsCooldown -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.C) && swapWeaponsCooldown <= 0.0f)
+        // Swap Weapon
+        if (hasSword && Input.GetKeyDown(KeyCode.C) && swapWeaponsCooldown <= 0.0f)
         {
             SwapWeapon();
             swapWeaponsCooldown = SWAP_WEAPON_COOLDOWN;
         }
+        // Swing Weapon
         if(Input.GetKeyDown(KeyCode.Z) && weaponCooldown <= 0.0f)
         {
             SwingWeapon();
@@ -74,6 +78,11 @@ public class Weapon : MonoBehaviour {
         float centerY = playerCollider.bounds.center.y;
         raycastOrigins.left = new Vector2(playerCollider.bounds.min.x, centerY);
         raycastOrigins.right = new Vector2(playerCollider.bounds.max.x, centerY);
+    }
+
+    public void GiveSword()
+    {
+        hasSword = true;
     }
 
     struct RaycastOrigins
