@@ -171,6 +171,7 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.tag == "Door")
         {
+            gameObject.layer = 12;
             if (keys > 0)
             {
                 --keys;

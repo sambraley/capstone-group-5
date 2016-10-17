@@ -16,8 +16,7 @@ public class PlayerBullet : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("Bullet trigger");
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "CrouchCollider" && other.gameObject.tag != "PlayerBullet" && other.gameObject.tag != "ladder" && other.gameObject.tag != "AggroZone"
-            && other.gameObject.tag != "MeleeCone" && other.gameObject.tag != "VisionCone")
+        if (other.gameObject.tag == "Player")
         {
             Debug.Log("Bullet trigger " + other.tag);
             Debug.Log("Bullet collison info " + other.ToString());
