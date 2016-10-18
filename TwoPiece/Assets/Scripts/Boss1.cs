@@ -3,13 +3,19 @@ using System.Collections;
 
 public class Boss1 : MonoBehaviour
 {
-    [SerializeField] private GameObject m_bullet;                  // A mask determining what is ground to the character
+    [SerializeField] private GameObject m_bullet;
+    [SerializeField] private float leftBound;
+    [SerializeField] private float rightBound;
+
     private int health = 3;
     private float walkSpeed = 6f;
     private bool fightStarted = false;
     private static GameObject playerGameObject = null;
     int lastDir = 0;
-    int count = 0;
+    int count = 40;
+    bool jumping = false;
+    float[] jumpHeight = { 82.5f, 101.5f };
+    bool wasSpooked = false;
 
     // Use this for initialization
     void Start()
@@ -26,36 +32,60 @@ public class Boss1 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Vector2 playerPos = playerGameObject.transform.position;
+        Vector2 bossPos = gameObject.transform.position;
+        if (jumping)
+        {
+            wasSpooked = false;
+            if (bossPos.y < jumpHeight[(3 - health) - 1])
+            {
+                transform.Translate(new Vector2(0, walkSpeed) * Time.deltaTime);
+            }
+            else
+            {
+                jumping = false;
+                wasSpooked = false;
+            }
+        }
         if (fightStarted && health > 0)
         {
-            Vector2 playerPos = playerGameObject.transform.position;
-            Vector2 bossPos = gameObject.transform.position;
-            bool isSpooked = Mathf.Abs(Mathf.Abs(playerPos.y) - Mathf.Abs(bossPos.y)) < .9;
-            bool closeEnough = Mathf.Abs(Mathf.Abs(playerPos.x) - Mathf.Abs(bossPos.x)) < .4;
+            bool isSpooked = Mathf.Abs(Mathf.Abs(playerPos.y) - Mathf.Abs(bossPos.y)) < .6;
+            bool closeEnough = Mathf.Abs(Mathf.Abs(playerPos.x) - Mathf.Abs(bossPos.x)) < .2;
             int direction = (bossPos.x > playerPos.x ? -1 : 1);
 
-                if (isSpooked)
+            if (isSpooked || wasSpooked)
+            {
+                if(!wasSpooked)
+                    wasSpooked = true;
+                Debug.Log(bossPos.x);
+                if (bossPos.x < rightBound)
                 {
-                    Debug.Log(bossPos.x);
-                    if (bossPos.x < 22)
-                    {
-                        transform.Translate(new Vector2(walkSpeed, 0) * Time.deltaTime);
-                        //transform.Translate(new Vector2(walkSpeed * -direction * lastDir, 0) * Time.deltaTime);
-                        //FaceDirection(direction);
-                    }
-                    count--;
+                    FaceDirection(-1);
+                    transform.Translate(new Vector2(walkSpeed * lastDir, 0) * Time.deltaTime);
+                    //transform.Translate(new Vector2(walkSpeed * -direction * lastDir, 0) * Time.deltaTime);
+                    //FaceDirection(direction);
+                }
+                count--;
             }
-                else
+            else
+            {
+                if (!closeEnough)
                 {
-                    if (!closeEnough)
+                    if (bossPos.x > leftBound)
                     {
-                        if (bossPos.x > 12.5)
+                        transform.Translate(new Vector2(walkSpeed * direction * lastDir, 0) * Time.deltaTime);
+                        FaceDirection(direction * -1);
+                    }
+                    else
+                    {
+                        if(bossPos.x < playerPos.x)
                         {
-                            transform.Translate(new Vector2(walkSpeed * direction * lastDir, 0) * Time.deltaTime);
-                            FaceDirection(direction * -1);
+                            transform.Translate(new Vector2(walkSpeed, 0) * Time.deltaTime);
+                            FaceDirection(1);
                         }
                     }
                 }
+            }
             count++;
             if (count > 60)
             {
@@ -69,10 +99,10 @@ public class Boss1 : MonoBehaviour
                 Temporary_RigidBody = Temporary_Bullet_Handler.GetComponent<Rigidbody2D>();
 
                 //Tell the bullet to be "pushed" forward by an amount set by Bullet_Forward_Force.R
-                Temporary_RigidBody.velocity = new Vector2(0f, -3f);
+                Temporary_RigidBody.velocity = new Vector2(0f, -4f);
 
                 //Basic Clean Up, set the Bullets to self destruct after 10 Seconds, I am being VERY generous here, normally 3 seconds is plenty.
-                Destroy(Temporary_Bullet_Handler, 3.0f);
+                Destroy(Temporary_Bullet_Handler, 7.0f);
                 count = 0;
             }
         }
@@ -122,7 +152,7 @@ public class Boss1 : MonoBehaviour
         //Debug.Log(other.gameObject.tag);
     }
 
-    void OnDamage(int damage) //, lethal
+    void Damage(int damage) //, lethal
     {
         Debug.Log("ouch.");
         health -= damage;
@@ -133,6 +163,8 @@ public class Boss1 : MonoBehaviour
         }
         else
         {
+            jumping = true;
+            count = 0;
             //do damage animation
         }
     }
