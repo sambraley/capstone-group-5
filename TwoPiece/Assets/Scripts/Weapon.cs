@@ -34,13 +34,13 @@ public class Weapon : MonoBehaviour {
         weaponCooldown -= Time.deltaTime;
         swapWeaponsCooldown -= Time.deltaTime;
         // Swap Weapon
-        if (hasSword && Input.GetKeyDown(KeyCode.C) && swapWeaponsCooldown <= 0.0f)
+        if (hasSword && ( Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Comma) ) && swapWeaponsCooldown <= 0.0f)
         {
             SwapWeapon();
             swapWeaponsCooldown = SWAP_WEAPON_COOLDOWN;
         }
         // Swing Weapon
-        if(Input.GetKeyDown(KeyCode.Z) && weaponCooldown <= 0.0f)
+        if( (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Slash)) && weaponCooldown <= 0.0f)
         {
             SwingWeapon();
             weaponCooldown = WEAPON_COOLDOWN;
@@ -63,6 +63,10 @@ public class Weapon : MonoBehaviour {
             if (hit)
             {
                 hit.collider.SendMessageUpwards("DamageTaken", isLethal);
+                if(hit.collider.CompareTag("Enemy"))
+                {
+                    break;
+                }
             }
         }
     }

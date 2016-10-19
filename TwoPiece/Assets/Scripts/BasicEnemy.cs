@@ -5,8 +5,6 @@ using System.Collections;
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class BasicEnemy : MonoBehaviour {
-    public int clubHealth = 2;
-    public int swordHealth = 1;
     public float walkSpeed = 1.0f;
     public float meleeRange = 1.0f;
 
@@ -147,16 +145,6 @@ public class BasicEnemy : MonoBehaviour {
     void FlipSprite()
     {
         sprite.flipX = !sprite.flipX;
-    }
-
-    void OnSwordDamage()
-    {
-        swordHealth--;
-    }
-
-    void OnClubDamage()
-    {
-        clubHealth--;
     }
 
     void UpdateRaycastOrigins()
