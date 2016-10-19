@@ -222,4 +222,11 @@ public class Player : MonoBehaviour
         return lastDirection;
     }
 
+    private void DamageTaken()
+    {
+        health--;
+        SendMessage("RemoveBandana");
+        damageTakenCooldown = 0.5f;
+    }
+
 }

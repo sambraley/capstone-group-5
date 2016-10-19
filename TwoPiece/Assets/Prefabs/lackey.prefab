@@ -24,7 +24,7 @@ GameObject:
   - 114: {fileID: 114000010758769390}
   - 114: {fileID: 114000014228362686}
   - 114: {fileID: 114000010404235642}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: lackey
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 768
   skinWidth: 0.015
   horizontalRayCount: 4
   verticalRayCount: 4
@@ -86,16 +86,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf60b810da5f459458f68cbd1e489121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
   clubHealth: 2
   swordHealth: 1
   walkSpeed: 5
-  chargeSpeed: 10
-  chargeCurrentCooldown: 5
+  meleeRange: 1
   direction: {x: 1, y: 0}
   collisionMask:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 768
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &114000014228362686
 MonoBehaviour:
   m_ObjectHideFlags: 1
