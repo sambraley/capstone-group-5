@@ -38,6 +38,7 @@ public class Weapon : MonoBehaviour {
         {
             SwapWeapon();
             swapWeaponsCooldown = SWAP_WEAPON_COOLDOWN;
+            
         }
         // Swing Weapon
         if( (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Slash)) && weaponCooldown <= 0.0f)
@@ -49,6 +50,7 @@ public class Weapon : MonoBehaviour {
 
     void SwingWeapon()
     {
+        player.SendMessageUpwards("PlaySwing");
         UpdateRaycastOrigins();
         int numHorizontalTraces = 4;
         // Bounds.extents/2 as we're only hitting the top half of her hitbox
@@ -74,7 +76,12 @@ public class Weapon : MonoBehaviour {
     void SwapWeapon()
     {
         gameObject.SendMessage("ToggleLethal");
+        
         isLethal = !isLethal;
+        if(isLethal)
+            player.SendMessageUpwards("PlaySwitchToSword");
+        else
+            player.SendMessageUpwards("PlaySwitchToClub");
     }
 
     void UpdateRaycastOrigins()
