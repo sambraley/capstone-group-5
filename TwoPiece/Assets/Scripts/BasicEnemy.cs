@@ -1,105 +1,80 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Controller2D))]
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class BasicEnemy : MonoBehaviour {
-    public int health = 3;
     public int clubHealth = 2;
     public int swordHealth = 1;
-    public float walkSpeed = 11f;
-    public float chargeSpeed = 10.0f;
-    public const float CHARGE_COOLDOWN = 5.0f;
-    public float chargeCurrentCooldown = 0.0f;
-    private bool isAggressive = false;
-    private static GameObject playerGameObject = null;
+    public float walkSpeed = 1.0f;
+
+    private Controller2D controller;
+    private BoxCollider2D collider;
+    SpriteRenderer sprite;
+    private EnemyState state = EnemyState.Patrolling;
+    public Vector2 direction = Vector2.right;
+    public LayerMask collisionMask;
+
+    enum EnemyState {
+        Patrolling
+    }
 
 	// Use this for initialization
 	void Start () {
-        if (playerGameObject == null)
-            playerGameObject = GameObject.FindGameObjectsWithTag("Player")[0];
+        controller = GetComponent<Controller2D>();
+        collider = GetComponent<BoxCollider2D>();
+        sprite = GetComponent<SpriteRenderer>();
 	}
 
     void Awake()
     {
 
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-        if (isAggressive)
+
+    void Update()
+    {
+        if(EnemyState.Patrolling == state)
         {
-            FaceTowardsPlayer();
-        }
-        // Transform regardless to move torwards the player
-        transform.Translate(new Vector2(walkSpeed, 0) * Time.deltaTime);
-        //Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        //rb.velocity = new Vector2(walkSpeed * transform.localScale.x, rb.velocity.y);
-        if(swordHealth <= 0)
-        {
-            Destroy(gameObject);
-            playerGameObject.SendMessage("AddKill");
-        }
-        if(clubHealth <= 0)
-        {
-            Destroy(gameObject);
+            CheckForCollisions();
+            controller.Move(direction * walkSpeed * Time.deltaTime);
         }
     }
 
-    void FaceTowardsPlayer()
+    void CheckForCollisions()
     {
-
-        bool isFacingLeft = (transform.localScale.x < 0);
-        float differenceInPosition = transform.position.x - playerGameObject.transform.position.x;
-        if (differenceInPosition > 0 && !isFacingLeft)
-            Flip();
-        else if (differenceInPosition < 0 && isFacingLeft)
-            Flip();
-    }
-
-    void Flip()
-    {
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
-    }
-
-    void OnAggroZoneExit()
-    {
-        // Flipping scale flips which way the enemy is moving along with their sprite
-        Flip();
-    }
-
-    public void OnPlayerLeftAggroZone()
-    {
-        //isAggressive = false;
-    }
-
-    public void OnPlayerEnterAggroZone()
-    {
-        //isAggressive = true;
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.tag == "Player" && isAggressive && chargeCurrentCooldown <= 0.0f)
+        if( CheckFrontCollisions() || !CheckGroundCollisions() )
         {
-            Debug.Log("Greetixngs");
-            walkSpeed = chargeSpeed;
-            chargeCurrentCooldown = CHARGE_COOLDOWN;
+            ChangeDirections();
         }
+    }
 
-        if (other.tag == "PlayerBullet")
-        {
-            OnDamage(1);
-        }
-        if( other.tag == "Sword")
-        {
-            OnSwordDamage();
-        }
-        else if ( other.tag == "Club" )
-        {
-            OnClubDamage();
-        }
-        //Debug.Log(other.gameObject.tag);
+    void ChangeDirections()
+    {
+        direction = direction * -1;
+        FlipSprite();
+    }
+
+    bool CheckFrontCollisions()
+    {
+        const float distanceToTurnAroundAt = 0.5f;
+        Vector2 rayOrigin = (direction == Vector2.right) ? new Vector2(collider.bounds.max.x, collider.bounds.center.y) : new Vector2(collider.bounds.min.x, collider.bounds.center.y);
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, direction, distanceToTurnAroundAt, collisionMask);
+        return hit;
+    }
+
+    bool CheckGroundCollisions()
+    {
+        const float distanceInFrontOfEnemy = 0.1f;
+        Vector2 rayOrigin = (direction == Vector2.right) ? new Vector2(collider.bounds.max.x, collider.bounds.min.y) : new Vector2(collider.bounds.min.x, collider.bounds.min.y);
+        rayOrigin += direction * distanceInFrontOfEnemy;
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, 0.1f, collisionMask);
+        return hit;
+    }
+
+    void FlipSprite()
+    {
+        sprite.flipX = !sprite.flipX;
     }
 
     void OnSwordDamage()
@@ -112,18 +87,4 @@ public class BasicEnemy : MonoBehaviour {
         clubHealth--;
     }
 
-    void OnDamage(int damage) //, lethal
-    {
-        Debug.Log("Yarrr I've been hit.");
-        health -= damage;
-        if (health <= 0)
-        {
-            Destroy(gameObject);//die
-            //set to dead sprite
-        }
-        else
-        {
-            //do damage animation
-        }
-    }
 }
