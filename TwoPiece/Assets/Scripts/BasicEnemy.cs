@@ -10,7 +10,7 @@ public class BasicEnemy : MonoBehaviour {
     public float walkSpeed = 1.0f;
     public float meleeRange = 1.0f;
 
-    public float timeToSwing = 1.0f;
+    public float timeToSwing = 0.5f;
     public float weaponSwingCooldown = 1.0f;
     // currentWeaponCooldown will be set to timeToSwing + weaponSwingCooldown
     private float currentWeaponCooldown = 0.0f;

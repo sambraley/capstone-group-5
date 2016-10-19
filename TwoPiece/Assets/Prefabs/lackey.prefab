@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012352638542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.04, y: 25.5, z: 0}
+  m_LocalPosition: {x: 6.37, y: 36.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -90,10 +90,12 @@ MonoBehaviour:
   swordHealth: 1
   walkSpeed: 5
   meleeRange: 1
+  timeToSwing: 0.5
+  weaponSwingCooldown: 1
   direction: {x: 1, y: 0}
   collisionMask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256
   playerMask:
     serializedVersion: 2
     m_Bits: 512
