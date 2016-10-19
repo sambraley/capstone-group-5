@@ -25,6 +25,8 @@ namespace UnityStandardAssets._2D
         [SerializeField]
         private Text enemiesKilled;
         [SerializeField]
+        private Text resolution;
+        [SerializeField]
         private Image key;
 //        [SerializeField]
 //        private Image promptBackground;
@@ -72,7 +74,8 @@ namespace UnityStandardAssets._2D
                     skulls[skullCount].enabled = false;
                 ++skullCount;
                 skulls[skullCount].enabled = true;
-                enemiesKilled.text = "You wretch! You have the blood of your enemies on your hands.";   
+                enemiesKilled.text = "You slay the warden in cold blood for daring to imprison you.";
+                resolution.text = "You search around the island a find a boat that'll take you to your old crew's hideout"; 
             }
         }
 
