@@ -1789,12 +1789,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf60b810da5f459458f68cbd1e489121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
-  clubHealth: 2
-  swordHealth: 1
   walkSpeed: 5
-  chargeSpeed: 10
-  chargeCurrentCooldown: 0
+  meleeRange: 1
+  timeToSwing: 0.5
+  weaponSwingCooldown: 1
+  direction: {x: 1, y: 0}
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &995608055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,7 +2323,7 @@ Animator:
   m_GameObject: {fileID: 1154513590}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9a3136bd15fc40d4095cf62dfb112cf6, type: 2}
+  m_Controller: {fileID: 9100000, guid: a4e9a46bedd68e44baa01712e3936bb7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3456,12 +3461,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf60b810da5f459458f68cbd1e489121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
-  clubHealth: 2
-  swordHealth: 1
   walkSpeed: 5
-  chargeSpeed: 10
-  chargeCurrentCooldown: 0
+  meleeRange: 1
+  timeToSwing: 0.5
+  weaponSwingCooldown: 1
+  direction: {x: 1, y: 0}
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!212 &1689841238
 SpriteRenderer:
   m_ObjectHideFlags: 0
