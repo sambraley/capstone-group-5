@@ -28,6 +28,10 @@ public class Player : MonoBehaviour
     public float moveSpeed = 6;
     public float dashSpeed = 28;
     public float ladderSpeed = 6;
+
+    private float dashDirection = 0.0f;
+    public float dashTimer = 0.0f;
+    public float dashDuration = 0.2f;
     private float dashCooldown = 0.0f;
     public float DASH_COOLDOWN_TIME = 1.0f;
     float lastDirection = 1.0f;
@@ -85,10 +89,16 @@ public class Player : MonoBehaviour
 
 
         float targetVelocityX = input.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+        //velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+        velocity.x = targetVelocityX;
         bool shouldDash = ( (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Period) || Input.GetKeyDown(KeyCode.LeftShift)) && dashCooldown <= 0.0f );
-        // if true, velocity.x will be replaced 
+        // if true, velocity.x will be replaced
         if (shouldDash)
+        {
+            dashTimer = dashDuration;
+            dashDirection = lastDirection;
+        }
+        if (dashTimer > 0.0f)
             Dash(ref velocity.x);
         if (onLadder)
             velocity.y = input.y * ladderSpeed;
@@ -105,13 +115,14 @@ public class Player : MonoBehaviour
     // Overrides the current X velocity with our dash velocity in the last moved in direction
     void Dash( ref float velocityX )
     {
-        velocityX = lastDirection * dashSpeed;
+        velocityX = dashDirection * dashSpeed;
         dashCooldown = DASH_COOLDOWN_TIME;
     }
 
     void UpdateCooldowns()
     {
         dashCooldown -= Time.deltaTime;
+        dashTimer -= Time.deltaTime;
     }
 
     public void Talk()
