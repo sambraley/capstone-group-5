@@ -15,7 +15,8 @@ public class DialogueBox : MonoBehaviour {
             stuff.enabled = false;
         }
         curDialogue = 0;
-        background.enabled = false;
+        if(background != null)
+            background.enabled = false;
 	}
 	
 	// Update is called once per frame

@@ -69,15 +69,28 @@ namespace UnityStandardAssets._2D
 
         void AddKill()
         {
+            m_Character.EnemiesKilled++;
             if (skullCount < 2 && skullCount >= -1)
             {
-                if(skullCount >= 0)
+                if (skullCount >= 0)
                     skulls[skullCount].enabled = false;
                 ++skullCount;
                 skulls[skullCount].enabled = true;
-                enemiesKilled.text = "You slay the warden in cold blood for daring to imprison you.";
-                resolution.text = "You search around the island a find a boat that'll take you to your old crew's hideout"; 
+                SetTextKiller();
             }
+        }
+        void CheckKills()
+        {
+            Debug.Log("you have killed: " + skullCount + 1);
+            if(skullCount > -1)
+            {
+                SetTextKiller();
+            }
+        }
+        void SetTextKiller()
+        {
+            enemiesKilled.text = "You slay the warden in cold blood for daring to imprison you.";
+            resolution.text = "You search around the island a find a boat that'll take you to your old crew's hideout";
         }
 
         void RemoveBandana()

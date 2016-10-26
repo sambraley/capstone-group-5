@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public int health = 3;
     public int maxHealth = 3;
     public int keys = 0;
+    public int EnemiesKilled = 0;
     public float damageTakenCooldown;
     public DontDestoryCanvas toSave;
 
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+
         controller = GetComponent<Controller2D>();
         playerSprite = GetComponent<SpriteRenderer>();
         sounds = GetComponent<PlayerSounds>();
@@ -254,6 +256,7 @@ public class Player : MonoBehaviour
         }
         SceneManager.LoadScene(checkpoint);
         gameObject.transform.position = new Vector2(5,57.5f);
+        Debug.Log("Num enemies Killed: " + EnemiesKilled);
     }
 
     public void setCheckpoint(string name)
