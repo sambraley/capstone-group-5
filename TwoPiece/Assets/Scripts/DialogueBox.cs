@@ -31,7 +31,8 @@ public class DialogueBox : MonoBehaviour {
             stuff.enabled = false;
         }
         curDialogue = 0;
-        background.enabled = false;
+        if(background != null)
+            background.enabled = false;
     }
 
     void NextDialogue()
@@ -39,7 +40,8 @@ public class DialogueBox : MonoBehaviour {
         if (curDialogue == 0)
         {
             dialogue[curDialogue].enabled = true;
-            background.enabled = true;
+            if(background != null)
+                background.enabled = true;
             ++curDialogue;
         }
         else
