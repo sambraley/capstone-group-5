@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Controller2D))]
 [RequireComponent(typeof(PlayerSounds))]
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
     public int maxHealth = 3;
     public int keys = 0;
     public float damageTakenCooldown;
+    public DontDestoryCanvas toSave;
 
     public float jumpHeight = 4;
     public float timeToJumpApex = .4f;
@@ -38,6 +40,9 @@ public class Player : MonoBehaviour
     Controller2D controller;
     PlayerSounds sounds;
     SpriteRenderer playerSprite;
+
+    private string checkpoint = "Prison";
+    private bool hitCheckpoint = false;
 
     void Start()
     {
@@ -182,18 +187,20 @@ public class Player : MonoBehaviour
         else if (other.gameObject.tag == "OneWayDoor")
         {
             other.gameObject.SendMessageUpwards("Close");
+            setCheckpoint("PrisonBoss");
         }
         else if (other.gameObject.tag == "EnemyWeapon" && damageTakenCooldown <= 0.0f)
         {
-            Debug.Log(health);
-            health--;
-            SendMessage("RemoveBandana");
-            damageTakenCooldown = 0.5f;
+            DamageTaken();
         }
         else if (other.gameObject.tag == "Sword")
         {
             GetComponent<Weapon>().GiveSword();
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "PlayerBullet")
+        {
+            DamageTaken();
         }
     }
     void OnTriggerExit2D(Collider2D other)
@@ -225,8 +232,35 @@ public class Player : MonoBehaviour
     private void DamageTaken()
     {
         health--;
-        SendMessage("RemoveBandana");
-        damageTakenCooldown = 0.5f;
+        if (health == 0)
+            respawn();
+        else
+        {
+            SendMessage("RemoveBandana");
+            damageTakenCooldown = 0.5f;
+        }
+    }
+
+    private void respawn()
+    {
+        if (hitCheckpoint)
+        {
+            DontDestroyOnLoad(gameObject);
+
+            health = maxHealth;
+            for(int i = 0; i < health; i++)
+                gameObject.SendMessage("AddBandana");
+            toSave.save();
+        }
+        SceneManager.LoadScene(checkpoint);
+        gameObject.transform.position = new Vector2(5,57.5f);
+    }
+
+    public void setCheckpoint(string name)
+    {
+        checkpoint = name;
+        hitCheckpoint = true;
+        gameObject.SendMessage("Persist");
     }
 
 }

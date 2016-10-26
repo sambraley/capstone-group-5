@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
 namespace UnityStandardAssets._2D
 {
-    [RequireComponent(typeof(Player2D))]
+    [RequireComponent(typeof(Player))]
     public class PlayerUI : MonoBehaviour
     {
         [SerializeField]
@@ -124,6 +125,10 @@ namespace UnityStandardAssets._2D
         void ToggleKey()
         {
             key.enabled = !key.enabled;
+        }
+        void Persist()
+        {
+            DontDestroyOnLoad(gameObject);
         }
     }
 }
