@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour {
     Player player;
     BoxCollider2D playerCollider;
     RaycastOrigins raycastOrigins;
-    public float weaponSize = 0.0f;
+    private float weaponSize = 1.0f;
     public LayerMask enemyHitboxMask;
     private bool isLethal = false;
 
@@ -26,7 +26,6 @@ public class Weapon : MonoBehaviour {
         player = GetComponent<Player>();
         playerCollider = GetComponent<BoxCollider2D>();
         UpdateRaycastOrigins();
-        weaponSize = playerCollider.size.x / 2;
 	}
 	
 	// Update is called once per frame
@@ -61,7 +60,7 @@ public class Weapon : MonoBehaviour {
             rayOrigin += Vector2.up * yOffsetPerTrace * i;
             Vector2 rayDirection = (player.GetLastDirection() > 0.0f) ? Vector2.right : Vector2.left;
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, weaponSize, enemyHitboxMask);
-            Debug.DrawRay(rayOrigin, rayDirection, Color.red);
+            Debug.DrawRay(rayOrigin, rayDirection, Color.yellow);
             if (hit)
             {
                 hit.collider.SendMessageUpwards("DamageTaken", isLethal);
