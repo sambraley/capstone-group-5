@@ -173,8 +173,19 @@ public class Player : MonoBehaviour
         {
             Destroy(other.gameObject);
             ++coins;
+            if ((coins == 10 && maxHealth == 3) || (coins == 20 && (maxHealth == 4 || maxHealth == 5)))
+            {
+                coins = 0;
+                ++maxHealth;
+                health = maxHealth;
+                gameObject.SendMessage("MaxBandana");
+                sounds.PlayOneUp();
+            }
+            else
+            {
+                sounds.PlayCoinPickup();
+            }
             gameObject.SendMessage("SetCoin", coins);
-            sounds.PlayCoinPickup();
         }
         else if (other.gameObject.tag == "Bandana")
         {

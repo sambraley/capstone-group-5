@@ -34,11 +34,15 @@ namespace UnityStandardAssets._2D
         void Awake()
         {
             m_Character = GetComponent<Player>();
-            foreach (Image bandana in bandanas)
+            for(int  i = 0; i < m_Character.maxHealth; ++i)
             {
-                bandana.enabled = true;
+                bandanas[i].enabled = true;
             }
-            bandanaCount = bandanas.Length - 1; //index of the current bandana value
+            for(int i = m_Character.maxHealth; i < 6;++i)
+            {
+                bandanas[i].enabled = false;
+            }
+            bandanaCount = m_Character.maxHealth - 1; //index of the current bandana value
             skulls[0].enabled = false;
             skulls[1].enabled = false;
             skulls[2].enabled = false;
@@ -104,12 +108,21 @@ namespace UnityStandardAssets._2D
 
         void AddBandana()
         {
-            if (bandanaCount >= 0 && bandanaCount < (bandanas.Length - 1)) //can't go above max
+            if (bandanaCount >= 0 && bandanaCount < (bandanas.Length - 1) && bandanaCount < (m_Character.maxHealth - 1)) //can't go above max
             {
                 ++bandanaCount;
                 bandanas[bandanaCount].enabled = true;
             }
         }
+
+        void MaxBandana()
+        {
+            for (int i = 0; i < m_Character.maxHealth; ++i)
+            {
+                bandanas[i].enabled = true;
+            }
+        }
+
         void SetCoin(int coins)
         {
             coinCount.text = coins.ToString();
