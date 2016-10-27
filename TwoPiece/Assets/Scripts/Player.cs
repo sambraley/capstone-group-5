@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
     public float DASH_COOLDOWN_TIME = 1.0f;
     float lastDirection = 1.0f;
 
+    bool wasGroundedLastUpdate = true;
+
     float gravity;
     float jumpVelocity;
     Vector3 velocity;
@@ -64,6 +66,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         UpdateCooldowns();
+        //if you land reset dash ;)
+        if (controller.collisions.below && !wasGroundedLastUpdate)
+            dashCooldown = 0.0f;
+        wasGroundedLastUpdate = controller.collisions.below;
 
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return))
         {
