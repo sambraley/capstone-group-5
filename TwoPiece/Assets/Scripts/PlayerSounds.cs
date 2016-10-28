@@ -11,6 +11,14 @@ public class PlayerSounds : MonoBehaviour
     private AudioClip switchToSword;
     [SerializeField]
     private AudioClip coin;
+    [SerializeField]
+    private AudioClip swordHit;
+    [SerializeField]
+    private AudioClip clubHit;
+    [SerializeField]
+    private AudioClip levelTransition;
+    [SerializeField]
+    private AudioClip oneUp;
 
     private AudioSource m_AudioSource;
 
@@ -40,6 +48,30 @@ public class PlayerSounds : MonoBehaviour
     public void PlayCoinPickup()
     {
         m_AudioSource.clip = coin;
+        m_AudioSource.Play();
+    }
+
+    public void PlaySwordHit()
+    {
+        m_AudioSource.clip = swordHit;
+        m_AudioSource.Play();
+    }
+
+    public void ClubHit()
+    {
+        m_AudioSource.clip = clubHit;
+        m_AudioSource.Play();
+    }
+
+    public void PlayTransition()
+    {
+        m_AudioSource.clip = levelTransition;
+        m_AudioSource.Play();
+    }
+
+    public void PlayOneUp()
+    {
+        m_AudioSource.clip = oneUp;
         m_AudioSource.Play();
     }
 }

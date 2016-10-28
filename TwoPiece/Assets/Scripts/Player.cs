@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
     public float DASH_COOLDOWN_TIME = 1.0f;
     float lastDirection = 1.0f;
 
+    bool wasGroundedLastUpdate = true;
+
     float gravity;
     float jumpVelocity;
     Vector3 velocity;
@@ -64,6 +66,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         UpdateCooldowns();
+        //if you land reset dash ;)
+        if (controller.collisions.below && !wasGroundedLastUpdate)
+            dashCooldown = 0.0f;
+        wasGroundedLastUpdate = controller.collisions.below;
 
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return))
         {
@@ -167,8 +173,19 @@ public class Player : MonoBehaviour
         {
             Destroy(other.gameObject);
             ++coins;
+            if ((coins == 10 && maxHealth == 3) || (coins == 20 && (maxHealth == 4 || maxHealth == 5)))
+            {
+                coins = 0;
+                ++maxHealth;
+                health = maxHealth;
+                gameObject.SendMessage("MaxBandana");
+                sounds.PlayOneUp();
+            }
+            else
+            {
+                sounds.PlayCoinPickup();
+            }
             gameObject.SendMessage("SetCoin", coins);
-            sounds.PlayCoinPickup();
         }
         else if (other.gameObject.tag == "Bandana")
         {

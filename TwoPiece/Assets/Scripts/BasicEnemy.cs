@@ -44,25 +44,30 @@ public class BasicEnemy : MonoBehaviour {
 
     void Update()
     {
-        UpdateCooldowns();
-        if(EnemyState.Patrolling == state)
+        EnemyHealth enemyStatus = gameObject.GetComponent<EnemyHealth>();
+        if (enemyStatus.isAlive())
         {
-            UpdateRaycastOrigins();
-            if (CheckForPlayerInMeleeRange())
+            UpdateCooldowns();
+            if (EnemyState.Patrolling == state)
             {
-                if(currentWeaponCooldown <= 0.0f)
+                UpdateRaycastOrigins();
+                if (CheckForPlayerInMeleeRange())
                 {
-                    state = EnemyState.PreparingToSwing;
-                    StartCoroutine(SwingWeaponAfterTime(timeToSwing));
+                    if (currentWeaponCooldown <= 0.0f)
+                    {
+                        state = EnemyState.PreparingToSwing;
+                        StartCoroutine(SwingWeaponAfterTime(timeToSwing));
+                    }
+                }
+                else
+                {
+                    CheckForCollisions();
+                    controller.Move(direction * walkSpeed * Time.deltaTime);
                 }
             }
-            else
-            {
-                CheckForCollisions();
-                controller.Move(direction * walkSpeed * Time.deltaTime);
-            }
+            // else if(EnemyState.PreparingToSwing == state)
+
         }
-        // else if(EnemyState.PreparingToSwing == state)
     }
 
     void UpdateCooldowns()
