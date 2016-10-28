@@ -33,15 +33,15 @@ public class Weapon : MonoBehaviour {
         weaponCooldown -= Time.deltaTime;
         swapWeaponsCooldown -= Time.deltaTime;
         // Swap Weapon
-        if (hasSword && ( Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Comma) ) && swapWeaponsCooldown <= 0.0f)
-        {
+        if (hasSword && Input.GetKeyDown(KeyCode.JoystickButton3) && swapWeaponsCooldown <= 0.0f) //( Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Comma) )
+        { //Y button on controller
             SwapWeapon();
             swapWeaponsCooldown = SWAP_WEAPON_COOLDOWN;
             
         }
         // Swing Weapon
-        if( (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Slash)) && weaponCooldown <= 0.0f)
-        {
+        if(Input.GetKeyDown(KeyCode.JoystickButton2) && weaponCooldown <= 0.0f) //(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Slash))
+        { //X button on controller
             SwingWeapon();
             weaponCooldown = WEAPON_COOLDOWN;
         }

@@ -71,8 +71,8 @@ public class Player : MonoBehaviour
             dashCooldown = 0.0f;
         wasGroundedLastUpdate = controller.collisions.below;
 
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return))
-        {
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) && onDialogue) //Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return)
+        { //a talks if you're in dialogue
             Talk();
         }
 
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
             velocity.y = 0;
         }
 
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); //works with controller, takes joystick input
 
         if (input.x != 0 && input.x != lastDirection)
         {
@@ -89,8 +89,8 @@ public class Player : MonoBehaviour
             FlipSprite();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
-        {
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) && controller.collisions.below && !onDialogue) //Input.GetKeyDown(KeyCode.Space)
+        { //a jumps
             velocity.y = jumpVelocity;
         }
 
@@ -99,7 +99,8 @@ public class Player : MonoBehaviour
         float targetVelocityX = input.x * moveSpeed;
         //velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
         velocity.x = targetVelocityX;
-        bool shouldDash = ( (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Period) || Input.GetKeyDown(KeyCode.LeftShift)) && dashCooldown <= 0.0f );
+        bool shouldDash = ( (Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.JoystickButton1)) && dashCooldown <= 0.0f ); // || Input.GetKeyDown(KeyCode.Period) || Input.GetKeyDown(KeyCode.LeftShift)) 
+        //right bumper or b button dash
         // if true, velocity.x will be replaced
         if (shouldDash)
         {
