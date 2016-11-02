@@ -116,6 +116,10 @@ public class Player : MonoBehaviour
         else
             velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        if(velocity.x != 0)
+            m_Anim.SetBool("isRunning", true);
+        else
+            m_Anim.SetBool("isRunning", false);
     }
 
     void FlipSprite()
@@ -155,7 +159,7 @@ public class Player : MonoBehaviour
             onLadder = true;
             Rigidbody2D rigid = GetComponent<Rigidbody2D>();
             rigid.gravityScale = 0;
-            //m_Anim.SetBool("isClimbing", true);
+            m_Anim.SetBool("isClimbing", true);
         }
         else if (other.gameObject.tag == "Dialogue")
         {
@@ -242,7 +246,7 @@ public class Player : MonoBehaviour
         {
             //Debug.Log("Not colliding with ladder");
             onLadder = false;
-            //m_Anim.SetBool("isClimbing", false);
+            m_Anim.SetBool("isClimbing", false);
             Rigidbody2D rigid = GetComponent<Rigidbody2D>();
             rigid.gravityScale = 1;
         }
