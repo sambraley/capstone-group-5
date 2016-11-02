@@ -30,6 +30,7 @@ TagManager:
   - Sword
   - ladder
   - OneWayDoor
+  - SceneSwap
   layers:
   - Default
   - TransparentFX

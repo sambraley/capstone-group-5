@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011914929800}
   - 61: {fileID: 61000013606711704}
   - 212: {fileID: 212000010905625176}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CaveFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
