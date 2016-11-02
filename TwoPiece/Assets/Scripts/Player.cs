@@ -52,8 +52,6 @@ public class Player : MonoBehaviour
     public string checkpoint = "Prison";
     private bool hitCheckpoint = false;
 
-    public string nextScene = null;
-
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -243,7 +241,20 @@ public class Player : MonoBehaviour
         }
         else if(other.gameObject.tag == "SceneSwap")
         {
-            SceneManager.LoadScene(nextScene);
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            switch(currentSceneName)
+            {
+                case "Ship":
+                    SceneManager.LoadScene("Prison");
+                    break;
+                case "Prison":
+                case "PrisonBoss":
+                    SceneManager.LoadScene("Beach");
+                    break;
+                case "Beach":
+                    SceneManager.LoadScene("Cave");
+                    break;
+            }
         }
     }
     void OnTriggerExit2D(Collider2D other)
