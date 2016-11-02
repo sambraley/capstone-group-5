@@ -240,6 +240,10 @@ public class Player : MonoBehaviour
         {
             DamageTaken();
         }
+        else if(other.gameObject.tag == "SceneSwap")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
     void OnTriggerExit2D(Collider2D other)
     {
