@@ -11066,6 +11066,26 @@ Prefab:
       propertyPath: m_BackGroundColor.b
       value: 0.9485294
       objectReference: {fileID: 0}
+    - target: {fileID: 82000014007710110, guid: b93349e27dd223648a379138c53173cc,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1aaebcc908e1546448d766b7ab2dc420, type: 3}
+    - target: {fileID: 114000013282369854, guid: b93349e27dd223648a379138c53173cc,
+        type: 2}
+      propertyPath: swing
+      value: 
+      objectReference: {fileID: 8300000, guid: a65dceebfdd364440aec2574c6453d92, type: 3}
+    - target: {fileID: 114000013282369854, guid: b93349e27dd223648a379138c53173cc,
+        type: 2}
+      propertyPath: switchToSword
+      value: 
+      objectReference: {fileID: 8300000, guid: 63a35c83e80894c8585f4425d3feff4c, type: 3}
+    - target: {fileID: 114000013282369854, guid: b93349e27dd223648a379138c53173cc,
+        type: 2}
+      propertyPath: switchToClub
+      value: 
+      objectReference: {fileID: 8300000, guid: e9deb9a9ae0c040cfb520ca76eb0727a, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b93349e27dd223648a379138c53173cc, type: 2}
   m_IsPrefabParent: 0
