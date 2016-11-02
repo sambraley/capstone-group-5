@@ -85,9 +85,10 @@ public class Player : MonoBehaviour
 
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); //works with controller, takes joystick input
 
-        if (input.x != 0 && input.x != lastDirection)
+        // If input.x and lastDirection have the same signedness, the result will be positive (- * - or + * +), however if they're different we'll enter
+        if (input.x != 0 && ((input.x * lastDirection) < 0))
         {
-            lastDirection = input.x;
+            lastDirection = input.x > 0 ? 1.0f : -1.0f;
             FlipSprite();
         }
         
