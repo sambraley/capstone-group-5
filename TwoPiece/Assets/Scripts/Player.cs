@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
             dashCooldown = 0.0f;
         wasGroundedLastUpdate = controller.collisions.below;
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton0) && onDialogue) //Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return)
+        if ((Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return)) && onDialogue) //Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return)
         { //a talks if you're in dialogue
             Talk();
         }
@@ -88,8 +88,8 @@ public class Player : MonoBehaviour
             lastDirection = input.x;
             FlipSprite();
         }
-
-        if (Input.GetKeyDown(KeyCode.JoystickButton0) && controller.collisions.below && !onDialogue) //Input.GetKeyDown(KeyCode.Space)
+        
+        if ((Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space)) && controller.collisions.below && !onDialogue) //Input.GetKeyDown(KeyCode.Space)
         { //a jumps
             velocity.y = jumpVelocity;
         }
@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
         float targetVelocityX = input.x * moveSpeed;
         //velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
         velocity.x = targetVelocityX;
-        bool shouldDash = ( (Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.JoystickButton1)) && dashCooldown <= 0.0f ); // || Input.GetKeyDown(KeyCode.Period) || Input.GetKeyDown(KeyCode.LeftShift)) 
+        bool shouldDash = ( (Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Period) || Input.GetKeyDown(KeyCode.LeftShift)) && dashCooldown <= 0.0f ); // || Input.GetKeyDown(KeyCode.Period) || Input.GetKeyDown(KeyCode.LeftShift)
         //right bumper or b button dash
         // if true, velocity.x will be replaced
         if (shouldDash)
