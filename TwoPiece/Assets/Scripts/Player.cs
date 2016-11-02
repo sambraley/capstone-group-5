@@ -307,8 +307,11 @@ public class Player : MonoBehaviour
             toSave.save();
             gameObject.transform.position = new Vector2(5, 57.5f);
         }
+        else
+        {
+            Destroy(gameObject)
+        }
         SceneManager.LoadScene(checkpoint);
-        
         Debug.Log("Num enemies Killed: " + EnemiesKilled);
     }
 
