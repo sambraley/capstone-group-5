@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public int EnemiesKilled = 0;
     public float damageTakenCooldown;
     public DontDestoryCanvas toSave;
+    private Animator m_Anim;
 
     public float jumpHeight = 4;
     public float timeToJumpApex = .4f;
@@ -61,6 +62,7 @@ public class Player : MonoBehaviour
         gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         print("Gravity: " + gravity + "  Jump Velocity: " + jumpVelocity);
+        m_Anim = GetComponent<Animator>();
     }
 
     void Update()
