@@ -10,7 +10,6 @@ namespace UnityStandardAssets._2D
     {
         [SerializeField]
         private Image[] bandanas;
-        private int bandanaCount = 0;
         [SerializeField]
         private Image[] skulls; //0 is empty skull, 1 is half skull, 2 is full skull
         private int skullCount = -1; //-1 is no skull
@@ -42,7 +41,6 @@ namespace UnityStandardAssets._2D
             {
                 bandanas[i].enabled = false;
             }
-            bandanaCount = m_Character.maxHealth - 1; //index of the current bandana value
             skulls[0].enabled = false;
             skulls[1].enabled = false;
             skulls[2].enabled = false;
@@ -57,7 +55,6 @@ namespace UnityStandardAssets._2D
         // Use this for initialization
         void Start()
         {
-
         }
 
         // Update is called once per frame
@@ -99,19 +96,17 @@ namespace UnityStandardAssets._2D
 
         void RemoveBandana()
         {
-            if (bandanaCount >= 0 && bandanaCount < bandanas.Length)
+            if (m_Character.health > 0 && m_Character.health <= bandanas.Length)
             {
-                bandanas[bandanaCount].enabled = false;
-                --bandanaCount;
+                bandanas[m_Character.health - 1].enabled = false;
             }
         }
 
         void AddBandana()
         {
-            if (bandanaCount >= 0 && bandanaCount < (bandanas.Length - 1) && bandanaCount < (m_Character.maxHealth - 1)) //can't go above max
+            if ( m_Character.health < m_Character.maxHealth) //can't go above max
             {
-                ++bandanaCount;
-                bandanas[bandanaCount].enabled = true;
+                bandanas[m_Character.health].enabled = true;
             }
         }
 
@@ -120,6 +115,10 @@ namespace UnityStandardAssets._2D
             for (int i = 0; i < m_Character.maxHealth; ++i)
             {
                 bandanas[i].enabled = true;
+            }
+            for(int j = m_Character.maxHealth; j < bandanas.Length; j++)
+            {
+                bandanas[j].enabled = false;
             }
         }
 

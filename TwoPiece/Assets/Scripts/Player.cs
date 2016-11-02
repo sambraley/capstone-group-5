@@ -49,12 +49,11 @@ public class Player : MonoBehaviour
     PlayerSounds sounds;
     SpriteRenderer playerSprite;
 
-    private string checkpoint = "Prison";
+    public string checkpoint = "Prison";
     private bool hitCheckpoint = false;
 
     void Start()
     {
-
         controller = GetComponent<Controller2D>();
         playerSprite = GetComponent<SpriteRenderer>();
         sounds = GetComponent<PlayerSounds>();
@@ -200,8 +199,8 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
             if (health < maxHealth)
             {
-                ++health;
                 gameObject.SendMessage("AddBandana");
+                ++health;
             }
         }
         else if (other.gameObject.tag == "Key")
@@ -269,29 +268,30 @@ public class Player : MonoBehaviour
 
     private void DamageTaken()
     {
-        health--;
-        if (health == 0)
+        Debug.Log("OUCH Health is " + (health -1) + "/" + maxHealth);
+        if (health == 1)
             respawn();
         else
         {
             SendMessage("RemoveBandana");
             damageTakenCooldown = 0.5f;
+            health--;
         }
     }
 
     private void respawn()
     {
+        Debug.Log("Health is " + health + "/" + maxHealth);
         if (hitCheckpoint)
         {
-            DontDestroyOnLoad(gameObject);
-
             health = maxHealth;
-            for(int i = 0; i < health; i++)
-                gameObject.SendMessage("AddBandana");
+            DontDestroyOnLoad(gameObject);
+            gameObject.SendMessage("MaxBandana");
             toSave.save();
+            gameObject.transform.position = new Vector2(5, 57.5f);
         }
         SceneManager.LoadScene(checkpoint);
-        gameObject.transform.position = new Vector2(5,57.5f);
+        
         Debug.Log("Num enemies Killed: " + EnemiesKilled);
     }
 

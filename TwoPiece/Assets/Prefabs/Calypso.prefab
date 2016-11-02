@@ -94,7 +94,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010551102320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.402414, y: 1.3994476, z: -1}
+  m_LocalPosition: {x: 0.6, y: 1.48, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -151,7 +151,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0.019607844}
+  m_BackGroundColor: {r: 0.6714965, g: 0.6870004, b: 0.99264705, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -204,7 +204,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.3, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 0.6, y: 2}
 --- !u!81 &81000010167943304
@@ -487,6 +487,7 @@ MonoBehaviour:
   dashTimer: 0
   dashDuration: 0.2
   DASH_COOLDOWN_TIME: 1
+  checkpoint: Beach
 --- !u!114 &114000010873356618
 MonoBehaviour:
   m_ObjectHideFlags: 1
