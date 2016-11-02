@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour {
     Player player;
     BoxCollider2D playerCollider;
     RaycastOrigins raycastOrigins;
-    private float weaponSize = 1.0f;
+    private float weaponSize = 0.5f;
     public LayerMask enemyHitboxMask;
     private bool isLethal = false;
 
@@ -53,14 +53,14 @@ public class Weapon : MonoBehaviour {
         UpdateRaycastOrigins();
         int numHorizontalTraces = 4;
         // Bounds.extents/2 as we're only hitting the top half of her hitbox
-        float yOffsetPerTrace = (playerCollider.bounds.extents.y / 2) / (numHorizontalTraces - 1);
+        float yOffsetPerTrace = (playerCollider.bounds.extents.y) / (numHorizontalTraces);
         for (int i = 0; i <= numHorizontalTraces; i++)
         { 
             Vector2 rayOrigin = (player.GetLastDirection() > 0.0f) ? raycastOrigins.right : raycastOrigins.left;
-            rayOrigin += Vector2.up * yOffsetPerTrace * i;
+            rayOrigin += Vector2.down * yOffsetPerTrace * i;
             Vector2 rayDirection = (player.GetLastDirection() > 0.0f) ? Vector2.right : Vector2.left;
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, weaponSize, enemyHitboxMask);
-            Debug.DrawRay(rayOrigin, rayDirection, Color.yellow);
+            Debug.DrawRay(rayOrigin, rayDirection, Color.yellow, 1.0f);
             if (hit)
             {
                 hit.collider.SendMessageUpwards("DamageTaken", isLethal);
@@ -86,8 +86,9 @@ public class Weapon : MonoBehaviour {
     void UpdateRaycastOrigins()
     {
         float centerY = playerCollider.bounds.center.y;
-        raycastOrigins.left = new Vector2(playerCollider.bounds.min.x, centerY);
-        raycastOrigins.right = new Vector2(playerCollider.bounds.max.x, centerY);
+        float yStart = centerY + (playerCollider.bounds.extents.y / 2);
+        raycastOrigins.left = new Vector2(playerCollider.bounds.min.x, yStart);
+        raycastOrigins.right = new Vector2(playerCollider.bounds.max.x, yStart);
     }
 
     public void GiveSword()
