@@ -242,7 +242,8 @@ public class Player : MonoBehaviour
         else if(other.gameObject.tag == "SceneSwap")
         {
             string currentSceneName = SceneManager.GetActiveScene().name;
-            switch(currentSceneName)
+            Destroy(gameObject);
+                switch (currentSceneName)
             {
                 case "Ship":
                     SceneManager.LoadScene("Prison");
@@ -306,10 +307,6 @@ public class Player : MonoBehaviour
             gameObject.SendMessage("MaxBandana");
             toSave.save();
             gameObject.transform.position = new Vector2(5, 57.5f);
-        }
-        else
-        {
-            Destroy(gameObject)
         }
         SceneManager.LoadScene(checkpoint);
         Debug.Log("Num enemies Killed: " + EnemiesKilled);
