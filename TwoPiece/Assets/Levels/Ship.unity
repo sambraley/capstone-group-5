@@ -22499,11 +22499,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile: {fileID: 1000010065938234, guid: 59450f7a10c84114ea557b78096622c4, type: 2}
   xStart: 0
-  yStart: -6
-  xOffset: 37
-  yOffset: 6
+  yStart: -7
+  xOffset: 999
+  yOffset: 999
   xLength: 37
-  yLength: 6
+  yLength: 7
   listSpecialTiles: []
 --- !u!4 &792177812
 Transform:
@@ -22512,7 +22512,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 792177810}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -6, z: 1}
+  m_LocalPosition: {x: 0, y: -7, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []

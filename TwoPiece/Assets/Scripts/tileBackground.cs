@@ -21,9 +21,9 @@ public class tileBackground : MonoBehaviour {
         if (transform.position.x == xStart && transform.position.y == yStart)
         {
             GameObject tileCreated = null;
-            for (int x = 0; x < xLength; x++)
+            for (int x = 0; x < xLength; x+=2)
             {
-                for (int y = 0; y < yLength; y++)
+                for (int y = 0; y < yLength; y+=2)
                 {
                     if (x == 0 && y == 0)
                         continue;
