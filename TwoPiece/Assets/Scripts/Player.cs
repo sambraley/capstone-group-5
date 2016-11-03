@@ -243,8 +243,9 @@ public class Player : MonoBehaviour
         {
             string currentSceneName = SceneManager.GetActiveScene().name;
             Destroy(gameObject);
-            Destroy(toSave.gameObject);
-                switch (currentSceneName)
+            if(toSave != null && toSave.gameObject != null)
+                Destroy(toSave.gameObject);
+            switch (currentSceneName)
             {
                 case "Ship":
                     SceneManager.LoadScene("Prison");
