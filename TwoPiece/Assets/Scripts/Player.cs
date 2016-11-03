@@ -243,6 +243,7 @@ public class Player : MonoBehaviour
         {
             string currentSceneName = SceneManager.GetActiveScene().name;
             Destroy(gameObject);
+            Destroy(toSave.gameObject);
                 switch (currentSceneName)
             {
                 case "Ship":
