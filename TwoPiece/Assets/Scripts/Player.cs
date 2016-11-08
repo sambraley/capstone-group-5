@@ -116,10 +116,24 @@ public class Player : MonoBehaviour
         else
             velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        if(velocity.x != 0)
+        if (velocity.x != 0)
+        {
             m_Anim.SetBool("isRunning", true);
+            Debug.Log("Velcotyy y is " + velocity.y);
+            if (velocity.y <= 0)
+            {
+                sounds.PlayWalk();
+            }
+            else
+            {
+                sounds.StopPlayingWalk();
+            }
+        }
         else
+        {
             m_Anim.SetBool("isRunning", false);
+            sounds.StopPlayingWalk();
+        }
     }
 
     void FlipSprite()
@@ -296,6 +310,7 @@ public class Player : MonoBehaviour
             SendMessage("RemoveBandana");
             damageTakenCooldown = 0.5f;
             health--;
+            sounds.PlayHit();
         }
     }
 

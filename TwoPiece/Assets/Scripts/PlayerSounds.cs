@@ -19,6 +19,10 @@ public class PlayerSounds : MonoBehaviour
     private AudioClip levelTransition;
     [SerializeField]
     private AudioClip oneUp;
+    [SerializeField]
+    private AudioClip hit;
+    [SerializeField]
+    private AudioClip walk;
 
     private AudioSource m_AudioSource;
 
@@ -73,5 +77,28 @@ public class PlayerSounds : MonoBehaviour
     {
         m_AudioSource.clip = oneUp;
         m_AudioSource.Play();
+    }
+
+    public void PlayHit()
+    {
+        m_AudioSource.clip = hit;
+        m_AudioSource.Play();
+    }
+
+    public void PlayWalk()
+    {
+        if (!m_AudioSource.isPlaying)
+        {
+            m_AudioSource.clip = walk;
+            m_AudioSource.Play();
+        }
+    }
+
+    public void StopPlayingWalk()
+    {
+        if (m_AudioSource.isPlaying && m_AudioSource.clip == walk)
+        {
+            m_AudioSource.Pause();
+        }
     }
 }
