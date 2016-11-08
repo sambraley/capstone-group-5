@@ -8,15 +8,21 @@ public class EnemyHealth : MonoBehaviour {
     [SerializeField] Sprite dazed;
     [SerializeField] Sprite dead;
     [SerializeField] Object[] drops;
+    private AudioSource m_AudioSource;
+    [SerializeField]
+    private AudioClip hitByClub;
+    [SerializeField]
+    private AudioClip hitBySword;
 
     // Use this for initialization
     void Start () {
         if (playerObject == null)
             playerObject = GameObject.FindWithTag("Player");
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        m_AudioSource = GetComponent<AudioSource>();
+    }
+
+    // Update is called once per frame
+    void Update () {
 
     }
     public bool isAlive()
@@ -31,12 +37,18 @@ public class EnemyHealth : MonoBehaviour {
         {
             //apply damage
             if (lethal)
+            {
+                m_AudioSource.clip = hitBySword;
                 swordHealth--;
+            }
             else
+            {
+                m_AudioSource.clip = hitByClub;
                 clubHealth--;
-
+            }
+            m_AudioSource.Play();
             //check for drops
-            if(clubHealth == 0 || swordHealth == 0)
+            if (clubHealth == 0 || swordHealth == 0)
             {
                 foreach (Object thing in drops)
                 {
