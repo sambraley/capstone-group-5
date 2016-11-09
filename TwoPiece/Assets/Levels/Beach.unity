@@ -41115,6 +41115,21 @@ Prefab:
       propertyPath: checkpoint
       value: Beach
       objectReference: {fileID: 0}
+    - target: {fileID: 20000012493430908, guid: b93349e27dd223648a379138c53173cc,
+        type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: 0.497
+      objectReference: {fileID: 0}
+    - target: {fileID: 20000012493430908, guid: b93349e27dd223648a379138c53173cc,
+        type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: 0.796
+      objectReference: {fileID: 0}
+    - target: {fileID: 20000012493430908, guid: b93349e27dd223648a379138c53173cc,
+        type: 2}
+      propertyPath: m_BackGroundColor.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b93349e27dd223648a379138c53173cc, type: 2}
   m_IsPrefabParent: 0
