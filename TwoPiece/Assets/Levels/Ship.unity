@@ -11091,6 +11091,11 @@ Prefab:
       propertyPath: checkpoint
       value: Ship
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b93349e27dd223648a379138c53173cc, type: 2}
   m_IsPrefabParent: 0
