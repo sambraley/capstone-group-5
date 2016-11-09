@@ -33,11 +33,12 @@ namespace UnityStandardAssets._2D
         void Awake()
         {
             m_Character = GetComponent<Player>();
-            for(int  i = 0; i < m_Character.maxHealth; ++i)
+            PlayerState p = PlayerState.Instance;
+            for (int  i = 0; i < p.getMaxHealth(); ++i)
             {
                 bandanas[i].enabled = true;
             }
-            for(int i = m_Character.maxHealth; i < 6;++i)
+            for(int i = p.getMaxHealth(); i < 6;++i)
             {
                 bandanas[i].enabled = false;
             }
@@ -47,7 +48,7 @@ namespace UnityStandardAssets._2D
             nonLethal.enabled = true; //always start in non-lethal mode
             lethal.enabled = false;
             coin.enabled = true;
-            coinCount.text = m_Character.coins.ToString();
+            coinCount.text = PlayerState.Instance.getCoins().ToString();
             key.enabled = false;
             //promptBackground.enabled = false;
         }
@@ -96,27 +97,30 @@ namespace UnityStandardAssets._2D
 
         void RemoveBandana()
         {
-            if (m_Character.health > 0 && m_Character.health <= bandanas.Length)
+            PlayerState p = PlayerState.Instance;
+            if (p.getHealth() > 0 && p.getHealth() <= bandanas.Length)
             {
-                bandanas[m_Character.health - 1].enabled = false;
+                bandanas[p.getHealth() - 1].enabled = false;
             }
         }
 
         void AddBandana()
         {
-            if ( m_Character.health < m_Character.maxHealth) //can't go above max
+            PlayerState p = PlayerState.Instance;
+            if ( p.getHealth() < p.getMaxHealth()) //can't go above max
             {
-                bandanas[m_Character.health].enabled = true;
+                bandanas[p.getHealth()].enabled = true;
             }
         }
 
         void MaxBandana()
         {
-            for (int i = 0; i < m_Character.maxHealth; ++i)
+            PlayerState p = PlayerState.Instance;
+            for (int i = 0; i < p.getMaxHealth(); ++i)
             {
                 bandanas[i].enabled = true;
             }
-            for(int j = m_Character.maxHealth; j < bandanas.Length; j++)
+            for(int j = p.getMaxHealth(); j < bandanas.Length; j++)
             {
                 bandanas[j].enabled = false;
             }

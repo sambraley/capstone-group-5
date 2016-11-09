@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     bool onDialogue = false;
     Collider2D dialogueCollider;
     Text dPrompt;
-    public int coins = 0;
     public int health = 3;
     public int maxHealth = 3;
     public int keys = 0;
@@ -186,12 +185,14 @@ public class Player : MonoBehaviour
         else if (other.gameObject.tag == "Coin")
         {
             Destroy(other.gameObject);
-            ++coins;
+            PlayerState p = PlayerState.Instance;
+            p.incrementCoins();
+            int coins = PlayerState.Instance.getCoins();
             if ((coins == 10 && maxHealth == 3) || (coins == 20 && (maxHealth == 4 || maxHealth == 5)))
             {
-                coins = 0;
-                ++maxHealth;
-                health = maxHealth;
+                p.setCoins(0);
+                p.incrementMaxHealth();
+                p.giveMaxHealth();
                 gameObject.SendMessage("MaxBandana");
                 sounds.PlayOneUp();
             }
@@ -199,15 +200,16 @@ public class Player : MonoBehaviour
             {
                 sounds.PlayCoinPickup();
             }
-            gameObject.SendMessage("SetCoin", coins);
+            gameObject.SendMessage("SetCoin", PlayerState.Instance.getCoins());
         }
         else if (other.gameObject.tag == "Bandana")
         {
             Destroy(other.gameObject);
-            if (health < maxHealth)
+            PlayerState p = PlayerState.Instance;
+            if (p.getHealth() < p.getMaxHealth())
             {
                 gameObject.SendMessage("AddBandana");
-                ++health;
+                p.incrementHealth();
             }
         }
         else if (other.gameObject.tag == "KillZone")
@@ -299,24 +301,26 @@ public class Player : MonoBehaviour
 
     private void DamageTaken()
     {
-        Debug.Log("OUCH Health is " + (health -1) + "/" + maxHealth);
-        if (health == 1)
+        PlayerState p = PlayerState.Instance;
+        Debug.Log("OUCH Health is " + (p.getHealth() -1) + "/" + maxHealth);
+        if (p.getHealth() == 1)
             respawn();
         else
         {
             SendMessage("RemoveBandana");
             damageTakenCooldown = 0.5f;
-            health--;
+            p.decrementHealth();
             sounds.PlayHit();
         }
     }
 
     private void respawn()
     {
-        Debug.Log("Health is " + health + "/" + maxHealth);
+        PlayerState p = PlayerState.Instance;
+        Debug.Log("Health is " + health + "/" + p.getMaxHealth());
         if (hitCheckpoint)
         {
-            health = maxHealth;
+            p.getMaxHealth();
             DontDestroyOnLoad(gameObject);
             gameObject.SendMessage("MaxBandana");
             toSave.save();
