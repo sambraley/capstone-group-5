@@ -6,6 +6,7 @@ public class Boss1 : MonoBehaviour
     [SerializeField] private GameObject m_bullet;
     [SerializeField] private float leftBound;
     [SerializeField] private float rightBound;
+    public AudioClip dead;
     public GameObject[] triggers1;
     public GameObject[] triggers2;
 
@@ -19,12 +20,14 @@ public class Boss1 : MonoBehaviour
     float[] jumpHeight = { 82.5f, 101.5f };
     bool wasSpooked = false;
 
+    AudioSource sound;
 
     // Use this for initialization
     void Start()
     {
         if (playerGameObject == null)
             playerGameObject = GameObject.FindGameObjectsWithTag("Player")[0];
+        sound = GetComponent<AudioSource>();
     }
 
     public void WakeUp()
@@ -163,6 +166,7 @@ public class Boss1 : MonoBehaviour
         health -= 1;
         if (health <= 0)
         {
+            StartCoroutine(WaitOnSound());
             Destroy(gameObject);//die
             //set to dead sprite
         }
@@ -186,5 +190,12 @@ public class Boss1 : MonoBehaviour
         {
             g.gameObject.SetActive(true);
         }
+    }
+
+    IEnumerator WaitOnSound()
+    {
+        sound.clip = dead;
+        sound.Play();
+        yield return new WaitWhile(() => sound.isPlaying);
     }
 }
