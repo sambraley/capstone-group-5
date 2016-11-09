@@ -59,6 +59,8 @@ public class EnemyHealth : MonoBehaviour {
 
             }
 
+            StartCoroutine(FlashSprite(GetComponent<SpriteRenderer>(), 2));
+
             //change status
             if (clubHealth == 0)
             {
@@ -71,6 +73,17 @@ public class EnemyHealth : MonoBehaviour {
                 gameObject.transform.Translate(0, -.5f, 0);
                 playerObject.SendMessage("AddKill");
             }
+        }
+    }
+
+    IEnumerator FlashSprite(SpriteRenderer s, int numTimes)
+    {
+        for (int i = 0; i < numTimes; i++)
+        {
+            s.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            s.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

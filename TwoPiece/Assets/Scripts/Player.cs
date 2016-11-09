@@ -320,9 +320,9 @@ public class Player : MonoBehaviour
     {
         for(int i = 0; i < numTimes; i++)
         {
-            s.color = new Color(s.color.r, s.color.g, s.color.b, 0.5f);
+            s.color = Color.red;
             yield return new WaitForSeconds(0.1f);
-            s.color = new Color(s.color.r, s.color.g, s.color.b, 1.0f);
+            s.color = Color.white;
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -331,9 +331,9 @@ public class Player : MonoBehaviour
     {
         PlayerState p = PlayerState.Instance;
         Debug.Log("Health is " + health + "/" + p.getMaxHealth());
+        p.giveMaxHealth();
         if (hitCheckpoint)
         {
-            p.giveMaxHealth();
             DontDestroyOnLoad(gameObject);
             gameObject.SendMessage("MaxBandana");
             toSave.save();
