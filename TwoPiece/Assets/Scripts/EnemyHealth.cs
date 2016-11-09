@@ -63,10 +63,12 @@ public class EnemyHealth : MonoBehaviour {
             if (clubHealth == 0)
             {
                 GetComponent<SpriteRenderer>().sprite = dazed;
+                gameObject.transform.Translate(0, -.5f, 0);
             }
             else if (swordHealth == 0)
             {
                 GetComponent<SpriteRenderer>().sprite = dead;
+                gameObject.transform.Translate(0, -.5f, 0);
                 playerObject.SendMessage("AddKill");
             }
         }
