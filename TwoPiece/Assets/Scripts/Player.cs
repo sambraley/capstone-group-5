@@ -210,6 +210,10 @@ public class Player : MonoBehaviour
                 ++health;
             }
         }
+        else if (other.gameObject.tag == "KillZone")
+        {
+            respawn();
+        }
         else if (other.gameObject.tag == "Key")
         {
             Destroy(other.gameObject);

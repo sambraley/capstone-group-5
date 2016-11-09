@@ -31,6 +31,7 @@ TagManager:
   - ladder
   - OneWayDoor
   - SceneSwap
+  - KillZone
   layers:
   - Default
   - TransparentFX
