@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour {
     Player player;
     BoxCollider2D playerCollider;
     RaycastOrigins raycastOrigins;
-    private float weaponSize = 0.5f;
+    private float weaponSize = 0.9f;
     public LayerMask enemyHitboxMask;
     private bool isLethal = false;
 

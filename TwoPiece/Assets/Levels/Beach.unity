@@ -41110,6 +41110,11 @@ Prefab:
       propertyPath: health
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010484263830, guid: b93349e27dd223648a379138c53173cc,
+        type: 2}
+      propertyPath: checkpoint
+      value: Beach
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b93349e27dd223648a379138c53173cc, type: 2}
   m_IsPrefabParent: 0

@@ -6,7 +6,7 @@ using System.Collections;
 [RequireComponent(typeof(SpriteRenderer))]
 public class BasicEnemy : MonoBehaviour {
     public float walkSpeed = 1.0f;
-    public float meleeRange = 1.0f;
+    private float meleeRange = .8f;
 
     public float timeToSwing = 0.5f;
     public float weaponSwingCooldown = 1.0f;

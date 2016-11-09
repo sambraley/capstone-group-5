@@ -32,6 +32,8 @@ public class Boss1 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (playerGameObject == null)
+            playerGameObject = GameObject.FindGameObjectsWithTag("Player")[0];
         Vector2 playerPos = playerGameObject.transform.position;
         Vector2 bossPos = gameObject.transform.position;
         if (jumping)

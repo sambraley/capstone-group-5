@@ -11086,6 +11086,11 @@ Prefab:
       propertyPath: switchToClub
       value: 
       objectReference: {fileID: 8300000, guid: e9deb9a9ae0c040cfb520ca76eb0727a, type: 3}
+    - target: {fileID: 114000010484263830, guid: b93349e27dd223648a379138c53173cc,
+        type: 2}
+      propertyPath: checkpoint
+      value: Ship
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b93349e27dd223648a379138c53173cc, type: 2}
   m_IsPrefabParent: 0
@@ -39477,7 +39482,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010096095836, guid: 48c0b10cb29a0f745b468641699cd291, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11.521383
+      value: 2.52
       objectReference: {fileID: 0}
     - target: {fileID: 4000010096095836, guid: 48c0b10cb29a0f745b468641699cd291, type: 2}
       propertyPath: m_LocalPosition.y
