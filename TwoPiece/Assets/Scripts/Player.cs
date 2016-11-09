@@ -309,8 +309,20 @@ public class Player : MonoBehaviour
         {
             SendMessage("RemoveBandana");
             damageTakenCooldown = 0.5f;
+            StartCoroutine(FlashSprite(GetComponent<SpriteRenderer>(), 2));
             p.decrementHealth();
             sounds.PlayHit();
+        }
+    }
+
+    IEnumerator FlashSprite(SpriteRenderer s, int numTimes)
+    {
+        for(int i = 0; i < numTimes; i++)
+        {
+            s.color = new Color(s.color.r, s.color.g, s.color.b, 0.5f);
+            yield return new WaitForSeconds(0.1f);
+            s.color = new Color(s.color.r, s.color.g, s.color.b, 1.0f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -320,7 +332,7 @@ public class Player : MonoBehaviour
         Debug.Log("Health is " + health + "/" + p.getMaxHealth());
         if (hitCheckpoint)
         {
-            p.getMaxHealth();
+            p.giveMaxHealth();
             DontDestroyOnLoad(gameObject);
             gameObject.SendMessage("MaxBandana");
             toSave.save();
