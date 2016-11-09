@@ -6,6 +6,8 @@ public class Boss1 : MonoBehaviour
     [SerializeField] private GameObject m_bullet;
     [SerializeField] private float leftBound;
     [SerializeField] private float rightBound;
+    public GameObject[] triggers1;
+    public GameObject[] triggers2;
 
     private int health = 3;
     private float walkSpeed = 6f;
@@ -16,6 +18,7 @@ public class Boss1 : MonoBehaviour
     bool jumping = false;
     float[] jumpHeight = { 82.5f, 101.5f };
     bool wasSpooked = false;
+
 
     // Use this for initialization
     void Start()
@@ -63,7 +66,7 @@ public class Boss1 : MonoBehaviour
                 if (bossPos.x < rightBound)
                 {
                     FaceDirection(-1);
-                    transform.Translate(new Vector2(walkSpeed * lastDir, 0) * Time.deltaTime);
+                    transform.Translate(new Vector2(walkSpeed * lastDir * 3, 0) * Time.deltaTime);
                     //transform.Translate(new Vector2(walkSpeed * -direction * lastDir, 0) * Time.deltaTime);
                     //FaceDirection(direction);
                 }
@@ -154,10 +157,10 @@ public class Boss1 : MonoBehaviour
         //Debug.Log(other.gameObject.tag);
     }
 
-    void Damage(int damage) //, lethal
+    void DamageTaken() //, lethal
     {
         Debug.Log("ouch.");
-        health -= damage;
+        health -= 1;
         if (health <= 0)
         {
             Destroy(gameObject);//die
@@ -168,6 +171,20 @@ public class Boss1 : MonoBehaviour
             jumping = true;
             count = 0;
             //do damage animation
+        }
+
+        GameObject[] list = { };
+        if (health ==2)
+        {
+            list = triggers1;
+        }
+        else if(health == 1)
+        {
+            list = triggers2;
+        }
+        foreach(GameObject g in list)
+        {
+            g.gameObject.SetActive(true);
         }
     }
 }

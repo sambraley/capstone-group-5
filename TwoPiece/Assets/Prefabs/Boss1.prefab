@@ -23,7 +23,7 @@ GameObject:
   - 61: {fileID: 61000011531892460}
   - 50: {fileID: 50000012113992460}
   - 114: {fileID: 114000014162947988}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Boss1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -87,7 +87,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_bullet: {fileID: 1000010134366424, guid: 1fbe7484810e0a148b0cbc5154a057e7, type: 2}
   leftBound: 12.5
-  rightBound: 22
+  rightBound: 21.5
+  triggers1:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  triggers2:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!212 &212000011100301614
 SpriteRenderer:
   m_ObjectHideFlags: 1
