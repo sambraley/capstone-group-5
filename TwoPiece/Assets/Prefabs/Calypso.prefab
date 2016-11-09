@@ -568,9 +568,10 @@ MonoBehaviour:
   swordHit: {fileID: 8300000, guid: b1994d21c453745c9a30d1a8f3c80e28, type: 3}
   clubHit: {fileID: 8300000, guid: fd90973876ff6409e89fcb18f96aa1cf, type: 3}
   levelTransition: {fileID: 8300000, guid: 18495595823fb44e9baac2b8858ed9a9, type: 3}
-  oneUp: {fileID: 8300000, guid: 713a40870159c4d4995cc199d45eaa4c, type: 3}
+  oneUp: {fileID: 8300000, guid: c1fd81777e53446f4b938c5d017cddb2, type: 3}
   hit: {fileID: 8300000, guid: 6c0f6cc2d74cd4026abe50e52bfadc02, type: 3}
   walk: {fileID: 8300000, guid: 9ac3f59eba65e4cfdb70964d2defca54, type: 3}
+  dash: {fileID: 8300000, guid: b17a68a9902d45f499435bb84d2531c3, type: 3}
 --- !u!124 &124000012165841346
 Behaviour:
   m_ObjectHideFlags: 1

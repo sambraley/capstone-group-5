@@ -136,6 +136,7 @@ public class Player : MonoBehaviour
     // Overrides the current X velocity with our dash velocity in the last moved in direction
     void Dash( ref float velocityX )
     {
+        sounds.PlayDash();
         velocityX = dashDirection * dashSpeed;
         dashCooldown = DASH_COOLDOWN_TIME;
     }

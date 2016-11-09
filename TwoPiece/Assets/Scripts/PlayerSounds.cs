@@ -23,82 +23,124 @@ public class PlayerSounds : MonoBehaviour
     private AudioClip hit;
     [SerializeField]
     private AudioClip walk;
+    [SerializeField]
+    private AudioClip dash;
 
-    private AudioSource m_AudioSource;
+    private AudioSource[] sounds;
 
     void Awake()
     {
-        m_AudioSource = GetComponent<AudioSource>();
+        sounds = new AudioSource[11];
+        for (int i = 0; i < 11;++i)
+        {
+            sounds[i] = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     public void PlaySwing()
     {
-        m_AudioSource.clip = swing;
-        m_AudioSource.Play();
+        if (!sounds[0].isPlaying)
+        {
+            sounds[0].clip = swing;
+            sounds[0].Play();
+        }
     }
 
     public void PlaySwitchToClub()
     {
-        m_AudioSource.clip = switchToClub;
-        m_AudioSource.Play();
+        if (!sounds[1].isPlaying)
+        {
+            sounds[1].clip = switchToClub;
+            sounds[1].Play();
+        }
     }
 
     public void PlaySwitchToSword()
     {
-        m_AudioSource.clip = switchToSword;
-        m_AudioSource.Play();
+        if (!sounds[2].isPlaying)
+        {
+            sounds[2].clip = switchToSword;
+            sounds[2].Play();
+        }
     }
 
     public void PlayCoinPickup()
     {
-        m_AudioSource.clip = coin;
-        m_AudioSource.Play();
+        if (!sounds[3].isPlaying)
+        {
+            sounds[3].clip = coin;
+            sounds[3].Play();
+        }
     }
 
     public void PlaySwordHit()
     {
-        m_AudioSource.clip = swordHit;
-        m_AudioSource.Play();
+        if (!sounds[4].isPlaying)
+        {
+            sounds[4].clip = swordHit;
+            sounds[4].Play();
+        }
     }
 
     public void ClubHit()
     {
-        m_AudioSource.clip = clubHit;
-        m_AudioSource.Play();
+        if (!sounds[5].isPlaying)
+        {
+            sounds[5].clip = clubHit;
+            sounds[5].Play();
+        }
     }
 
     public void PlayTransition()
     {
-        m_AudioSource.clip = levelTransition;
-        m_AudioSource.Play();
+        if (!sounds[6].isPlaying)
+        {
+            sounds[6].clip = levelTransition;
+            sounds[6].Play();
+        }
     }
 
     public void PlayOneUp()
     {
-        m_AudioSource.clip = oneUp;
-        m_AudioSource.Play();
+        if (!sounds[7].isPlaying)
+        {
+            sounds[7].clip = oneUp;
+            sounds[7].Play();
+        }
     }
 
     public void PlayHit()
     {
-        m_AudioSource.clip = hit;
-        m_AudioSource.Play();
+        if (!sounds[8].isPlaying)
+        {
+            sounds[8].clip = hit;
+            sounds[8].Play();
+        }
     }
 
     public void PlayWalk()
     {
-        if (!m_AudioSource.isPlaying)
+        if (!sounds[9].isPlaying)
         {
-            m_AudioSource.clip = walk;
-            m_AudioSource.Play();
+            sounds[9].clip = walk;
+            sounds[9].Play();
         }
     }
 
     public void StopPlayingWalk()
     {
-        if (m_AudioSource.isPlaying && m_AudioSource.clip == walk)
+        if (sounds[9].isPlaying)
         {
-            m_AudioSource.Pause();
+            sounds[9].Pause();
+        }
+    }
+
+    public void PlayDash()
+    {
+        if (!sounds[10].isPlaying)
+        {
+            sounds[10].clip = dash;
+            sounds[10].Play();
         }
     }
 }
