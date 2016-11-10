@@ -16,7 +16,7 @@ public class Boss2 : MonoBehaviour
     int count = 40;
     bool jumping = false;
     float[] jumpWidth = { 179f, 224f };
-    float[] jumpHeight = { -6.5f, 2.5f };
+    float[] jumpHeight = { -6.5f, 3.5f };
     bool wasSpooked = false;
 
     public List<GameObject> bulletList;
@@ -49,7 +49,7 @@ public class Boss2 : MonoBehaviour
                 transform.Translate(new Vector2(walkSpeed *2, 0) * Time.deltaTime);
                 if (bossPos.y < jumpHeight[(3 - health) - 1])
                 {
-                    transform.Translate(new Vector2(0, 1) * Time.deltaTime);
+                    transform.Translate(new Vector2(0, 3) * Time.deltaTime);
                 }
             }
             else
@@ -70,7 +70,7 @@ public class Boss2 : MonoBehaviour
                 count--;
             }
             count++;
-            if (count > 60)
+            if (count > 90)
             {
                 GameObject Temporary_Bullet_Handler;
                 Vector3 pos = transform.position;
@@ -82,7 +82,21 @@ public class Boss2 : MonoBehaviour
                 Temporary_RigidBody = Temporary_Bullet_Handler.GetComponent<Rigidbody2D>();
 
                 //Tell the bullet to be "pushed" forward by an amount set by Bullet_Forward_Force.R
-                Temporary_RigidBody.velocity = new Vector2(-4f, 0);
+                if (health == 3)
+                {
+                    Temporary_RigidBody.velocity = new Vector2(Random.Range(-4, -7), Random.Range(3, 5));
+                    Temporary_RigidBody.gravityScale = .05f;
+                }
+                else if(health == 2)
+                {
+                    Temporary_RigidBody.velocity = new Vector2(Random.Range(-4, -8), Random.Range(3, 6));
+                    Temporary_RigidBody.gravityScale = .05f;
+                }
+                else if (health == 1)
+                {
+                    Temporary_RigidBody.velocity = new Vector2(Random.Range(-5, -9), Random.Range(-2, 6));
+                    Temporary_RigidBody.gravityScale = .05f;
+                }
 
                 //Basic Clean Up, set the Bullets to self destruct after 10 Seconds, I am being VERY generous here, normally 3 seconds is plenty.
                 Destroy(Temporary_Bullet_Handler, 7.0f);
@@ -165,4 +179,12 @@ public class Boss2 : MonoBehaviour
             g.gameObject.SetActive(true);
         }
     }
+}
+
+
+public class Bullet
+{
+    GameObject bullet;
+    float TimeStart;
+   
 }
