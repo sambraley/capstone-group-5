@@ -28,8 +28,14 @@ namespace UnityStandardAssets._2D
         private Text resolution;
         [SerializeField]
         private Image key;
-//        [SerializeField]
-//        private Image promptBackground;
+        [SerializeField]
+        private Image DEADImage;
+        [SerializeField]
+        private Text DeathText;
+        [SerializeField]
+        private Image DeathBackground;
+        //        [SerializeField]
+        //        private Image promptBackground;
         void Awake()
         {
             m_Character = GetComponent<Player>();
@@ -159,5 +165,10 @@ namespace UnityStandardAssets._2D
         {
             DontDestroyOnLoad(gameObject);
         }
+
+        void DeathScreen() {
+            
+        }
+
     }
 }

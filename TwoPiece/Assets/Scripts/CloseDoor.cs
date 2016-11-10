@@ -6,7 +6,9 @@ public class CloseDoor : MonoBehaviour
     [SerializeField]
     private Sprite open;
     [SerializeField]
-    Boss1 boss;
+    Boss1 boss1;
+    [SerializeField]
+    Boss2 boss2;
     // Use this for initialization
     void Start()
     {
@@ -34,6 +36,9 @@ public class CloseDoor : MonoBehaviour
         }
         GetComponent<SpriteRenderer>().sprite = open; //switch sprite
         GetComponent<AudioSource>().Play();
-        boss.WakeUp();
+        if(boss1 != null)
+            boss1.WakeUp();
+        if (boss2 != null)
+            boss2.WakeUp();
     }
 }

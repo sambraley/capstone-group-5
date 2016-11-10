@@ -238,7 +238,8 @@ public class Player : MonoBehaviour
         else if (other.gameObject.tag == "OneWayDoor")
         {
             other.gameObject.SendMessageUpwards("Close");
-            setCheckpoint("PrisonBoss");
+            if(checkpoint == "Prison")
+                setCheckpoint("PrisonBoss");
         }
         else if (other.gameObject.tag == "EnemyWeapon" && damageTakenCooldown <= 0.0f)
         {
