@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Boss2 : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class Boss2 : MonoBehaviour
     float[] jumpWidth = { 179f, 224f };
     float[] jumpHeight = { -6.5f, 2.5f };
     bool wasSpooked = false;
+
+    public List<GameObject> bulletList;
 
 
     // Use this for initialization
