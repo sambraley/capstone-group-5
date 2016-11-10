@@ -86,9 +86,9 @@ public class BasicEnemy : MonoBehaviour {
             rayOrigin += Vector2.up * yOffsetPerTrace * i;
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, direction, meleeRange, playerMask);
             Debug.DrawRay(rayOrigin, direction, Color.red);
-            if (hit)
+            if (hit && hit.collider.tag == "Player")
             {
-                return hit;
+                return true;
             }
         }
         return false;

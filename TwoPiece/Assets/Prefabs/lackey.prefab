@@ -183,7 +183,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 5
-  meleeRange: 1
   timeToSwing: 0.5
   weaponSwingCooldown: 1
   direction: {x: 1, y: 0}
@@ -192,7 +191,7 @@ MonoBehaviour:
     m_Bits: 256
   playerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
 --- !u!212 &212000012733735342
 SpriteRenderer:
   m_ObjectHideFlags: 1
