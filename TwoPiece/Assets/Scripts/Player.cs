@@ -322,8 +322,8 @@ public class Player : MonoBehaviour
 
     private void respawn()
     {
-        //PlayerState p = PlayerState.Instance;
-        //p.giveMaxHealth();
+        PlayerState p = PlayerState.Instance;
+        p.giveMaxHealth();
         if (hitCheckpoint)
         {
             DontDestroyOnLoad(gameObject);

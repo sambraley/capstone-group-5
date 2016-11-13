@@ -57,6 +57,7 @@ public class BasicEnemy : MonoBehaviour {
                 {
                     if (currentWeaponCooldown <= 0.0f)
                     {
+                        m_Anim.SetBool("isAttacking", true);
                         state = EnemyState.PreparingToSwing;
                         StartCoroutine(SwingWeaponAfterTime(timeToSwing));
                     }
@@ -65,10 +66,17 @@ public class BasicEnemy : MonoBehaviour {
                 {
                     CheckForCollisions();
                     controller.Move(direction * walkSpeed * Time.deltaTime);
+                    m_Anim.SetBool("isWalking", true);
+                    m_Anim.SetBool("isAttacking", false);
                 }
             }
             // else if(EnemyState.PreparingToSwing == state)
 
+        }
+        else
+        {
+            m_Anim.SetBool("isWalking", false);
+            m_Anim.SetBool("isAttacking", false);
         }
     }
 
