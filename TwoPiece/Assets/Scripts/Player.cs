@@ -118,7 +118,6 @@ public class Player : MonoBehaviour
         if (velocity.x != 0 && !m_Anim.GetBool("isClimbing") /* && is not jumping*/)
         {
             m_Anim.SetBool("isRunning", true);
-            Debug.Log("Velcotyy y is " + velocity.y);
             sounds.PlayWalk();
         }
         else
