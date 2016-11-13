@@ -8,7 +8,7 @@ public class BasicEnemy : MonoBehaviour {
     public float walkSpeed = 1.0f;
     private float meleeRange = .8f;
 
-    public float timeToSwing = 0.5f;
+    private float timeToSwing = 0.25f;
     public float weaponSwingCooldown = 1.0f;
     // currentWeaponCooldown will be set to timeToSwing + weaponSwingCooldown
     private float currentWeaponCooldown = 0.0f;
@@ -60,6 +60,11 @@ public class BasicEnemy : MonoBehaviour {
                         m_Anim.SetBool("isAttacking", true);
                         state = EnemyState.PreparingToSwing;
                         StartCoroutine(SwingWeaponAfterTime(timeToSwing));
+                    }
+                    else
+                    {
+                        m_Anim.SetBool("isAttacking", false);
+                        m_Anim.SetBool("isWalking", false);
                     }
                 }
                 else

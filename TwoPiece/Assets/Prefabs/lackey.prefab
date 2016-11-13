@@ -25,6 +25,7 @@ GameObject:
   - 114: {fileID: 114000010404235642}
   - 114: {fileID: 114000010236654634}
   - 82: {fileID: 82000010338394122}
+  - 95: {fileID: 95000013916669956}
   m_Layer: 10
   m_Name: lackey
   m_TagString: Enemy
@@ -39,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012352638542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 67.58, y: -0.47100955, z: 0}
+  m_LocalPosition: {x: 11.04, y: 25.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -133,6 +134,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95000013916669956
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012352638542}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a3d0edc875a13844a3c4bedaa72a5f8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114000010236654634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -183,7 +201,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 5
-  timeToSwing: 0.5
   weaponSwingCooldown: 1
   direction: {x: 1, y: 0}
   collisionMask:
@@ -221,7 +238,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -931496463
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 979bcdcac294a18408e534acc5358450, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0f770d16c7114c42a0b0e72faab4d1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
