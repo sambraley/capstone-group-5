@@ -34,8 +34,6 @@ namespace UnityStandardAssets._2D
         private Text DeathText;
         [SerializeField]
         private Image DeathBackground;
-        //        [SerializeField]
-        //        private Image promptBackground;
         void Awake()
         {
             m_Character = GetComponent<Player>();
@@ -56,7 +54,9 @@ namespace UnityStandardAssets._2D
             coin.enabled = true;
             coinCount.text = PlayerState.Instance.getCoins().ToString() + "/15";
             key.enabled = false;
-            //promptBackground.enabled = false;
+            DEADImage.enabled = false;
+            DeathText.enabled = false;
+            DeathBackground.enabled = false;
         }
 
         // Use this for initialization
@@ -167,7 +167,16 @@ namespace UnityStandardAssets._2D
         }
 
         void DeathScreen() {
-            
+            skulls[0].enabled = false;
+            skulls[1].enabled = false;
+            skulls[2].enabled = false;
+            nonLethal.enabled = false; //always start in non-lethal mode
+            lethal.enabled = false;
+            coin.enabled = false;
+            key.enabled = false;
+            DEADImage.enabled = true;
+            DeathText.enabled = true;
+            DeathBackground.enabled = true;
         }
 
     }

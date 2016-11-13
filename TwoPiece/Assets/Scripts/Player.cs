@@ -322,6 +322,25 @@ public class Player : MonoBehaviour
 
     private void respawn()
     {
+        gameObject.SendMessage("DeathScreen");
+        StartCoroutine(wait()); //wait for a bit
+    }
+
+    public void setCheckpoint(string name)
+    {
+        checkpoint = name;
+        hitCheckpoint = true;
+        gameObject.SendMessage("Persist");
+    }
+
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(10);
+        RealRespawn();
+    }
+
+    private void RealRespawn()
+    {
         PlayerState p = PlayerState.Instance;
         p.giveMaxHealth();
         if (hitCheckpoint)
@@ -333,12 +352,4 @@ public class Player : MonoBehaviour
         }
         SceneManager.LoadScene(checkpoint);
     }
-
-    public void setCheckpoint(string name)
-    {
-        checkpoint = name;
-        hitCheckpoint = true;
-        gameObject.SendMessage("Persist");
-    }
-
 }
