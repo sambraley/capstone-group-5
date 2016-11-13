@@ -118,7 +118,6 @@ public class Player : MonoBehaviour
         if (velocity.x != 0 && !m_Anim.GetBool("isClimbing") /* && is not jumping*/)
         {
             m_Anim.SetBool("isRunning", true);
-            Debug.Log("Velcotyy y is " + velocity.y);
             sounds.PlayWalk();
         }
         else
@@ -160,7 +159,6 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log(other.tag);
         if (other.gameObject.tag == "Ladder")
         {
             onLadder = true;
@@ -179,17 +177,14 @@ public class Player : MonoBehaviour
             //dPrompt.enabled = true;
             //gameObject.SendMessage("PromptSet", true);
         }
-        else if (other.gameObject.tag == "MeleeCone")
-        {
-            Debug.Log("Yarr you've been damaged");
-        }
         else if (other.gameObject.tag == "Coin")
         {
             Destroy(other.gameObject);
             PlayerState p = PlayerState.Instance;
             p.incrementCoins();
             int coins = PlayerState.Instance.getCoins();
-            if ((coins == 10 && maxHealth == 3) || (coins == 20 && (maxHealth == 4 || maxHealth == 5)))
+            Debug.Log(coins);
+            if (coins >= 15 && maxHealth <=5)
             {
                 p.setCoins(0);
                 p.incrementMaxHealth();
@@ -279,7 +274,6 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Ladder")
         {
-            //Debug.Log("Not colliding with ladder");
             onLadder = false;
             m_Anim.SetBool("isClimbing", false);
             Rigidbody2D rigid = GetComponent<Rigidbody2D>();
@@ -287,7 +281,6 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.tag == "Dialogue")
         {
-            //Debug.Log("exiting dialogue range");
             onDialogue = false;
             //dPrompt.enabled = false;
             dialogueCollider.SendMessageUpwards("CloseDialogue");
@@ -304,7 +297,6 @@ public class Player : MonoBehaviour
     private void DamageTaken()
     {
         PlayerState p = PlayerState.Instance;
-        Debug.Log("OUCH Health is " + (p.getHealth() -1) + "/" + maxHealth);
         if (p.getHealth() == 1)
             respawn();
         else
@@ -330,9 +322,8 @@ public class Player : MonoBehaviour
 
     private void respawn()
     {
-        PlayerState p = PlayerState.Instance;
-        Debug.Log("Health is " + health + "/" + p.getMaxHealth());
-        p.giveMaxHealth();
+        //PlayerState p = PlayerState.Instance;
+        //p.giveMaxHealth();
         if (hitCheckpoint)
         {
             DontDestroyOnLoad(gameObject);
@@ -341,7 +332,6 @@ public class Player : MonoBehaviour
             gameObject.transform.position = new Vector2(5, 57.5f);
         }
         SceneManager.LoadScene(checkpoint);
-        Debug.Log("Num enemies Killed: " + EnemiesKilled);
     }
 
     public void setCheckpoint(string name)

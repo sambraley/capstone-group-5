@@ -55,7 +55,8 @@ public class PlayerState
 
     public void incrementMaxHealth()
     {
-        maxHealth++;
+        if(maxHealth <= 5)
+            maxHealth++;
     }
 
     public void incrementHealth()

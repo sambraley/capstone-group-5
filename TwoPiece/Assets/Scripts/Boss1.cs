@@ -65,7 +65,6 @@ public class Boss1 : MonoBehaviour
             {
                 if(!wasSpooked)
                     wasSpooked = true;
-                Debug.Log(bossPos.x);
                 if (bossPos.x < rightBound)
                 {
                     FaceDirection(-1);
@@ -154,15 +153,8 @@ public class Boss1 : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Boss Collided with " + other.tag);
-        //Debug.Log(other.gameObject.tag);
-    }
-
     void DamageTaken() //, lethal
     {
-        Debug.Log("ouch.");
         health -= 1;
         if (health <= 0)
         {

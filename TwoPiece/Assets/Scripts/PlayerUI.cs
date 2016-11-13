@@ -54,7 +54,7 @@ namespace UnityStandardAssets._2D
             nonLethal.enabled = true; //always start in non-lethal mode
             lethal.enabled = false;
             coin.enabled = true;
-            coinCount.text = PlayerState.Instance.getCoins().ToString();
+            coinCount.text = PlayerState.Instance.getCoins().ToString() + "/15";
             key.enabled = false;
             //promptBackground.enabled = false;
         }
@@ -134,7 +134,7 @@ namespace UnityStandardAssets._2D
 
         void SetCoin(int coins)
         {
-            coinCount.text = coins.ToString();
+            coinCount.text = coins.ToString() + "/15";
         }
 
         void SetLethal(bool isLethal)

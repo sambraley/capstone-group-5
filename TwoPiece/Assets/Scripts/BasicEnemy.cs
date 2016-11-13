@@ -17,6 +17,7 @@ public class BasicEnemy : MonoBehaviour {
     private Controller2D controller;
     private BoxCollider2D collider;
     private SpriteRenderer sprite;
+    private Animator m_Anim;
 
     private RaycastOrigins rayOrigins;
     private EnemyState state = EnemyState.Patrolling;
@@ -35,7 +36,8 @@ public class BasicEnemy : MonoBehaviour {
         controller = GetComponent<Controller2D>();
         collider = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
-	}
+        m_Anim = GetComponent<Animator>();
+    }
 
     void Awake()
     {
@@ -96,6 +98,7 @@ public class BasicEnemy : MonoBehaviour {
 
     void SwingWeapon()
     {
+
         int numHorizontalTraces = 4;
         // Bounds.extents/2 as we're only hitting the top half of her hitbox
         float yOffsetPerTrace = (collider.bounds.extents.y / 2) / (numHorizontalTraces - 1);
