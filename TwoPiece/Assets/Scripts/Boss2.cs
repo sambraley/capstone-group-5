@@ -12,7 +12,6 @@ public class Boss2 : MonoBehaviour
     private float walkSpeed = 6f;
     private bool fightStarted = false;
     private static GameObject playerGameObject = null;
-    int lastDir = 0;
     int count = 40;
     bool jumping = false;
     float[] jumpWidth = { 179f, 224f };
@@ -123,7 +122,6 @@ public class Boss2 : MonoBehaviour
     }
     void FaceDirection(int dir)
     {
-        lastDir = dir;
         if (dir == -1)
             FaceLeft();
         else

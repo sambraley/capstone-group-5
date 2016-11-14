@@ -37,13 +37,11 @@ namespace UnityStandardAssets._2D
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
-        private BoxCollider2D standingCollider;
         public bool onLadder = false;
         public bool onDialogue = false;
         private Collider2D dialogueCollider;
         private BoxCollider2D meleeCollider;
         public int lastDir = 1;
-        float playerWidth;
         const float fireCooldown = 1.0f;
         public float currentFireCooldown = 0.0f;
         private float meleeCooldown = 0.0f;
@@ -71,12 +69,9 @@ namespace UnityStandardAssets._2D
             // Setting up references.
             m_GroundCheck = transform.Find("GroundCheck");
             //m_CeilingCheck = transform.Find("CeilingCheck");
-            standingCollider = GetComponent<BoxCollider2D>();
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
-            BoxCollider2D hitbox = GetComponent<BoxCollider2D>();
             meleeCollider = transform.Find("MeleeCollider").gameObject.GetComponentInChildren<BoxCollider2D>();
-            playerWidth = transform.localScale.x * (hitbox.size.x / 2);
             lastDir = 0;
             dPrompt.enabled = false;
             m_AudioSource = GetComponent<AudioSource>();

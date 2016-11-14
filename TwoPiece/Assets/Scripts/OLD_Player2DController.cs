@@ -8,13 +8,11 @@ namespace UnityStandardAssets._2D
 
     public class Player2DController : MonoBehaviour
     {
-        private Animator m_Anim;            // Reference to the player's animator component.
         private Player2D m_Character;
 
         private void Awake()
         {
             m_Character = GetComponent<Player2D>();
-            m_Anim = GetComponent<Animator>();
         }
 
         private void FixedUpdate()
@@ -31,7 +29,6 @@ namespace UnityStandardAssets._2D
             bool melee = Input.GetKey(KeyCode.S);
             bool swapWeapons = Input.GetKey(KeyCode.F);
             bool fire = Input.GetKey(KeyCode.D);
-            bool reload = Input.GetKey(KeyCode.R);
 
             if (Input.GetKey(KeyCode.UpArrow)  && m_Character.onLadder)
             {
