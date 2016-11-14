@@ -164,6 +164,7 @@ public class Boss1 : MonoBehaviour
         }
         else
         {
+            StartCoroutine(FlashSprite(GetComponent<SpriteRenderer>(), 2));
             jumping = true;
             count = 0;
             //do damage animation
@@ -189,5 +190,16 @@ public class Boss1 : MonoBehaviour
         sound.clip = dead;
         sound.Play();
         yield return new WaitWhile(() => sound.isPlaying);
+    }
+
+    IEnumerator FlashSprite(SpriteRenderer s, int numTimes)
+    {
+        for (int i = 0; i < numTimes; i++)
+        {
+            s.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            s.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
