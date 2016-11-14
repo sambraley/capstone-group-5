@@ -342,7 +342,7 @@ public class Player : MonoBehaviour
 
     IEnumerator wait()
     {
-        yield return new WaitForSecondsRealtime(2);
+        yield return new WaitForSecondsRealtime(1.5f);
         RealRespawn();
     }
 
