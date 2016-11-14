@@ -51,6 +51,9 @@ public class Player : MonoBehaviour
     public string checkpoint = "Prison";
     private bool hitCheckpoint = false;
 
+    bool frozen = false;
+    GameObject storyObject;
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -65,65 +68,75 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        UpdateCooldowns();
-        //if you land reset dash ;)
-        if (controller.collisions.below && !wasGroundedLastUpdate)
-            dashCooldown = 0.0f;
-        wasGroundedLastUpdate = controller.collisions.below;
+        if(!frozen) {
+            UpdateCooldowns();
+            //if you land reset dash ;)
+            if (controller.collisions.below && !wasGroundedLastUpdate)
+                dashCooldown = 0.0f;
+            wasGroundedLastUpdate = controller.collisions.below;
 
-        if ((Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return)) && onDialogue) //Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return)
-        { //a talks if you're in dialogue
-            Talk();
-        }
+            if ((Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return)) && onDialogue) //Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return)
+            { //a talks if you're in dialogue
+                Talk();
+            }
 
-        if (controller.collisions.above || controller.collisions.below)
-        {
-            velocity.y = 0;
-        }
+            if (controller.collisions.above || controller.collisions.below)
+            {
+                velocity.y = 0;
+            }
 
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); //works with controller, takes joystick input
+            Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); //works with controller, takes joystick input
 
-        // If input.x and lastDirection have the same signedness, the result will be positive (- * - or + * +), however if they're different we'll enter
-        if (input.x != 0 && ((input.x * lastDirection) < 0))
-        {
-            lastDirection = input.x > 0 ? 1.0f : -1.0f;
-            FlipSprite();
-        }
-        
-        if ((Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space)) && controller.collisions.below && !onDialogue) //Input.GetKeyDown(KeyCode.Space)
-        { //a jumps
-            velocity.y = jumpVelocity;
-        }
+            // If input.x and lastDirection have the same signedness, the result will be positive (- * - or + * +), however if they're different we'll enter
+            if (input.x != 0 && ((input.x * lastDirection) < 0))
+            {
+                lastDirection = input.x > 0 ? 1.0f : -1.0f;
+                FlipSprite();
+            }
+
+            if ((Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space)) && controller.collisions.below && !onDialogue) //Input.GetKeyDown(KeyCode.Space)
+            { //a jumps
+                velocity.y = jumpVelocity;
+            }
 
 
 
-        float targetVelocityX = input.x * moveSpeed;
-        //velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-        velocity.x = targetVelocityX;
-        bool shouldDash = ( (Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Period) || Input.GetKeyDown(KeyCode.LeftShift)) && dashCooldown <= 0.0f ); // || Input.GetKeyDown(KeyCode.Period) || Input.GetKeyDown(KeyCode.LeftShift)
-        //right bumper or b button dash
-        // if true, velocity.x will be replaced
-        if (shouldDash)
-        {
-            dashTimer = dashDuration;
-            dashDirection = lastDirection;
-        }
-        if (dashTimer > 0.0f)
-            Dash(ref velocity.x);
-        if (onLadder)
-            velocity.y = input.y * ladderSpeed;
-        else
-            velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-        if (velocity.x != 0 && !m_Anim.GetBool("isClimbing") /* && is not jumping*/)
-        {
-            m_Anim.SetBool("isRunning", true);
-            sounds.PlayWalk();
+            float targetVelocityX = input.x * moveSpeed;
+            //velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+            velocity.x = targetVelocityX;
+            bool shouldDash = ((Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Period) || Input.GetKeyDown(KeyCode.LeftShift)) && dashCooldown <= 0.0f); // || Input.GetKeyDown(KeyCode.Period) || Input.GetKeyDown(KeyCode.LeftShift)
+            //right bumper or b button dash
+            // if true, velocity.x will be replaced
+            if (shouldDash)
+            {
+                dashTimer = dashDuration;
+                dashDirection = lastDirection;
+            }
+            if (dashTimer > 0.0f)
+                Dash(ref velocity.x);
+            if (onLadder)
+                velocity.y = input.y * ladderSpeed;
+            else
+                velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
+            if (velocity.x != 0 && !m_Anim.GetBool("isClimbing") /* && is not jumping*/)
+            {
+                m_Anim.SetBool("isRunning", true);
+                sounds.PlayWalk();
+            }
+            else
+            {
+                m_Anim.SetBool("isRunning", false);
+                sounds.StopPlayingWalk();
+            }
         }
         else
         {
             m_Anim.SetBool("isRunning", false);
-            sounds.StopPlayingWalk();
+            if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return))
+            {
+                storyObject.SendMessage("Next");
+            }
         }
     }
 
@@ -255,23 +268,12 @@ public class Player : MonoBehaviour
         }
         else if(other.gameObject.tag == "SceneSwap")
         {
-            string currentSceneName = SceneManager.GetActiveScene().name;
-            Destroy(gameObject);
-            if(toSave != null && toSave.gameObject != null)
-                Destroy(toSave.gameObject);
-            switch (currentSceneName)
-            {
-                case "Ship":
-                    SceneManager.LoadScene("Prison");
-                    break;
-                case "Prison":
-                case "PrisonBoss":
-                    SceneManager.LoadScene("Beach");
-                    break;
-                case "Beach":
-                    SceneManager.LoadScene("Cave");
-                    break;
-            }
+            SceneSwap();
+        }
+        else if (other.gameObject.tag == "StoryObject")
+        {
+            storyObject = other.gameObject;
+            other.gameObject.SendMessageUpwards("Triggered");
         }
     }
     void OnTriggerExit2D(Collider2D other)
@@ -361,5 +363,31 @@ public class Player : MonoBehaviour
         }
         SceneManager.LoadScene(checkpoint);
         Debug.Log("Num enemies Killed: " + EnemiesKilled);
+    }
+
+    void Freeze()
+    {
+        frozen = !frozen;
+    }
+
+    void SceneSwap()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        Destroy(gameObject);
+        if (toSave != null && toSave.gameObject != null)
+            Destroy(toSave.gameObject);
+        switch (currentSceneName)
+        {
+            case "Ship":
+                SceneManager.LoadScene("Prison");
+                break;
+            case "Prison":
+            case "PrisonBoss":
+                SceneManager.LoadScene("Beach");
+                break;
+            case "Beach":
+                SceneManager.LoadScene("Cave");
+                break;
+        }
     }
 }

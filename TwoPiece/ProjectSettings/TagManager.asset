@@ -32,6 +32,7 @@ TagManager:
   - OneWayDoor
   - SceneSwap
   - KillZone
+  - StoryObject
   layers:
   - Default
   - TransparentFX
