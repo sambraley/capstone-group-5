@@ -347,11 +347,15 @@ public class Player : MonoBehaviour
         p.coins = coins;
         p.pos = pos;
         p.hitCheckpoint = hitCheckpoint;
-        p.enemiesKilled = EnemiesKilled;
         //if you ever hit checkpoint you get sword forever
         if(hitCheckpoint)
         {
+            p.enemiesKilled = EnemiesKilled;
             p.hasSword = true;
+        }
+        else
+        {
+            p.enemiesKilled = 0;
         }
     }
     private void LoadState()
