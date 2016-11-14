@@ -331,7 +331,10 @@ public class Player : MonoBehaviour
 
     IEnumerator wait()
     {
-        yield return new WaitForSecondsRealtime(1.5f);
+        PlayerState p = PlayerState.Instance;
+        float deathScreenTime = (p.timesDied == 0 ? 2.0f : .5f);
+        p.timesDied++;
+        yield return new WaitForSecondsRealtime(deathScreenTime);
         RealRespawn();
     }
 
@@ -390,7 +393,6 @@ public class Player : MonoBehaviour
                 SceneManager.LoadScene("Prison");
                 break;
             case "Prison":
-            case "PrisonBoss":
                 SceneManager.LoadScene("Beach");
                 break;
             case "Beach":
