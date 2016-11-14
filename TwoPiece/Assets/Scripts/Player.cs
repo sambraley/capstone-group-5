@@ -252,6 +252,7 @@ public class Player : MonoBehaviour
         }
         else if(other.gameObject.tag == "SceneSwap")
         {
+            SaveState();
             string currentSceneName = SceneManager.GetActiveScene().name;
             Destroy(gameObject);
             if(toSave != null && toSave.gameObject != null)
@@ -330,6 +331,7 @@ public class Player : MonoBehaviour
 
     public void setCheckpoint(string name)
     {
+        SaveState();
         checkpoint = name;
         hitCheckpoint = true;
         gameObject.SendMessage("Persist");
