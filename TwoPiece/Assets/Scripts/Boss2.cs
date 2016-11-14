@@ -150,6 +150,7 @@ public class Boss2 : MonoBehaviour
         }
         else
         {
+            StartCoroutine(FlashSprite(GetComponent<SpriteRenderer>(), 2));
             jumping = true;
             count = 0;
             //do damage animation
@@ -169,12 +170,15 @@ public class Boss2 : MonoBehaviour
             g.gameObject.SetActive(true);
         }
     }
-}
 
-
-public class Bullet
-{
-    GameObject bullet;
-    float TimeStart;
-   
+    IEnumerator FlashSprite(SpriteRenderer s, int numTimes)
+    {
+        for (int i = 0; i < numTimes; i++)
+        {
+            s.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            s.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
 }
