@@ -51,22 +51,17 @@ namespace UnityStandardAssets._2D
             nonLethal.enabled = true; //always start in non-lethal mode
             lethal.enabled = false;
             coin.enabled = true;
-            coinCount.text = m_Character.coins.ToString() + "/15";
+            PlayerState p = PlayerState.Instance;
+            coinCount.text = p.coins.ToString() + "/15";
             key.enabled = false;
             DEADImage.enabled = false;
             DeathText.enabled = false;
             DeathBackground.enabled = false;
-        }
 
-        // Use this for initialization
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            if (p.enemiesKilled > 0)
+            {
+                skulls[Mathf.Min(p.enemiesKilled - 1, 2)].enabled = true;
+            }
         }
         
         void PromptSet(bool set)
@@ -156,10 +151,6 @@ namespace UnityStandardAssets._2D
         void ToggleKey()
         {
             key.enabled = !key.enabled;
-        }
-        void Persist()
-        {
-            DontDestroyOnLoad(gameObject);
         }
 
         void DeathScreen() {

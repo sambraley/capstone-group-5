@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     public int coins = 0;
     public int EnemiesKilled = 0;
     public float damageTakenCooldown;
-    public DontDestoryCanvas toSave;
     private Animator m_Anim;
 
     public float jumpHeight = 4;
@@ -46,12 +45,9 @@ public class Player : MonoBehaviour
     Controller2D controller;
     PlayerSounds sounds;
     SpriteRenderer playerSprite;
-
-    public string checkpoint = "Prison";
-    private bool hitCheckpoint = false;
-
     void Start()
     {
+        LoadState();
         controller = GetComponent<Controller2D>();
         playerSprite = GetComponent<SpriteRenderer>();
         sounds = GetComponent<PlayerSounds>();
@@ -60,7 +56,6 @@ public class Player : MonoBehaviour
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         print("Gravity: " + gravity + "  Jump Velocity: " + jumpVelocity);
         m_Anim = GetComponent<Animator>();
-        LoadState();
     }
 
     void Update()
@@ -234,8 +229,6 @@ public class Player : MonoBehaviour
         else if (other.gameObject.tag == "OneWayDoor")
         {
             other.gameObject.SendMessageUpwards("Close");
-            if(checkpoint == "Prison")
-                setCheckpoint("PrisonBoss");
         }
         else if (other.gameObject.tag == "EnemyWeapon" && damageTakenCooldown <= 0.0f)
         {
@@ -244,6 +237,11 @@ public class Player : MonoBehaviour
         else if (other.gameObject.tag == "Sword")
         {
             GetComponent<Weapon>().GiveSword();
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "Checkpoint")
+        {
+            SaveState(other.gameObject.transform.position, true);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "PlayerBullet")
@@ -255,8 +253,6 @@ public class Player : MonoBehaviour
             SaveState();
             string currentSceneName = SceneManager.GetActiveScene().name;
             Destroy(gameObject);
-            if(toSave != null && toSave.gameObject != null)
-                Destroy(toSave.gameObject);
             switch (currentSceneName)
             {
                 case "Ship":
@@ -329,14 +325,6 @@ public class Player : MonoBehaviour
         StartCoroutine(wait()); //wait for a bit
     }
 
-    public void setCheckpoint(string name)
-    {
-        SaveState();
-        checkpoint = name;
-        hitCheckpoint = true;
-        gameObject.SendMessage("Persist");
-    }
-
     IEnumerator wait()
     {
         yield return new WaitForSecondsRealtime(1.5f);
@@ -345,29 +333,27 @@ public class Player : MonoBehaviour
 
     private void RealRespawn()
     {
-        //health = maxHealth;
-        if (hitCheckpoint)
-        {
-            gameObject.SendMessage("DisableDeathScreen");
-            DontDestroyOnLoad(gameObject);
-            gameObject.SendMessage("MaxBandana");
-            //toSave.save();
-            gameObject.transform.position = new Vector2(5, 57.5f);
-        }
-        SceneManager.LoadScene(checkpoint);
-        Debug.Log("Num enemies Killed: " + EnemiesKilled);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    private void SaveState()
+    private void SaveState(Vector2 pos = default(Vector2), bool hitCheckpoint = false)
     {
         PlayerState p = PlayerState.Instance;
         p.maxHealth = maxHealth;
         p.coins = coins;
+        p.pos = pos;
+        p.hitCheckpoint = hitCheckpoint;
+        p.enemiesKilled = EnemiesKilled;
     }
     private void LoadState()
     {
         PlayerState p = PlayerState.Instance;
         maxHealth = p.maxHealth;
         coins = p.coins;
+        if(p.hitCheckpoint)
+        {
+            gameObject.transform.position = p.pos;
+            EnemiesKilled = p.enemiesKilled;
+        }
     }
 }
