@@ -59,7 +59,7 @@ public class Boss2 : MonoBehaviour
         }
         if (fightStarted && health > 0)
         {
-            bool isSpooked = Mathf.Abs(Mathf.Abs(playerPos.x) - Mathf.Abs(bossPos.x)) < 3;
+            bool isSpooked = Mathf.Abs(Mathf.Abs(playerPos.x) - Mathf.Abs(bossPos.x)) < 6;
 
             if (isSpooked || wasSpooked)
             {

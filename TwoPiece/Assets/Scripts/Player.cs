@@ -365,6 +365,8 @@ public class Player : MonoBehaviour
     {
         PlayerState p = PlayerState.Instance;
         maxHealth = p.maxHealth;
+        health = maxHealth;
+        gameObject.SendMessage("MaxBandana");
         coins = p.coins;
         if(p.hitCheckpoint)
         {
