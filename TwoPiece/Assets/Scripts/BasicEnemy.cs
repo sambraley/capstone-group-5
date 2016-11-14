@@ -8,7 +8,7 @@ public class BasicEnemy : MonoBehaviour {
     public float walkSpeed = 1.0f;
     private float meleeRange = .8f;
 
-    private float timeToSwing = 0.25f;
+    private float timeToSwing = 0.33f;
     public float weaponSwingCooldown = 1.0f;
     // currentWeaponCooldown will be set to timeToSwing + weaponSwingCooldown
     private float currentWeaponCooldown = 0.0f;
@@ -58,21 +58,28 @@ public class BasicEnemy : MonoBehaviour {
                     if (currentWeaponCooldown <= 0.0f)
                     {
                         m_Anim.SetBool("isAttacking", true);
+                        m_Anim.SetBool("isWalking", false);
                         state = EnemyState.PreparingToSwing;
                         StartCoroutine(SwingWeaponAfterTime(timeToSwing));
                     }
                     else
                     {
                         m_Anim.SetBool("isAttacking", false);
-                        m_Anim.SetBool("isWalking", false);
                     }
                 }
                 else
                 {
-                    CheckForCollisions();
-                    controller.Move(direction * walkSpeed * Time.deltaTime);
-                    m_Anim.SetBool("isWalking", true);
-                    m_Anim.SetBool("isAttacking", false);
+                    if (currentWeaponCooldown <= 0.0f)
+                    {
+                        CheckForCollisions();
+                        controller.Move(direction * walkSpeed * Time.deltaTime);
+                        m_Anim.SetBool("isWalking", true);
+                        m_Anim.SetBool("isAttacking", false);
+                    }
+                    else
+                    {
+                        m_Anim.SetBool("isAttacking", false);
+                    }
                 }
             }
             // else if(EnemyState.PreparingToSwing == state)
@@ -94,18 +101,21 @@ public class BasicEnemy : MonoBehaviour {
 
     bool CheckForPlayerInMeleeRange()
     {
-        int numHorizontalTraces = 4;
-        // Bounds.extents/2 as we're only hitting the top half of her hitbox
-        float yOffsetPerTrace = (collider.bounds.extents.y / 2) / (numHorizontalTraces - 1);
-        for (int i = 0; i <= numHorizontalTraces; i++)
+        if (gameObject.GetComponent<EnemyHealth>().isAlive())
         {
-            Vector2 rayOrigin = (direction == Vector2.left) ? rayOrigins.centerLeft : rayOrigins.centerRight;
-            rayOrigin += Vector2.up * yOffsetPerTrace * i;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, direction, meleeRange, playerMask);
-            Debug.DrawRay(rayOrigin, direction, Color.red);
-            if (hit && hit.collider.tag == "Player")
+            int numHorizontalTraces = 4;
+            // Bounds.extents/2 as we're only hitting the top half of her hitbox
+            float yOffsetPerTrace = (collider.bounds.extents.y / 2) / (numHorizontalTraces - 1);
+            for (int i = 0; i <= numHorizontalTraces; i++)
             {
-                return true;
+                Vector2 rayOrigin = (direction == Vector2.left) ? rayOrigins.centerLeft : rayOrigins.centerRight;
+                rayOrigin += Vector2.up * yOffsetPerTrace * i;
+                RaycastHit2D hit = Physics2D.Raycast(rayOrigin, direction, meleeRange, playerMask);
+                Debug.DrawRay(rayOrigin, direction, Color.red);
+                if (hit && hit.collider.tag == "Player")
+                {
+                    return true;
+                }
             }
         }
         return false;
