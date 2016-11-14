@@ -80,8 +80,10 @@ public class BasicEnemy : MonoBehaviour {
         }
         else
         {
-            m_Anim.SetBool("isWalking", false);
             m_Anim.SetBool("isAttacking", false);
+            m_Anim.SetBool("isWalking", false);
+            m_Anim.enabled = false;
+            enemyStatus.setToDeathSprite();
         }
     }
 

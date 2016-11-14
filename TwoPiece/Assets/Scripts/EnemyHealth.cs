@@ -1,28 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyHealth : MonoBehaviour {
+public class EnemyHealth : MonoBehaviour
+{
     public int clubHealth = 2;
     public int swordHealth = 1;
     public GameObject playerObject;
-    [SerializeField] Sprite dazed;
-    [SerializeField] Sprite dead;
-    [SerializeField] Object[] drops;
+    [SerializeField]
+    Sprite dazed;
+    [SerializeField]
+    Sprite dead;
+    [SerializeField]
+    Object[] drops;
     private AudioSource m_AudioSource;
     [SerializeField]
     private AudioClip hitByClub;
     [SerializeField]
     private AudioClip hitBySword;
+    private Sprite deathSprite;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         if (playerObject == null)
             playerObject = GameObject.FindWithTag("Player");
         m_AudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
 
     }
     public bool isAlive()
@@ -66,12 +73,14 @@ public class EnemyHealth : MonoBehaviour {
             {
                 GetComponent<SpriteRenderer>().sprite = dazed;
                 gameObject.transform.Translate(0, -.5f, 0);
+                deathSprite = dazed;
             }
             else if (swordHealth == 0)
             {
                 GetComponent<SpriteRenderer>().sprite = dead;
                 gameObject.transform.Translate(0, -.5f, 0);
                 playerObject.SendMessage("AddKill");
+                deathSprite = dead;
             }
         }
     }
@@ -85,5 +94,10 @@ public class EnemyHealth : MonoBehaviour {
             s.color = Color.white;
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public void setToDeathSprite()
+    {
+        GetComponent<SpriteRenderer>().sprite = deathSprite;
     }
 }
