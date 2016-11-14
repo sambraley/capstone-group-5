@@ -344,6 +344,11 @@ public class Player : MonoBehaviour
         p.pos = pos;
         p.hitCheckpoint = hitCheckpoint;
         p.enemiesKilled = EnemiesKilled;
+        //if you ever hit checkpoint you get sword forever
+        if(hitCheckpoint)
+        {
+            p.hasSword = true;
+        }
     }
     private void LoadState()
     {
@@ -354,6 +359,10 @@ public class Player : MonoBehaviour
         {
             gameObject.transform.position = p.pos;
             EnemiesKilled = p.enemiesKilled;
+        }
+        if(p.hasSword)
+        {
+            GetComponent<Weapon>().GiveSword();
         }
     }
 }

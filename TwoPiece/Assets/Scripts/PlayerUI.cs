@@ -36,6 +36,7 @@ namespace UnityStandardAssets._2D
         private Image DeathBackground;
         void Awake()
         {
+            PlayerState p = PlayerState.Instance;
             m_Character = GetComponent<Player>();
             for (int  i = 0; i < m_Character.maxHealth; ++i)
             {
@@ -51,7 +52,6 @@ namespace UnityStandardAssets._2D
             nonLethal.enabled = true; //always start in non-lethal mode
             lethal.enabled = false;
             coin.enabled = true;
-            PlayerState p = PlayerState.Instance;
             coinCount.text = p.coins.ToString() + "/15";
             key.enabled = false;
             DEADImage.enabled = false;
