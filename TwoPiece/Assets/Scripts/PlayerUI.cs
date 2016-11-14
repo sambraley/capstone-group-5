@@ -177,7 +177,15 @@ namespace UnityStandardAssets._2D
             DEADImage.enabled = true;
             DeathText.enabled = true;
             DeathBackground.enabled = true;
+            
         }
 
+        void DisableDeathScreen()
+        {
+            DEADImage.enabled = false;
+            DeathText.enabled = false;
+            DeathBackground.enabled = false;
+
+        }
     }
 }

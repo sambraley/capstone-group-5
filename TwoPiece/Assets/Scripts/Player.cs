@@ -353,6 +353,7 @@ public class Player : MonoBehaviour
         p.giveMaxHealth();
         if (hitCheckpoint)
         {
+            gameObject.SendMessage("DisableDeathScreen");
             DontDestroyOnLoad(gameObject);
             gameObject.SendMessage("MaxBandana");
             toSave.save();
