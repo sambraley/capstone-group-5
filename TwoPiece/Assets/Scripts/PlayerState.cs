@@ -10,6 +10,7 @@ public class PlayerState
     public Vector2 pos;
     public bool hitCheckpoint;
     public bool hasSword;
+    public int timesDied;
 
     private PlayerState() {
         coins = 0;
@@ -18,6 +19,7 @@ public class PlayerState
         pos = default(Vector2);
         hitCheckpoint = false;
         hasSword = false;
+        timesDied = 0;
     }
 
     public static PlayerState Instance
