@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public int health = 3;
     public int maxHealth = 3;
     public int keys = 0;
+    public int coins = 0;
     public int EnemiesKilled = 0;
     public float damageTakenCooldown;
     public DontDestoryCanvas toSave;
@@ -24,8 +25,6 @@ public class Player : MonoBehaviour
 
     public float jumpHeight = 4;
     public float timeToJumpApex = .4f;
-    float accelerationTimeAirborne = .2f;
-    float accelerationTimeGrounded = .1f;
     public float moveSpeed = 6;
     public float dashSpeed = 28;
     public float ladderSpeed = 6;
@@ -61,6 +60,7 @@ public class Player : MonoBehaviour
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         print("Gravity: " + gravity + "  Jump Velocity: " + jumpVelocity);
         m_Anim = GetComponent<Animator>();
+        LoadState();
     }
 
     void Update()
@@ -185,14 +185,12 @@ public class Player : MonoBehaviour
         else if (other.gameObject.tag == "Coin")
         {
             Destroy(other.gameObject);
-            PlayerState p = PlayerState.Instance;
-            p.incrementCoins();
-            int coins = PlayerState.Instance.getCoins();
-            if ((coins == 10 && maxHealth == 3) || (coins == 20 && (maxHealth == 4 || maxHealth == 5)))
+            coins++;
+            if (coins >= 15 && maxHealth <= 5)
             {
-                p.setCoins(0);
-                p.incrementMaxHealth();
-                p.giveMaxHealth();
+                coins = 0;
+                maxHealth++;
+                health = maxHealth;
                 gameObject.SendMessage("MaxBandana");
                 sounds.PlayOneUp();
             }
@@ -200,16 +198,15 @@ public class Player : MonoBehaviour
             {
                 sounds.PlayCoinPickup();
             }
-            gameObject.SendMessage("SetCoin", PlayerState.Instance.getCoins());
+            gameObject.SendMessage("SetCoin", coins);
         }
         else if (other.gameObject.tag == "Bandana")
         {
             Destroy(other.gameObject);
-            PlayerState p = PlayerState.Instance;
-            if (p.getHealth() < p.getMaxHealth())
+            if (health < maxHealth)
             {
                 gameObject.SendMessage("AddBandana");
-                p.incrementHealth();
+                health++;
             }
         }
         else if (other.gameObject.tag == "KillZone")
@@ -302,16 +299,14 @@ public class Player : MonoBehaviour
 
     private void DamageTaken()
     {
-        PlayerState p = PlayerState.Instance;
-        Debug.Log("OUCH Health is " + (p.getHealth() -1) + "/" + maxHealth);
-        if (p.getHealth() == 1)
+        if (health == 1)
             respawn();
         else
         {
             SendMessage("RemoveBandana");
             damageTakenCooldown = 0.5f;
             StartCoroutine(FlashSprite(GetComponent<SpriteRenderer>(), 2));
-            p.decrementHealth();
+            health--;
             sounds.PlayHit();
         }
     }
@@ -348,18 +343,29 @@ public class Player : MonoBehaviour
 
     private void RealRespawn()
     {
-        PlayerState p = PlayerState.Instance;
-        Debug.Log("Health is " + health + "/" + p.getMaxHealth());
-        p.giveMaxHealth();
+        //health = maxHealth;
         if (hitCheckpoint)
         {
             gameObject.SendMessage("DisableDeathScreen");
             DontDestroyOnLoad(gameObject);
             gameObject.SendMessage("MaxBandana");
-            toSave.save();
+            //toSave.save();
             gameObject.transform.position = new Vector2(5, 57.5f);
         }
         SceneManager.LoadScene(checkpoint);
         Debug.Log("Num enemies Killed: " + EnemiesKilled);
+    }
+
+    private void SaveState()
+    {
+        PlayerState p = PlayerState.Instance;
+        p.maxHealth = maxHealth;
+        p.coins = coins;
+    }
+    private void LoadState()
+    {
+        PlayerState p = PlayerState.Instance;
+        maxHealth = p.maxHealth;
+        coins = p.coins;
     }
 }
