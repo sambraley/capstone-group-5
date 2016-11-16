@@ -44125,6 +44125,11 @@ Prefab:
       propertyPath: DeathBackground
       value: 
       objectReference: {fileID: 959837304}
+    - target: {fileID: 114000013282369854, guid: b93349e27dd223648a379138c53173cc,
+        type: 2}
+      propertyPath: walk
+      value: 
+      objectReference: {fileID: 8300000, guid: 84823890e7e834ceab76cfadbe9c3b86, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b93349e27dd223648a379138c53173cc, type: 2}
   m_IsPrefabParent: 0
