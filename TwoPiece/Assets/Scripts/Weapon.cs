@@ -31,6 +31,8 @@ public class Weapon : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         weaponCooldown -= Time.deltaTime;
+        if(weaponCooldown < 0)
+            player.GetComponent<Animator>().SetBool("isAttacking", false);
         swapWeaponsCooldown -= Time.deltaTime;
         // Swap Weapon
         if (hasSword && (Input.GetKeyDown(KeyCode.JoystickButton3)|| Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Comma)) && swapWeaponsCooldown <= 0.0f) //( Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Comma) )
@@ -49,6 +51,7 @@ public class Weapon : MonoBehaviour {
 
     void SwingWeapon()
     {
+        player.GetComponent<Animator>().SetBool("isAttacking", true);
         player.SendMessageUpwards("PlaySwing");
         UpdateRaycastOrigins();
         int numHorizontalTraces = 4;
@@ -81,6 +84,7 @@ public class Weapon : MonoBehaviour {
             player.SendMessageUpwards("PlaySwitchToSword");
         else
             player.SendMessageUpwards("PlaySwitchToClub");
+        player.GetComponent<Animator>().SetBool("hasSword", isLethal);
     }
 
     void UpdateRaycastOrigins()
