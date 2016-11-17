@@ -6,6 +6,7 @@ public class Boss1 : MonoBehaviour
     [SerializeField] private GameObject m_bullet;
     [SerializeField] private float leftBound;
     [SerializeField] private float rightBound;
+    public Object deadWarden;
     public AudioClip dead;
     public GameObject[] triggers1;
     public GameObject[] triggers2;
@@ -21,6 +22,7 @@ public class Boss1 : MonoBehaviour
     bool wasSpooked = false;
 
     AudioSource sound;
+
 
     // Use this for initialization
     void Start()
@@ -200,6 +202,15 @@ public class Boss1 : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             s.color = Color.white;
             yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (health <= 0)
+        {
+            GameObject dead = (GameObject)Instantiate(deadWarden);
+            dead.transform.position = gameObject.transform.position;
         }
     }
 }

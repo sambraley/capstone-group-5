@@ -33,6 +33,7 @@ TagManager:
   - SceneSwap
   - KillZone
   - StoryObject
+  - StoryObjectPrison
   layers:
   - Default
   - TransparentFX

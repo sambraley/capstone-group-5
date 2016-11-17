@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     public float DASH_COOLDOWN_TIME = 1.0f;
     float lastDirection = 1.0f;
 
+    public GameObject prisonPlotObject;
+
     bool wasGroundedLastUpdate = true;
 
     float gravity;
@@ -270,6 +272,11 @@ public class Player : MonoBehaviour
         {
             storyObject = other.gameObject;
             other.gameObject.SendMessageUpwards("Triggered");
+        }
+        else if (other.gameObject.tag == "StoryObjectPrison")
+        {
+            storyObject = prisonPlotObject.gameObject;
+            prisonPlotObject.gameObject.SendMessageUpwards("Triggered", EnemiesKilled);
         }
     }
     void OnTriggerExit2D(Collider2D other)
