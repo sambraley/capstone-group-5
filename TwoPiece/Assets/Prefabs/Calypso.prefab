@@ -478,7 +478,6 @@ MonoBehaviour:
   coins: 0
   EnemiesKilled: 0
   damageTakenCooldown: 0
-  toSave: {fileID: 0}
   jumpHeight: 2.5
   timeToJumpApex: 0.4
   moveSpeed: 7
@@ -487,7 +486,7 @@ MonoBehaviour:
   dashTimer: 0
   dashDuration: 0.2
   DASH_COOLDOWN_TIME: 1
-  checkpoint: Ship
+  prisonPlotObject: {fileID: 0}
 --- !u!114 &114000010873356618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -611,7 +610,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -931496463
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e29f9e52244e24c2a96b38168f045534, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 852b2a930fd2f431ea6d1a9545732d27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
