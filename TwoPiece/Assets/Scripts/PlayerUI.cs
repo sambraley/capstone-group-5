@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace UnityStandardAssets._2D
 {
@@ -34,6 +35,8 @@ namespace UnityStandardAssets._2D
         private Text DeathText;
         [SerializeField]
         private Image DeathBackground;
+        public GameObject skullPrefab;
+        private List<Skull> skullList = new List<Skull>();
         void Awake()
         {
             PlayerState p = PlayerState.Instance;
@@ -63,6 +66,33 @@ namespace UnityStandardAssets._2D
             {
                 skulls[Mathf.Min(p.enemiesKilled - 1, 2)].enabled = true;
             }
+
+            GameObject cam = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+            Skull.targetSkullPos = cam.transform.InverseTransformDirection(skulls[0].transform.position - cam.transform.position);
+        }
+
+        void Update()
+        {
+            GameObject cam = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+            for (int x = skullList.Count - 1; x >= 0; x--)
+            {
+                Skull skull = skullList[x];
+                if (skull.update(cam, Time.deltaTime))
+                {
+                    skullList.Remove(skull);
+                    skull.delete();
+                    Debug.Log("skullList is now " + skullList.Count);
+
+                    if (skullCount < 2 && skullCount >= -1)
+                    {
+                        if (skullCount >= 0)
+                            skulls[skullCount].enabled = false;
+                        ++skullCount;
+                        skulls[skullCount].enabled = true;
+                        SetTextKiller();
+                    }
+                }
+            }
         }
         
         void PromptSet(bool set)
@@ -72,15 +102,14 @@ namespace UnityStandardAssets._2D
 
         void AddKill()
         {
-            m_Character.EnemiesKilled++;
-            if (skullCount < 2 && skullCount >= -1)
-            {
-                if (skullCount >= 0)
-                    skulls[skullCount].enabled = false;
-                ++skullCount;
-                skulls[skullCount].enabled = true;
-                SetTextKiller();
-            }
+            m_Character.incKills();
+
+            Vector3 pos = gameObject.transform.position;
+            pos.y += 1.5f;
+            GameObject skullBase = Instantiate(skullPrefab, pos, new Quaternion()) as GameObject;
+            skullBase.transform.parent = m_Character.gameObject.transform;
+            Skull skullObj = new Skull(skullBase);
+            skullList.Add(skullObj);
         }
         void CheckKills()
         {
@@ -174,6 +203,65 @@ namespace UnityStandardAssets._2D
             DeathText.enabled = false;
             DeathBackground.enabled = false;
 
+        }
+
+
+        private class Skull
+        {
+            GameObject skull;
+            float timer;
+            public static Vector2 targetSkullPos;
+            public const float START_TIME = 1f;
+            public Skull(GameObject s)
+            {
+                skull = s;
+                timer = START_TIME;
+            }
+            public bool update(GameObject cam, float time)
+            {
+                Vector3 relativePosition = cam.transform.InverseTransformDirection(skull.transform.position - cam.transform.position);
+                Debug.Log(relativePosition.x + ", " + relativePosition.y);
+                Vector3 pos = skull.transform.position;
+                int dirX = (relativePosition.x < targetSkullPos.x ? 1 : -1);
+                int dirY = (relativePosition.y < targetSkullPos.y ? 1 : -1);
+                float speedModifierX = 1;
+                float speedModifierY = 1;
+
+                if (Mathf.Abs(relativePosition.x - targetSkullPos.x) > 3)
+                    speedModifierX = 2.5f;
+                else if (Mathf.Abs(relativePosition.x - targetSkullPos.x) > 1)
+                    speedModifierX = 1.4f;
+                else if (Mathf.Abs(relativePosition.x - targetSkullPos.x) > .4)
+                    speedModifierX = .8f;
+                else if (Mathf.Abs(relativePosition.x - targetSkullPos.x) > .05)
+                    speedModifierX = .3f;
+                else
+                    speedModifierX = 0;
+
+                if (Mathf.Abs(relativePosition.y - targetSkullPos.y) > 3)
+                    speedModifierY = 2.5f;
+                else if (Mathf.Abs(relativePosition.y - targetSkullPos.y) > 1)
+                    speedModifierY = 1.4f;
+                else if (Mathf.Abs(relativePosition.y - targetSkullPos.y) > .4)
+                    speedModifierY = .8f;
+                else if (Mathf.Abs(relativePosition.y - targetSkullPos.y) > .05)
+                    speedModifierY = .3f;
+                else
+                    speedModifierY = 0;
+
+                pos.x += dirX * speedModifierX * .1f;
+                pos.y += dirY * speedModifierY * .1f;
+                Debug.Log("pos is " + pos);
+                // leave skull up briefly
+                if (timer <= START_TIME *.85f)
+                    skull.transform.position = pos;
+                timer -= time;
+                return timer <= 0;
+            }
+            public void delete()
+            {
+                Destroy(skull);
+            }
         }
     }
 }

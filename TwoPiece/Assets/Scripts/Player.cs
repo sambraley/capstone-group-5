@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Controller2D))]
 [RequireComponent(typeof(PlayerSounds))]
@@ -68,10 +69,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         //test code for trying to move skull on killing to where UI is to show player what happened
-        /*Camera cam = GetComponent<Camera>();
-        GameObject cam = GameObject.FindGameObjectsWithTag("MainCamera")[0];
-        Vector3 relativePosition = cam.transform.InverseTransformDirection(transform.position - cam.transform.position);
-        Debug.Log(relativePosition.x + ", " + relativePosition.y);*/
         if (!frozen) {
             UpdateCooldowns();
             //if you land reset dash and jump ;)
@@ -304,6 +301,11 @@ public class Player : MonoBehaviour
             dialogueCollider = null;
             //gameObject.SendMessage("PromptSet", false);
         }
+    }
+
+    public void incKills()
+    {
+        EnemiesKilled++;
     }
 
     public float GetLastDirection()

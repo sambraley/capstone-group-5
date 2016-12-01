@@ -96,7 +96,7 @@ public class Boss1 : MonoBehaviour
                 }
             }
             count++;
-            if (count > 60)
+            if (count > 75)
             {
                 GameObject Temporary_Bullet_Handler;
                 Vector3 pos = transform.position;
@@ -107,10 +107,10 @@ public class Boss1 : MonoBehaviour
                 Rigidbody2D Temporary_RigidBody;
                 Temporary_RigidBody = Temporary_Bullet_Handler.GetComponent<Rigidbody2D>();
 
-                //Tell the bullet to be "pushed" forward by an amount set by Bullet_Forward_Force.R
+                //make the object fall constant rate
                 Temporary_RigidBody.velocity = new Vector2(0f, -4f);
 
-                //Basic Clean Up, set the Bullets to self destruct after 10 Seconds, I am being VERY generous here, normally 3 seconds is plenty.
+                //Basic Clean Up.
                 Destroy(Temporary_Bullet_Handler, 7.0f);
                 count = 0;
             }
