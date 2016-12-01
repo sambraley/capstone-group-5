@@ -56,7 +56,8 @@ namespace UnityStandardAssets._2D
             key.enabled = false;
             DEADImage.enabled = false;
             DeathText.enabled = false;
-            DeathBackground.enabled = false;
+            if(DeathBackground != null)
+                DeathBackground.enabled = false;
 
             if (p.enemiesKilled > 0)
             {

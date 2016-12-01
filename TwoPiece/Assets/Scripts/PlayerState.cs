@@ -7,6 +7,7 @@ public class PlayerState
     public int coins;
     public int maxHealth;
     public int enemiesKilled;
+    public int totalEnemiesKilled;
     public Vector2 pos;
     public bool hitCheckpoint;
     public bool hasSword;
@@ -16,6 +17,7 @@ public class PlayerState
         coins = 0;
         maxHealth = 3;
         enemiesKilled = 0;
+        totalEnemiesKilled = 0;
         pos = default(Vector2);
         hitCheckpoint = false;
         hasSword = false;

@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     public GameObject prisonPlotObject;
 
     bool wasGroundedLastUpdate = true;
+    bool canJump = true;
 
     float gravity;
     float jumpVelocity;
@@ -66,11 +67,19 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(!frozen) {
+        //test code for trying to move skull on killing to where UI is to show player what happened
+        /*Camera cam = GetComponent<Camera>();
+        GameObject cam = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+        Vector3 relativePosition = cam.transform.InverseTransformDirection(transform.position - cam.transform.position);
+        Debug.Log(relativePosition.x + ", " + relativePosition.y);*/
+        if (!frozen) {
             UpdateCooldowns();
-            //if you land reset dash ;)
+            //if you land reset dash and jump ;)
             if (controller.collisions.below && !wasGroundedLastUpdate)
+            {
                 dashCooldown = 0.0f;
+                canJump = true;
+            }
             wasGroundedLastUpdate = controller.collisions.below;
 
             if ((Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return)) && onDialogue) //Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return)
@@ -92,9 +101,10 @@ public class Player : MonoBehaviour
                 FlipSprite();
             }
 
-            if ((Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space)) && controller.collisions.below && !onDialogue) //Input.GetKeyDown(KeyCode.Space)
+            if ((Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space)) && canJump && !onDialogue) //Input.GetKeyDown(KeyCode.Space)
             { //a jumps
                 velocity.y = jumpVelocity;
+                canJump = false;
             }
 
 
@@ -188,10 +198,6 @@ public class Player : MonoBehaviour
             }
             //dPrompt.enabled = true;
             //gameObject.SendMessage("PromptSet", true);
-        }
-        else if (other.gameObject.tag == "MeleeCone")
-        {
-            Debug.Log("Yarr you've been damaged");
         }
         else if (other.gameObject.tag == "Coin")
         {
@@ -332,6 +338,8 @@ public class Player : MonoBehaviour
 
     private void respawn()
     {
+        //dont allow player to move while dead
+        frozen = true;
         gameObject.SendMessage("DeathScreen");
         StartCoroutine(wait()); //wait for a bit
     }
@@ -348,6 +356,7 @@ public class Player : MonoBehaviour
     private void RealRespawn()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        frozen = false;
     }
 
     private void SaveState(Vector2 pos = default(Vector2), bool hitCheckpoint = false)
@@ -393,6 +402,8 @@ public class Player : MonoBehaviour
 
     void SceneSwap()
     {
+        PlayerState p = PlayerState.Instance;
+        p.totalEnemiesKilled += EnemiesKilled;
         SaveState();
         string currentSceneName = SceneManager.GetActiveScene().name;
         Destroy(gameObject);

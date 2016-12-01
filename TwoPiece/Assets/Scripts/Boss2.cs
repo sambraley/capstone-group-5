@@ -17,6 +17,7 @@ public class Boss2 : MonoBehaviour
     float[] jumpWidth = { 179f, 224f };
     float[] jumpHeight = { -6.5f, 3.5f };
     bool wasSpooked = false;
+    int facingDir = 1; //1 for left -1 for right so boss moves away correctly
 
     public List<GameObject> bulletList;
 
@@ -31,6 +32,9 @@ public class Boss2 : MonoBehaviour
     public void WakeUp()
     {
         fightStarted = true;
+        PlayerState p = PlayerState.Instance;
+        if (p.totalEnemiesKilled > 0)
+        Debug.Log("youve been a bad player killing " + p.totalEnemiesKilled + " enemies");
     }
 
     // Update is called once per frame
@@ -45,7 +49,7 @@ public class Boss2 : MonoBehaviour
             wasSpooked = false;
             if (bossPos.x < jumpWidth[(3 - health) - 1])
             {
-                transform.Translate(new Vector2(walkSpeed *2, 0) * Time.deltaTime);
+                transform.Translate(new Vector2(walkSpeed *2 * facingDir, 0) * Time.deltaTime);
                 if (bossPos.y < jumpHeight[(3 - health) - 1])
                 {
                     transform.Translate(new Vector2(0, 3) * Time.deltaTime);
@@ -55,6 +59,7 @@ public class Boss2 : MonoBehaviour
             {
                 jumping = false;
                 wasSpooked = false;
+                Flip();
             }
         }
         if (fightStarted && health > 0)
@@ -68,7 +73,9 @@ public class Boss2 : MonoBehaviour
                 count--;
             }
             count++;
-            if (count > 90)
+            PlayerState p = PlayerState.Instance;
+            //punish player for killing enemies caps it so its not impossible for mass murdering players
+            if (count > (90 - Mathf.Min(p.totalEnemiesKilled*4.5f, 30f)))
             {
                 GameObject Temporary_Bullet_Handler;
                 Vector3 pos = transform.position;
@@ -96,7 +103,7 @@ public class Boss2 : MonoBehaviour
                     Temporary_RigidBody.gravityScale = .05f;
                 }
 
-                //Basic Clean Up, set the Bullets to self destruct after 10 Seconds, I am being VERY generous here, normally 3 seconds is plenty.
+                //Clean up the bullets
                 Destroy(Temporary_Bullet_Handler, 7.0f);
                 count = 0;
             }
@@ -119,6 +126,7 @@ public class Boss2 : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+        facingDir *= -1;
     }
     void FaceDirection(int dir)
     {
@@ -143,6 +151,7 @@ public class Boss2 : MonoBehaviour
     void DamageTaken() //, lethal
     {
         health -= 1;
+        Flip();
         if (health <= 0)
         {
             Destroy(gameObject);//die
