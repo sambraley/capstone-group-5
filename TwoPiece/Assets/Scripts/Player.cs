@@ -305,8 +305,9 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.tag == "StoryObjectCave")
         {
+            PlayerState p = PlayerState.Instance;
             storyObject = cavePlotObject.gameObject;
-            cavePlotObject.gameObject.SendMessageUpwards("Triggered", EnemiesKilled);
+            cavePlotObject.gameObject.SendMessageUpwards("Triggered", p.totalEnemiesKilled);
         }
     }
     void OnTriggerExit2D(Collider2D other)

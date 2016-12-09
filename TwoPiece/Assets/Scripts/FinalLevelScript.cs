@@ -7,6 +7,9 @@ public class FinalLevelScript : MonoBehaviour {
     public GameObject calypso;
     public GameObject first_mate;
 
+    public Sprite deadmate;
+    public Sprite sleepmate;
+
     public Image DialogueBox;
     public Text spare1;
     public Text spare2;
@@ -38,6 +41,7 @@ public class FinalLevelScript : MonoBehaviour {
     {
         if (done) {
             final.enabled = true;
+            
             blackScreen.enabled = true;
             StartCoroutine(wait());
         }
@@ -75,28 +79,35 @@ public class FinalLevelScript : MonoBehaviour {
             firstText = false;
             return;
         }
-
-        DialogueBox.enabled = false;
-        blackScreen.enabled = true;
-
         if (killMate)
         {
+            first_mate.SendMessageUpwards("DamageTaken");
             kill2.enabled = false;
             hitSound.clip = hitSoundClip;
             hitSound.Play();
-            //CHANGE SPRITE FOR FIRST MATE
+            DialogueBox.enabled = false;
+            first_mate.GetComponent<SpriteRenderer>().sprite = deadmate;
+            first_mate.GetComponent<BoxCollider2D>().enabled = false;
+            first_mate.transform.Translate(new Vector3(0, -.5f, 0));
+            calypso.SendMessageUpwards("Freeze");
+            done = true;
+            Destroy(gameObject);
         }
         else
         {
+            first_mate.SendMessageUpwards("DamageTaken");
             spare2.enabled = false;
             hitSound.clip = clubSoundClip;
             hitSound.Play();
-            //CHANGE SPRITE FOR FIRST MATE
+            DialogueBox.enabled = false;
+            first_mate.GetComponent<SpriteRenderer>().sprite = sleepmate;
+            first_mate.GetComponent<BoxCollider2D>().enabled = false;
+            first_mate.transform.Translate(new Vector3(0, -.5f, 0));
+            calypso.SendMessageUpwards("Freeze");
+            done = true;
+            Destroy(gameObject);
         }
-        //takeShip.enabled = true;
-        calypso.SendMessageUpwards("Freeze");
-        done = true;
-        //StartCoroutine(wait());
+
     }
 
     IEnumerator wait()
