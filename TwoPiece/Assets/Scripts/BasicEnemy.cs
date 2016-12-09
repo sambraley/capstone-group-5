@@ -134,7 +134,7 @@ public class BasicEnemy : MonoBehaviour {
             rayOrigin += Vector2.up * yOffsetPerTrace * i;
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, direction, meleeRange, playerMask);
             Debug.DrawRay(rayOrigin, direction, Color.red);
-            if (hit)
+            if (hit && gameObject.GetComponent<EnemyHealth>().isAlive())
             {
                 hit.collider.SendMessage("DamageTaken");
                 hitFound = true;

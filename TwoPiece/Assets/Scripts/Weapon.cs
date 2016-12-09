@@ -80,10 +80,16 @@ public class Weapon : MonoBehaviour {
         gameObject.SendMessage("ToggleLethal");
         
         isLethal = !isLethal;
-        if(isLethal)
+        if (isLethal)
+        {
             player.SendMessageUpwards("PlaySwitchToSword");
+            player.switchWeapons(true);
+        }
         else
+        {
             player.SendMessageUpwards("PlaySwitchToClub");
+            player.switchWeapons(false);
+        }
         player.GetComponent<Animator>().SetBool("hasSword", isLethal);
     }
 

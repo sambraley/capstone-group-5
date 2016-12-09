@@ -49,6 +49,11 @@ public class Player : MonoBehaviour
     Controller2D controller;
     PlayerSounds sounds;
     SpriteRenderer playerSprite;
+    [SerializeField]
+    private Sprite swordIdle;
+    [SerializeField]
+    private Sprite clubIdle;
+    public Sprite current = null;
 
     bool frozen = false;
     GameObject storyObject;
@@ -59,6 +64,7 @@ public class Player : MonoBehaviour
         controller = GetComponent<Controller2D>();
         playerSprite = GetComponent<SpriteRenderer>();
         sounds = GetComponent<PlayerSounds>();
+        current = swordIdle;
 
         gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
@@ -400,6 +406,17 @@ public class Player : MonoBehaviour
     void Freeze()
     {
         frozen = !frozen;
+    }
+    public void switchWeapons(bool isSword)
+    {
+        if(isSword)
+        {
+            playerSprite.sprite  = swordIdle;
+        }
+        else
+        {
+            playerSprite.sprite = clubIdle;
+        }
     }
 
     void SceneSwap()
