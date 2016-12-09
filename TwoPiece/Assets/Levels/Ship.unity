@@ -2008,7 +2008,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1001 &75011801
 Prefab:
   m_ObjectHideFlags: 0
@@ -9715,7 +9715,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 334520318}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -10454,7 +10454,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 355983610}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -11299,7 +11299,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011203450772, guid: b93349e27dd223648a379138c53173cc, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1000010551102320, guid: b93349e27dd223648a379138c53173cc, type: 2}
       propertyPath: m_Name
@@ -11309,62 +11309,62 @@ Prefab:
         type: 2}
       propertyPath: bandanas.Array.data[0]
       value: 
-      objectReference: {fileID: 857278828}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000011462991420, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: bandanas.Array.data[1]
       value: 
-      objectReference: {fileID: 2106330327}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000011462991420, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: bandanas.Array.data[2]
       value: 
-      objectReference: {fileID: 772302192}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000011462991420, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: skulls.Array.data[0]
       value: 
-      objectReference: {fileID: 1442421222}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000011462991420, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: skulls.Array.data[1]
       value: 
-      objectReference: {fileID: 1200699729}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000011462991420, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: skulls.Array.data[2]
       value: 
-      objectReference: {fileID: 986526531}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000011462991420, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: nonLethal
       value: 
-      objectReference: {fileID: 1714326157}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000011462991420, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: lethal
       value: 
-      objectReference: {fileID: 975713355}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000011462991420, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: coin
       value: 
-      objectReference: {fileID: 1250354413}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000011462991420, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: coinCount
       value: 
-      objectReference: {fileID: 1632380202}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000011462991420, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: enemiesKilled
       value: 
-      objectReference: {fileID: 1198652435}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000011462991420, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: key
       value: 
-      objectReference: {fileID: 355983612}
+      objectReference: {fileID: 0}
     - target: {fileID: 20000012493430908, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: m_BackGroundColor.r
@@ -11479,12 +11479,12 @@ Prefab:
         type: 2}
       propertyPath: enemiesKilled
       value: 
-      objectReference: {fileID: 922335109}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: resolution
       value: 
-      objectReference: {fileID: 1019068974}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000010873356618, guid: b93349e27dd223648a379138c53173cc,
         type: 2}
       propertyPath: key
@@ -11668,7 +11668,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!1 &410233387
 GameObject:
   m_ObjectHideFlags: 0
@@ -18117,7 +18117,7 @@ Transform:
   - {fileID: 172145184}
   - {fileID: 1317305773}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!1 &623542361
 GameObject:
   m_ObjectHideFlags: 0
@@ -19811,7 +19811,7 @@ Transform:
   - {fileID: 1337390952}
   - {fileID: 1906760133}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!1 &685514111
 GameObject:
   m_ObjectHideFlags: 0
@@ -23319,7 +23319,7 @@ Transform:
   - {fileID: 23665480}
   - {fileID: 1630790564}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1 &810632672
 GameObject:
   m_ObjectHideFlags: 0
@@ -23634,7 +23634,7 @@ Transform:
   - {fileID: 1038168650}
   - {fileID: 114102015}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!1 &817924771
 GameObject:
   m_ObjectHideFlags: 0
@@ -26199,7 +26199,7 @@ Transform:
   - {fileID: 846089424}
   - {fileID: 2012932657}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!1 &909883427
 GameObject:
   m_ObjectHideFlags: 0
@@ -27894,7 +27894,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 986526529}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -33122,7 +33122,7 @@ Transform:
   - {fileID: 1607937321}
   - {fileID: 448123423}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!1001 &1153384231
 Prefab:
   m_ObjectHideFlags: 0
@@ -34231,7 +34231,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1200699727}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -36845,7 +36845,7 @@ Prefab:
         type: 2}
       propertyPath: dialogue.Array.data[0]
       value: 
-      objectReference: {fileID: 1576483553}
+      objectReference: {fileID: 1198652435}
     - target: {fileID: 114000012987677948, guid: 07c4775b94805d64299a27ce22c47fe2,
         type: 2}
       propertyPath: background
@@ -38959,7 +38959,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!1001 &1384686396
 Prefab:
   m_ObjectHideFlags: 0
@@ -40457,7 +40457,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1442421220}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -49382,7 +49382,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -49448,7 +49448,7 @@ RectTransform:
   - {fileID: 1679483351}
   - {fileID: 190938902}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 11
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -53076,12 +53076,12 @@ Prefab:
         type: 2}
       propertyPath: dialogue.Array.data[0]
       value: 
-      objectReference: {fileID: 1198652435}
+      objectReference: {fileID: 1576483553}
     - target: {fileID: 114000012987677948, guid: 07c4775b94805d64299a27ce22c47fe2,
         type: 2}
       propertyPath: dialogue.Array.data[1]
       value: 
-      objectReference: {fileID: 994137921}
+      objectReference: {fileID: 0}
     - target: {fileID: 61000012858040834, guid: 07c4775b94805d64299a27ce22c47fe2,
         type: 2}
       propertyPath: m_Size.x
@@ -59277,7 +59277,7 @@ Transform:
   - {fileID: 1391675164}
   - {fileID: 416957278}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!1 &2097472431
 GameObject:
   m_ObjectHideFlags: 0
