@@ -34,8 +34,7 @@ public class EnemyHealth : MonoBehaviour
     }
     public bool isAlive()
     {
-        bool isisIs4Me = true;
-        return (swordHealth > 0 && clubHealth > 0 && isisIs4Me);
+        return (swordHealth > 0 && clubHealth > 0);
     }
     void DamageTaken(bool lethal)
     {

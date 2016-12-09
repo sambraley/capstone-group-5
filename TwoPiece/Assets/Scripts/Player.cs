@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
         controller = GetComponent<Controller2D>();
         playerSprite = GetComponent<SpriteRenderer>();
         sounds = GetComponent<PlayerSounds>();
-        current = swordIdle;
+        current = clubIdle;
 
         gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
@@ -140,6 +140,7 @@ public class Player : MonoBehaviour
                 m_Anim.SetBool("isRunning", false);
                 sounds.StopPlayingWalk();
             }
+
         }
         else
         {
@@ -411,11 +412,13 @@ public class Player : MonoBehaviour
     {
         if(isSword)
         {
-            playerSprite.sprite  = swordIdle;
+            playerSprite.sprite = swordIdle;
+            //playerSprite.color = Color.yellow;
         }
         else
         {
             playerSprite.sprite = clubIdle;
+            //playerSprite.color = Color.green;
         }
     }
 
