@@ -6,6 +6,7 @@ public class Boss1 : MonoBehaviour
     [SerializeField] private GameObject m_bullet;
     [SerializeField] private float leftBound;
     [SerializeField] private float rightBound;
+    private Animator m_anim;
     public Object deadWarden;
     public AudioClip dead;
     public GameObject[] triggers1;
@@ -27,6 +28,7 @@ public class Boss1 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        m_anim = GetComponent<Animator>();
         if (playerGameObject == null)
             playerGameObject = GameObject.FindGameObjectsWithTag("Player")[0];
         sound = GetComponent<AudioSource>();
@@ -49,10 +51,12 @@ public class Boss1 : MonoBehaviour
             wasSpooked = false;
             if (bossPos.y < jumpHeight[(3 - health) - 1])
             {
+                m_anim.SetBool("isWalking", true);
                 transform.Translate(new Vector2(0, walkSpeed) * Time.deltaTime);
             }
             else
             {
+                m_anim.SetBool("isWalking", false);
                 jumping = false;
                 wasSpooked = false;
             }
@@ -62,6 +66,7 @@ public class Boss1 : MonoBehaviour
             bool isSpooked = Mathf.Abs(Mathf.Abs(playerPos.y) - Mathf.Abs(bossPos.y)) < .6;
             bool closeEnough = Mathf.Abs(Mathf.Abs(playerPos.x) - Mathf.Abs(bossPos.x)) < .2;
             int direction = (bossPos.x > playerPos.x ? -1 : 1);
+            bool isWalking = false;
 
             if (isSpooked || wasSpooked)
             {
@@ -70,6 +75,7 @@ public class Boss1 : MonoBehaviour
                 if (bossPos.x < rightBound)
                 {
                     FaceDirection(-1);
+                    isWalking = true;
                     transform.Translate(new Vector2(walkSpeed * lastDir * 3, 0) * Time.deltaTime);
                     //transform.Translate(new Vector2(walkSpeed * -direction * lastDir, 0) * Time.deltaTime);
                     //FaceDirection(direction);
@@ -82,6 +88,7 @@ public class Boss1 : MonoBehaviour
                 {
                     if (bossPos.x > leftBound)
                     {
+                        isWalking = true;
                         transform.Translate(new Vector2(walkSpeed * direction * lastDir, 0) * Time.deltaTime);
                         FaceDirection(direction * -1);
                     }
@@ -89,12 +96,14 @@ public class Boss1 : MonoBehaviour
                     {
                         if(bossPos.x < playerPos.x)
                         {
+                            isWalking = true;
                             transform.Translate(new Vector2(walkSpeed, 0) * Time.deltaTime);
                             FaceDirection(1);
                         }
                     }
                 }
             }
+            m_anim.SetBool("isWalking", isWalking);
             count++;
             if (count > 75)
             {
