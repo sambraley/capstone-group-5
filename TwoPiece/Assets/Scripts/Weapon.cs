@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour {
 
 
     private float weaponCooldown = 0.0f;
-    public float WEAPON_COOLDOWN = 0.5f;
+    private float WEAPON_COOLDOWN = .66f;
 
     private float swapWeaponsCooldown = 0.0f;
     public float SWAP_WEAPON_COOLDOWN = 0.5f;
