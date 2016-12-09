@@ -7,6 +7,7 @@ public class Boss2 : MonoBehaviour
     [SerializeField] private GameObject m_bullet;
     public GameObject[] triggers1;
     public GameObject[] triggers2;
+    [SerializeField] Object[] drops;
 
     private int health = 3;
     private float walkSpeed = 6f;
@@ -154,6 +155,11 @@ public class Boss2 : MonoBehaviour
         Flip();
         if (health <= 0)
         {
+            foreach (Object thing in drops)
+            {
+                GameObject drop = (GameObject)Instantiate(thing);
+                drop.transform.position = gameObject.transform.position;
+            }
             Destroy(gameObject);//die
             //set to dead sprite
         }

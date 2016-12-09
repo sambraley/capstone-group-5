@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public class tileBackground : MonoBehaviour {
 
     [SerializeField] private GameObject tile;
-    [SerializeField] private int xStart = 5;
-    [SerializeField] private int yStart = 5;
+    [SerializeField] private float xStart = 5;
+    [SerializeField] private float yStart = 5;
     [SerializeField] private int xOffset = 5;
     [SerializeField] private int yOffset = 2;
     [SerializeField] private int xLength = 15;

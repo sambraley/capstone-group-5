@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Destructible : MonoBehaviour {
 
-    int health = 1;
+    public int health = 1;
     float lastDamaged = 0.0f;
     const float INVULNERABLE_WINDOW = 0.25f;
     [SerializeField]
