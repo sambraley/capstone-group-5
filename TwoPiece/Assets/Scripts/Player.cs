@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     float lastDirection = 1.0f;
 
     public GameObject prisonPlotObject;
+    public GameObject cavePlotObject;
 
     bool wasGroundedLastUpdate = true;
     bool canJump = true;
@@ -301,6 +302,11 @@ public class Player : MonoBehaviour
         {
             storyObject = prisonPlotObject.gameObject;
             prisonPlotObject.gameObject.SendMessageUpwards("Triggered", EnemiesKilled);
+        }
+        else if (other.gameObject.tag == "StoryObjectCave")
+        {
+            storyObject = cavePlotObject.gameObject;
+            cavePlotObject.gameObject.SendMessageUpwards("Triggered", EnemiesKilled);
         }
     }
     void OnTriggerExit2D(Collider2D other)

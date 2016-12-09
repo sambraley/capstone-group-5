@@ -21,6 +21,7 @@ public class FinalLevelScript : MonoBehaviour {
     public AudioClip clubSoundClip;
     bool firstText = true;
     bool killMate = false;
+    bool done = false;
 
     // Use this for initialization
     void Start()
@@ -35,19 +36,26 @@ public class FinalLevelScript : MonoBehaviour {
 
     void Triggered(int kills)
     {
-        if (kills >= 2)
-        {
-            killMate = true;
+        if (done) {
+            final.enabled = true;
+            blackScreen.enabled = true;
+            StartCoroutine(wait());
         }
-        calypso.SendMessageUpwards("Freeze");
-        DialogueBox.enabled = true;
-        if (killMate)
-        {
-            kill1.enabled = true;
-        }
-        else
-        {
-            spare1.enabled = true;
+        else {
+            if (kills >= 2)
+            {
+                killMate = true;
+            }
+            calypso.SendMessageUpwards("Freeze");
+            DialogueBox.enabled = true;
+            if (killMate)
+            {
+                kill1.enabled = true;
+            }
+            else
+            {
+                spare1.enabled = true;
+            }
         }
     }
 
@@ -87,6 +95,7 @@ public class FinalLevelScript : MonoBehaviour {
         }
         //takeShip.enabled = true;
         calypso.SendMessageUpwards("Freeze");
+        done = true;
         //StartCoroutine(wait());
     }
 

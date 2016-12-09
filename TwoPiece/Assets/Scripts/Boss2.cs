@@ -160,7 +160,7 @@ public class Boss2 : MonoBehaviour
                 GameObject drop = (GameObject)Instantiate(thing);
                 drop.transform.position = gameObject.transform.position;
             }
-            Destroy(gameObject);//die
+            //Destroy(gameObject);//die
             //set to dead sprite
         }
         else
