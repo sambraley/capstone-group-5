@@ -412,12 +412,12 @@ public class Player : MonoBehaviour
     {
         if(isSword)
         {
-            playerSprite.sprite = swordIdle;
+            //playerSprite.sprite = swordIdle;
             //playerSprite.color = Color.yellow;
         }
         else
         {
-            playerSprite.sprite = clubIdle;
+            //playerSprite.sprite = clubIdle;
             //playerSprite.color = Color.green;
         }
     }
